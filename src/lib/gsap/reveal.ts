@@ -8,7 +8,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const REVEAL_DURATION = 0.6;
 const REVEAL_EASE = "power2.out";
-const REVEAL_START = "top 85%";
+const REVEAL_START = "top 95%";
 const REVEAL_TOGGLE = "play none none reverse";
 
 export type RevealType = "fade-up" | "fade-down" | "fade" | "fade-up-small";

@@ -24,13 +24,13 @@ type ButtonProps = ButtonAsButton | ButtonAsLink;
 
 const variantStyles: Record<Variant, string> = {
   primary:
-    "bg-accent text-white hover:bg-[var(--color-accent-hover)] focus:ring-accent border-transparent",
+    "bg-brand text-white hover:bg-[var(--color-brand-hover)] focus:ring-brand border-transparent",
   secondary:
     "border-2 border-[var(--color-secondary)] text-[var(--color-secondary)] hover:bg-[var(--color-secondary)] hover:text-white focus:ring-[var(--color-secondary)]",
 };
 
 const baseStyles =
-  "inline-flex items-center justify-center rounded-md px-5 py-2.5 text-sm font-medium transition-colors duration-[var(--motion-fast)] focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50";
+  "inline-flex items-center justify-center rounded-md px-5 py-2.5 text-sm font-medium transition-colors duration-[var(--motion-fast)] focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-100";
 
 export function Button({
   variant = "primary",

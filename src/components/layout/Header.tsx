@@ -43,10 +43,7 @@ export function Header() {
 
   const linkClass = (href: string) => {
     const isActive = href === "/" ? pathname === "/" : pathname.startsWith(href);
-    if (!navOpaque && pathname === "/") {
-      return `text-white/90 hover:text-white ${isActive ? "font-semibold text-white" : ""}`;
-    }
-    return `text-neutral-600 hover:text-neutral-900 ${isActive ? "font-semibold text-neutral-900" : ""}`;
+    return `text-black hover:text-neutral-800 ${isActive ? "font-semibold text-black" : ""}`;
   };
 
   const headerClass = navOpaque
@@ -59,7 +56,7 @@ export function Header() {
         <div className="flex h-16 items-center justify-between">
           <Link
             href="/"
-            className={`text-lg font-semibold ${navOpaque || pathname !== "/" ? "text-neutral-900" : "text-white"}`}
+            className="text-lg font-semibold text-black"
           >
             FleetCare Connect
           </Link>
@@ -83,7 +80,7 @@ export function Header() {
 
           <button
             type="button"
-            className={`md:hidden rounded p-2 ${navOpaque || pathname !== "/" ? "text-neutral-600 hover:bg-neutral-100" : "text-white/90 hover:bg-white/10"}`}
+            className="md:hidden rounded p-2 text-black hover:bg-neutral-100"
             onClick={() => setMobileOpen((o) => !o)}
             aria-expanded={mobileOpen}
             aria-label={mobileOpen ? "Menu sluiten" : "Menu openen"}
@@ -98,7 +95,7 @@ export function Header() {
 
         {mobileOpen && (
           <nav
-            className={`border-t py-4 md:hidden ${navOpaque || pathname !== "/" ? "border-neutral-200" : "border-white/20"}`}
+            className="border-t border-neutral-200 py-4 md:hidden"
           >
             <ul className="flex flex-col gap-2">
               {navLinks.map(({ href, label }) => (

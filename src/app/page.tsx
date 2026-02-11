@@ -1,5 +1,4 @@
 import {
-  IntroPanels,
   HeroSection,
   WhatWeDoSection,
   PlansOverview,
@@ -24,14 +23,14 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
       />
-      <IntroPanels
-        hero={<HeroSection />}
-        nextSection={<WhatWeDoSection />}
-      />
-      <PlansOverview />
-      <HowItWorks />
-      <StatsSection />
-      <KlantenPreview />
+      <HeroSection />
+      <div className="relative z-20">
+        <WhatWeDoSection />
+        <PlansOverview />
+        <HowItWorks />
+        <StatsSection />
+        <KlantenPreview />
+      </div>
     </>
   );
 }

@@ -8,11 +8,13 @@ type GsapContextCallback = (ctx: ReturnType<typeof gsap.context>) => void;
 export type UseGsapContextOptions = {
   /** Bij false worden geen animaties geregistreerd (bijv. prefers-reduced-motion). */
   enabled?: boolean;
+  /** Extra dependencies: effect draait opnieuw wanneer deze wijzigen (bijv. pathname bij route change). */
+  deps?: React.DependencyList;
 };
 
 /**
  * Zet gsap.context op rond scopeRef en voert callback uit.
- * Bij unmount: ctx.revert() — alle tweens en ScrollTriggers in die scope worden gekilld.
+ * Bij unmount of dep-change: ctx.revert() — alle tweens en ScrollTriggers in die scope worden gekilld.
  * Voorkomt dubbele registraties bij route transitions.
  */
 export function useGsapContext<T extends HTMLElement>(
@@ -20,7 +22,7 @@ export function useGsapContext<T extends HTMLElement>(
   callback: GsapContextCallback,
   options: UseGsapContextOptions = {}
 ): void {
-  const { enabled = true } = options;
+  const { enabled = true, deps = [] } = options;
   const callbackRef = useRef(callback);
   callbackRef.current = callback;
 
@@ -36,5 +38,5 @@ export function useGsapContext<T extends HTMLElement>(
     return () => {
       ctx.revert();
     };
-  }, [scopeRef, enabled]);
+  }, [scopeRef, enabled, ...deps]);
 }

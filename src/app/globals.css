@@ -2,13 +2,73 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "@/styles/tokens.css";
+/* Design tokens (inline om @import-issues te voorkomen) */
+:root {
+  --color-brand: #074789;
+  --color-brand-hover: #063a70;
+  --color-brand-rgb: 7, 71, 137;
+  --color-accent: #ea580c;
+  --color-accent-hover: #c2410c;
+  --color-accent-rgb: 234, 88, 12;
+  --color-secondary: #2563eb;
+  --color-secondary-hover: #1d4ed8;
+  --color-neutral-50: #f8fafc;
+  --color-neutral-100: #f1f5f9;
+  --color-neutral-200: #e2e8f0;
+  --color-neutral-300: #cbd5e1;
+  --color-neutral-400: #94a3b8;
+  --color-neutral-500: #64748b;
+  --color-neutral-600: #475569;
+  --color-neutral-700: #334155;
+  --color-neutral-800: #1e293b;
+  --color-neutral-900: #0f172a;
+  --gradient-hero: linear-gradient(135deg, #ffffff 0%, rgba(var(--color-brand-rgb), 0.04) 40%, rgba(var(--color-brand-rgb), 0.12) 100%);
+  --spacing-grid: 8px;
+  --spacing-section: 80px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --motion-fast: 150ms;
+  --motion-normal: 300ms;
+  --motion-slow: 500ms;
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+}
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-fast: 0ms;
+    --motion-normal: 0ms;
+    --motion-slow: 0ms;
+  }
+}
 
 @layer base {
   html {
     @apply scroll-smooth;
+    margin: 0;
+    padding: 0;
   }
   body {
     @apply bg-neutral-50 text-neutral-900 antialiased;
+    margin: 0;
+    padding: 0;
+  }
+  main {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+/* Hero: subtiele grain texture (geen extra dependency) */
+@layer utilities {
+  .hero-grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
   }
 }

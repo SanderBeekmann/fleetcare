@@ -4,9 +4,13 @@
  */
 
 :root {
-  /* Brand */
-  --color-brand: #0f172a;
-  --color-brand-rgb: 15, 23, 42;
+  /* Brand (primary) */
+  --color-brand: #074789;
+  --color-brand-hover: #063a70;
+  --color-brand-rgb: 7, 71, 137;
+
+  /* Hero gradient: wit en brand */
+  --gradient-hero: linear-gradient(135deg, #ffffff 0%, rgba(var(--color-brand-rgb), 0.04) 40%, rgba(var(--color-brand-rgb), 0.12) 100%);
 
   /* Accent (primaire CTA oranje) */
   --color-accent: #ea580c;
