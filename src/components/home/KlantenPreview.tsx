@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Star } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
@@ -27,19 +28,31 @@ export function KlantenPreview() {
           Ontdek hoe andere ondernemers FleetCare Connect inzetten.
         </p>
         <ul
-          className="mt-10 grid gap-6 md:grid-cols-3"
+          className="mt-10 grid gap-8 md:grid-cols-3"
           data-stagger="children"
         >
           {placeholders.map((item) => (
             <li key={item.name}>
-              <Card>
-                <p className="text-sm font-medium text-neutral-500">
+              <Card className="relative overflow-hidden border-l-4 border-l-brand py-8 shadow-md">
+                <div className="mb-4 flex gap-1">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      className="h-4 w-4 fill-accent text-accent"
+                      size={16}
+                      aria-hidden
+                    />
+                  ))}
+                </div>
+                <p className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
                   {item.sector}
                 </p>
-                <h3 className="mt-1 font-semibold text-brand">
+                <h3 className="mt-2 text-lg font-semibold text-brand">
                   {item.name}
                 </h3>
-                <p className="mt-3 text-neutral-600">&ldquo;{item.quote}&rdquo;</p>
+                <blockquote className="mt-4 text-base leading-relaxed text-neutral-600">
+                  &ldquo;{item.quote}&rdquo;
+                </blockquote>
               </Card>
             </li>
           ))}

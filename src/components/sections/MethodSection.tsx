@@ -55,14 +55,14 @@ function StepCard({
 }) {
   const Icon = step.icon;
   return (
-    <div className="method-card relative flex gap-8 pb-20 last:pb-0 md:gap-16">
-      {/* Icon & vertical line */}
+    <div className="method-card relative flex gap-8 pb-4 last:pb-0 md:gap-16">
+      {/* Icon & vertical line — lijn sluit aan op icon */}
       <div className="flex flex-col items-center">
-        <div className="z-10 flex h-14 w-14 items-center justify-center border border-brand bg-brand text-white">
-          <Icon size={24} strokeWidth={1.5} />
+        <div className="z-10 flex h-14 w-14 flex-shrink-0 items-center justify-center">
+          <Icon className="text-brand" size={28} strokeWidth={1.5} />
         </div>
         {!isLast && (
-          <div className="relative min-h-[5rem] flex-1 w-px bg-neutral-200">
+          <div className="relative -mt-px -mb-5 min-h-[4rem] flex-1 w-px bg-neutral-200">
             <div
               className="method-line-fill h-full w-full origin-top bg-brand"
               style={{ transform: "scaleY(0)" }}
@@ -182,12 +182,12 @@ export function MethodSection() {
               </h4>
               <h2
                 id="method-heading"
-                className="text-5xl font-light leading-[1.1] tracking-tighter text-brand md:text-7xl"
+                className="text-5xl font-light leading-[1.1] tracking-tighter text-brand md:text-6xl"
               >
                 Hoe het <br />
                 <span className="font-bold">werkt.</span>
               </h2>
-              <p className="mb-12 max-w-md text-xl font-light leading-relaxed text-neutral-500">
+              <p className="mb-12 max-w-md text-base font-light leading-relaxed text-neutral-600">
                 In drie stappen naar een beter beheerd wagenpark. Wij combineren
                 data met intuïtieve technologie.
               </p>

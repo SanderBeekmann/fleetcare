@@ -25,14 +25,14 @@ const columns = [
 
 export function Footer() {
   return (
-    <footer className="relative z-40 bg-neutral-900 text-neutral-300">
-      <section className="border-b border-neutral-800 bg-neutral-800/50 py-12">
+    <footer className="relative z-40 bg-brand text-white/90">
+      <section className="border-b border-white/20 bg-brand-hover/50 py-12">
         <Container>
           <h2 className="mb-6 text-lg font-semibold text-white">
             Neem contact op
           </h2>
-          <div className="max-w-xl rounded-lg bg-neutral-100 p-6 shadow-md">
-            <ContactForm />
+          <div className="max-w-xl">
+            <ContactForm variant="onDark" />
           </div>
         </Container>
       </section>
@@ -63,7 +63,7 @@ export function Footer() {
             </div>
           ))}
         </div>
-        <div className="border-t border-neutral-800 py-6 text-center text-sm text-neutral-500">
+        <div className="border-t border-white/20 py-6 text-center text-sm text-white/80">
           © {new Date().getFullYear()} FleetCare Connect. Alle rechten voorbehouden.
         </div>
       </Container>

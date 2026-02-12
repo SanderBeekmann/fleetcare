@@ -53,10 +53,24 @@ export function staggerChildren(
 
 /**
  * Zoek alle elementen met data-stagger="children" binnen scope en run staggerChildren erop.
+ * Optioneel: data-stagger-delay en data-stagger-duration (getal als string).
  */
 export function createStaggerAnimations(scope: HTMLElement | null): void {
   if (!scope) return;
 
   const containers = scope.querySelectorAll<HTMLElement>('[data-stagger="children"]');
-  containers.forEach((container) => staggerChildren(container));
+  containers.forEach((container) => {
+    const delayRaw = container.dataset.staggerDelay;
+    const durationRaw = container.dataset.staggerDuration;
+    const opts: Parameters<typeof staggerChildren>[1] = {};
+    if (delayRaw) {
+      const n = parseFloat(delayRaw);
+      if (Number.isFinite(n)) opts.stagger = n;
+    }
+    if (durationRaw) {
+      const n = parseFloat(durationRaw);
+      if (Number.isFinite(n)) opts.duration = n;
+    }
+    staggerChildren(container, opts);
+  });
 }

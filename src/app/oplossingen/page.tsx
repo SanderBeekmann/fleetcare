@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 export default function OplossingenPage() {
   return (
     <>
-      <section className="border-b border-neutral-200 bg-neutral-50 py-16 md:py-20">
+      <section className="border-b border-neutral-200 bg-white py-16 md:py-20">
         <Container>
           <h1
             className="text-3xl font-bold text-brand md:text-4xl lg:text-5xl"
@@ -32,19 +32,28 @@ export default function OplossingenPage() {
             data-reveal="fade-up"
             data-delay="0.05"
           >
-            Kies het plan dat past bij uw wagenpark. Van eenvoudig tracken tot volledig maatwerk.
+            Wij bieden een oplossing voor elke LEV vloot. Van een complete oplossing voor minimale downtime, tot service alleen wanneer u het nodig heeft. Voor iedere behoefte, heeft FleetCare Connect een oplossing.
           </p>
         </Container>
       </section>
 
-      <section className="py-section">
+      <section className="bg-white py-section">
         <Container>
-          <h2
-            className="text-2xl font-bold text-brand md:text-3xl"
+          <div
+            className="mb-16 grid gap-8 lg:grid-cols-[1fr_2fr] lg:items-start"
             data-reveal="fade-up"
           >
-            Plan vergelijking
-          </h2>
+            <div>
+              <h2 className="text-4xl font-bold text-neutral-900 md:text-5xl">
+                Eerlijke prijzen
+              </h2>
+            </div>
+            <p className="max-w-2xl text-base text-neutral-600 lg:text-lg">
+              Kies het plan dat past bij uw wagenpark. Van eenvoudig tracken tot
+              volledig maatwerk. Klein- en grootbedrijven doen meer met
+              FleetCare Connect.
+            </p>
+          </div>
         </Container>
         <PlanComparison />
       </section>

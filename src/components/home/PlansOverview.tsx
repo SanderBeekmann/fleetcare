@@ -13,6 +13,7 @@ const plans = [
     cta: "Bekijk details",
     href: "/oplossingen#standaard",
     badge: null,
+    included: ["App", "Realtime tracking"],
   },
   {
     name: "Smart",
@@ -22,6 +23,7 @@ const plans = [
     cta: "Bekijk details",
     href: "/oplossingen#smart",
     badge: "Populair",
+    included: ["App", "Webportaal", "Realtime tracking", "Chat 24/7"],
   },
   {
     name: "Enterprise",
@@ -31,6 +33,7 @@ const plans = [
     cta: "Neem contact op",
     href: "/contact",
     badge: null,
+    included: ["App", "Webportaal", "Realtime tracking", "Chat 24/7", "White label", "Persoonlijk contact"],
   },
 ];
 
@@ -52,32 +55,46 @@ export function PlansOverview() {
           Van eenvoudig tracken tot volledig maatwerk. Transparante prijzen, geen verrassingen.
         </p>
         <ul
-          className="mt-10 grid gap-6 md:grid-cols-3"
+          className="mt-10 grid gap-6 md:grid-cols-3 md:items-stretch"
           data-stagger="children"
+          data-stagger-delay="0.5"
         >
           {plans.map((plan) => (
-            <li key={plan.name}>
-              <Card className="flex h-full flex-col">
+            <li key={plan.name} className="flex">
+              <Card className="relative flex min-h-[320px] flex-1 flex-col">
                 {plan.badge && (
-                  <div className="mb-4">
+                  <div className="absolute right-4 top-4">
                     <Badge>{plan.badge}</Badge>
                   </div>
                 )}
-                <h3 className="text-xl font-semibold text-brand">
+                <h3 className="text-xl font-weight-semibold text-brand">
                   {plan.name}
                 </h3>
                 <p className="mt-2 text-2xl font-bold text-neutral-900">
                   {plan.price}
                 </p>
                 <p className="text-sm text-neutral-500">{plan.period}</p>
-                <p className="mt-2 text-sm text-neutral-600">
-                  Minimum {plan.min}
-                </p>
-                <div className="mt-auto pt-6">
+                <div className="mt-6 flex-1">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-neutral-600">
+                    Inbegrepen
+                  </p>
+                  <ul className="mt-2 space-y-1.5 text-sm text-neutral-600">
+                    {plan.included.map((item) => (
+                      <li key={item} className="flex items-center gap-2">
+                        <span className="h-1 w-1 shrink-0 rounded-full bg-brand" aria-hidden />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="mt-6 pt-6 -mb-2">
                   <Button variant="secondary" href={plan.href}>
                     {plan.cta}
                   </Button>
                 </div>
+                <p className="absolute bottom-4 right-4 text-right text-xs text-neutral-500">
+                  * Minimum {plan.min}
+                </p>
               </Card>
             </li>
           ))}

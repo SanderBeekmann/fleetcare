@@ -7,7 +7,9 @@ import { contactFormSchema, type ContactFormValues } from "@/lib/contactSchema";
 import { submitContactForm } from "@/app/contact/actions";
 import { Button } from "@/components/ui/Button";
 
-export function ContactForm() {
+type ContactFormProps = { variant?: "default" | "onDark" };
+
+export function ContactForm({ variant = "default" }: ContactFormProps) {
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
 
   const {
@@ -37,11 +39,14 @@ export function ContactForm() {
     }
   }
 
+  const isOnDark = variant === "onDark";
+  const labelClass = isOnDark ? "text-white" : "text-neutral-700";
+
   if (submitStatus === "success") {
     return (
-      <div className="mx-auto max-w-md rounded-lg border border-green-200 bg-green-50 p-6 text-center">
-        <p className="font-medium text-green-800">Bedankt voor uw bericht.</p>
-        <p className="mt-1 text-sm text-green-700">
+      <div className={`mx-auto max-w-md rounded-lg p-6 text-center ${isOnDark ? "border border-white/30 bg-white/10 text-white" : "border border-green-200 bg-green-50"}`}>
+        <p className={isOnDark ? "font-medium text-white" : "font-medium text-green-800"}>Bedankt voor uw bericht.</p>
+        <p className={`mt-1 text-sm ${isOnDark ? "text-white/90" : "text-green-700"}`}>
           We nemen zo snel mogelijk contact met u op.
         </p>
       </div>
@@ -54,7 +59,7 @@ export function ContactForm() {
       className="mx-auto max-w-lg space-y-4"
     >
       <div>
-        <label htmlFor="name" className="mb-1 block text-sm font-medium text-neutral-700">
+        <label htmlFor="name" className={`mb-1 block text-sm font-medium ${labelClass}`}>
           Naam *
         </label>
         <input
@@ -72,7 +77,7 @@ export function ContactForm() {
       </div>
 
       <div>
-        <label htmlFor="email" className="mb-1 block text-sm font-medium text-neutral-700">
+        <label htmlFor="email" className={`mb-1 block text-sm font-medium ${labelClass}`}>
           E-mail *
         </label>
         <input
@@ -90,7 +95,7 @@ export function ContactForm() {
       </div>
 
       <div>
-        <label htmlFor="company" className="mb-1 block text-sm font-medium text-neutral-700">
+        <label htmlFor="company" className={`mb-1 block text-sm font-medium ${labelClass}`}>
           Bedrijf
         </label>
         <input
@@ -103,7 +108,7 @@ export function ContactForm() {
       </div>
 
       <div>
-        <label htmlFor="message" className="mb-1 block text-sm font-medium text-neutral-700">
+        <label htmlFor="message" className={`mb-1 block text-sm font-medium ${labelClass}`}>
           Bericht *
         </label>
         <textarea

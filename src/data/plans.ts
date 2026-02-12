@@ -3,6 +3,8 @@ export type PlanFeature = boolean | string;
 export type Plan = {
   id: string;
   name: string;
+  description: string;
+  badge?: string;
   price: string;
   priceSub: string;
   minPeriod: string;
@@ -20,6 +22,7 @@ export const plans: Plan[] = [
   {
     id: "standaard",
     name: "Standaard",
+    description: "Start met essentiële tracking en beheer voor uw wagenpark. Ideaal voor kleine bedrijven die eenvoud willen.",
     price: "€1,49",
     priceSub: "per voertuig per maand",
     minPeriod: "24 maanden",
@@ -35,6 +38,8 @@ export const plans: Plan[] = [
   {
     id: "smart",
     name: "Smart",
+    description: "Voor groeiende bedrijven die meer grip willen op hun wagenpark. Alle tools voor efficiënt beheer.",
+    badge: "Meest gekozen",
     price: "€2,99",
     priceSub: "per voertuig per maand",
     minPeriod: "6 maanden",
@@ -50,6 +55,7 @@ export const plans: Plan[] = [
   {
     id: "enterprise",
     name: "Enterprise",
+    description: "Volledige flexibiliteit en persoonlijke begeleiding. Voor grote organisaties met specifieke wensen.",
     price: "Op maat",
     priceSub: "service op maat",
     minPeriod: "3 maanden",

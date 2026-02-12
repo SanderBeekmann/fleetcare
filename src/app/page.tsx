@@ -6,6 +6,7 @@ import {
   KlantenPreview,
 } from "@/components/home";
 import { MethodSection } from "@/components/sections/MethodSection";
+import { CtaBlock } from "@/components/oplossingen/CtaBlock";
 
 const organizationSchema = {
   "@context": "https://schema.org",
@@ -29,6 +30,7 @@ export default function HomePage() {
         <PlansOverview />
         <MethodSection />
         <StatsSection />
+        <CtaBlock />
         <KlantenPreview />
       </div>
     </>

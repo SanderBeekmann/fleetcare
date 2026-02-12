@@ -13,6 +13,7 @@ const config: Config = {
       },
       colors: {
         brand: "var(--color-brand)",
+        "brand-hover": "var(--color-brand-hover)",
         accent: "var(--color-accent)",
         neutral: {
           50: "var(--color-neutral-50)",
