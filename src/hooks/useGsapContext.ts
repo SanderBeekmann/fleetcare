@@ -29,14 +29,25 @@ export function useGsapContext<T extends HTMLElement>(
   useLayoutEffect(() => {
     if (!enabled) return;
     registerGSAP();
-    if (!scopeRef.current) return;
+    const scope = scopeRef.current;
+    if (!scope) return;
 
-    const ctx = gsap.context((context) => {
-      callbackRef.current(context);
-    }, scopeRef as RefObject<HTMLElement>);
+    let ctx: ReturnType<typeof gsap.context> | null = null;
+    let cancelled = false;
+
+    const raf = requestAnimationFrame(() => {
+      if (cancelled) return;
+      const scopeNow = scopeRef.current;
+      if (!scopeNow) return;
+      ctx = gsap.context((context) => {
+        callbackRef.current(context);
+      }, scopeNow);
+    });
 
     return () => {
-      ctx.revert();
+      cancelled = true;
+      cancelAnimationFrame(raf);
+      ctx?.revert();
     };
   }, [scopeRef, enabled, ...deps]);
 }

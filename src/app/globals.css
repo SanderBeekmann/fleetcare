@@ -22,12 +22,12 @@
   --color-neutral-700: #334155;
   --color-neutral-800: #1e293b;
   --color-neutral-900: #0f172a;
-  --gradient-hero: linear-gradient(135deg, #ffffff 0%, rgba(var(--color-brand-rgb), 0.04) 40%, rgba(var(--color-brand-rgb), 0.12) 100%);
+  --gradient-hero: linear-gradient(135deg, #ffffff 0%, rgba(var(--color-brand-rgb), 0.06) 30%, rgba(var(--color-brand-rgb), 0.14) 60%, rgba(var(--color-brand-rgb), 0.24) 100%);
   --spacing-grid: 8px;
   --spacing-section: 80px;
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
   --radius-full: 9999px;
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
@@ -63,6 +63,11 @@
     margin: 0;
     padding: 0;
   }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 300 !important;
+    text-transform: uppercase;
+  }
 }
 
 /* Hero: subtiele grain texture (geen extra dependency) */
@@ -71,4 +76,45 @@
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     background-repeat: repeat;
   }
+}
+
+/* iPhone 16 Pro mockup: frame-sheen, schaduw, scherm-reflectie */
+.iphone-frame-sheen {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 40%, #1e293b 50%, #0f172a 60%, #020617 100%);
+}
+.iphone-floating {
+  box-shadow: 0 6px 12px rgba(0,0,0,0.18), 0 16px 32px rgba(0,0,0,0.22), 0 24px 48px -12px rgba(0,0,0,0.28);
+}
+.screen-glass-overlay {
+  background: linear-gradient(105deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 20%, transparent 40%, transparent 100%);
+}
+
+/* Secondary CTA: glasmorphism + hover fill van onder naar boven (merkleur) */
+.btn-secondary-glass {
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-brand);
+  color: var(--color-brand);
+  transition: color 0.3s ease;
+}
+.btn-secondary-glass::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 0;
+  background: var(--color-brand);
+  transition: height 0.3s ease;
+  z-index: -1;
+}
+.btn-secondary-glass:hover {
+  color: white;
+  border-color: var(--color-brand);
+}
+.btn-secondary-glass:hover::before {
+  height: 100%;
 }

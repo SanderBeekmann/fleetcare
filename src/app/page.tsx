@@ -26,6 +26,8 @@ export default function HomePage() {
       <HeroSection />
       <div className="relative z-20">
         <WhatWeDoSection />
+      </div>
+      <div className="relative z-30">
         <PlansOverview />
         <HowItWorks />
         <StatsSection />

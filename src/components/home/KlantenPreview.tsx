@@ -14,7 +14,7 @@ export function KlantenPreview() {
     <section className="py-section bg-neutral-100">
       <Container>
         <h2
-          className="text-3xl font-bold text-neutral-900 md:text-4xl"
+          className="text-3xl font-bold text-brand md:text-4xl"
           data-reveal="fade-up"
         >
           Wat klanten zeggen
@@ -36,7 +36,7 @@ export function KlantenPreview() {
                 <p className="text-sm font-medium text-neutral-500">
                   {item.sector}
                 </p>
-                <h3 className="mt-1 font-semibold text-neutral-900">
+                <h3 className="mt-1 font-semibold text-brand">
                   {item.name}
                 </h3>
                 <p className="mt-3 text-neutral-600">&ldquo;{item.quote}&rdquo;</p>

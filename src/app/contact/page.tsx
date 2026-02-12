@@ -17,7 +17,7 @@ export default function ContactPage() {
     <section className="py-section">
       <Container>
         <h1
-          className="text-3xl font-bold text-neutral-900 md:text-4xl"
+          className="text-3xl font-bold text-brand md:text-4xl"
           data-reveal="fade-up"
         >
           Contact

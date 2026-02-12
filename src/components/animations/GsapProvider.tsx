@@ -40,11 +40,34 @@ export function GsapProvider({ children }: GsapProviderProps) {
   );
 
   // Na registratie: ScrollTrigger posities bijwerken zodra layout klaar is
+  // Meerdere refresh-momenten voor betrouwbare posities na font/image load
   useLayoutEffect(() => {
     if (prefersReducedMotion) return;
     registerGSAP();
-    const raf = requestAnimationFrame(() => ScrollTrigger.refresh());
-    return () => cancelAnimationFrame(raf);
+
+    const refresh = () => ScrollTrigger.refresh();
+
+    // Direct + rAF + korte delay
+    refresh();
+    const raf = requestAnimationFrame(refresh);
+    const t1 = setTimeout(refresh, 150);
+
+    // Na fonts geladen (belangrijk voor correcte layout)
+    document.fonts?.ready?.then(refresh);
+
+    // Na volledige page load
+    const onLoad = () => {
+      refresh();
+      window.removeEventListener("load", onLoad);
+    };
+    window.addEventListener("load", onLoad);
+    if (document.readyState === "complete") onLoad();
+
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(t1);
+      window.removeEventListener("load", onLoad);
+    };
   }, [pathname, prefersReducedMotion]);
 
   return <div ref={scopeRef}>{children}</div>;

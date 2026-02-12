@@ -26,7 +26,7 @@ const variantStyles: Record<Variant, string> = {
   primary:
     "bg-brand text-white hover:bg-[var(--color-brand-hover)] focus:ring-brand border-transparent",
   secondary:
-    "border-2 border-[var(--color-secondary)] text-[var(--color-secondary)] hover:bg-[var(--color-secondary)] hover:text-white focus:ring-[var(--color-secondary)]",
+    "btn-secondary-glass focus:ring-brand",
 };
 
 const baseStyles =

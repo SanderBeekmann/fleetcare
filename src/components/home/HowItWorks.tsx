@@ -23,7 +23,7 @@ export function HowItWorks() {
     <section className="py-section bg-neutral-100">
       <Container>
         <h2
-          className="text-3xl font-bold text-neutral-900 md:text-4xl"
+          className="text-3xl font-bold text-brand md:text-4xl"
           data-reveal="fade-up"
         >
           Hoe het werkt
@@ -47,7 +47,7 @@ export function HowItWorks() {
               >
                 {item.step}
               </div>
-              <h3 className="mt-4 text-xl font-semibold text-neutral-900">
+              <h3 className="mt-4 text-xl font-semibold text-brand">
                 {item.title}
               </h3>
               <p className="mt-2 text-neutral-600">{item.text}</p>

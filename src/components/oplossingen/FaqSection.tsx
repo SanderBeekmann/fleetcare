@@ -32,7 +32,7 @@ export function FaqSection() {
     <section className="py-section bg-neutral-100">
       <Container>
         <h2
-          className="text-3xl font-bold text-neutral-900 md:text-4xl"
+          className="text-3xl font-bold text-brand md:text-4xl"
           data-reveal="fade-up"
         >
           Veelgestelde vragen
@@ -43,7 +43,7 @@ export function FaqSection() {
               key={i}
               className="rounded-lg border border-neutral-200 bg-white p-6 shadow-sm"
             >
-              <h3 className="font-semibold text-neutral-900">
+              <h3 className="font-semibold text-brand">
                 {faq.question}
               </h3>
               <p className="mt-2 text-neutral-600">{faq.answer}</p>

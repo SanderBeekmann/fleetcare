@@ -25,7 +25,7 @@ const columns = [
 
 export function Footer() {
   return (
-    <footer className="bg-neutral-900 text-neutral-300">
+    <footer className="relative z-40 bg-neutral-900 text-neutral-300">
       <section className="border-b border-neutral-800 bg-neutral-800/50 py-12">
         <Container>
           <h2 className="mb-6 text-lg font-semibold text-white">

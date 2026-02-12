@@ -8,7 +8,7 @@ export function CtaBlock() {
       <Container>
         <div className="mx-auto max-w-2xl text-center">
           <h2
-            className="text-3xl font-bold md:text-4xl"
+            className="text-3xl font-bold text-white md:text-4xl"
             data-reveal="fade-up"
           >
             Klaar om te starten?

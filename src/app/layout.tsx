@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
+import { Montserrat } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
-import "@/app/globals.css";
+import "./globals.css";
+
+const headingFont = Montserrat({
+  subsets: ["latin"],
+  weight: ["200", "300", "400", "600", "700"],
+  variable: "--font-heading",
+  display: "swap",
+});
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { GsapProvider } from "@/components/animations/GsapProvider";
@@ -28,7 +36,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="nl">
+    <html lang="nl" className={headingFont.variable}>
       <body>
         <Header />
         <main>

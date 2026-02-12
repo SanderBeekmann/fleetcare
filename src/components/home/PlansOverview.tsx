@@ -39,7 +39,7 @@ export function PlansOverview() {
     <section className="py-section bg-white">
       <Container>
         <h2
-          className="text-3xl font-bold text-neutral-900 md:text-4xl"
+          className="text-3xl font-bold text-brand md:text-4xl"
           data-reveal="fade-up"
         >
           Kies een plan dat bij u past
@@ -63,7 +63,7 @@ export function PlansOverview() {
                     <Badge>{plan.badge}</Badge>
                   </div>
                 )}
-                <h3 className="text-xl font-semibold text-neutral-900">
+                <h3 className="text-xl font-semibold text-brand">
                   {plan.name}
                 </h3>
                 <p className="mt-2 text-2xl font-bold text-neutral-900">

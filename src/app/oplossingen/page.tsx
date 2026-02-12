@@ -22,7 +22,7 @@ export default function OplossingenPage() {
       <section className="border-b border-neutral-200 bg-neutral-50 py-16 md:py-20">
         <Container>
           <h1
-            className="text-3xl font-bold text-neutral-900 md:text-4xl lg:text-5xl"
+            className="text-3xl font-bold text-brand md:text-4xl lg:text-5xl"
             data-reveal="fade-up"
           >
             Oplossingen
@@ -40,7 +40,7 @@ export default function OplossingenPage() {
       <section className="py-section">
         <Container>
           <h2
-            className="text-2xl font-bold text-neutral-900 md:text-3xl"
+            className="text-2xl font-bold text-brand md:text-3xl"
             data-reveal="fade-up"
           >
             Plan vergelijking

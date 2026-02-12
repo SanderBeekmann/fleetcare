@@ -20,13 +20,13 @@ export function PlanComparison() {
             <table className="w-full min-w-[600px] border-collapse text-left">
               <thead>
                 <tr className="border-b border-neutral-200">
-                  <th className="sticky left-0 z-10 min-w-[180px] bg-neutral-50 py-4 pr-4 font-semibold text-neutral-900">
+                  <th className="sticky left-0 z-10 min-w-[180px] bg-neutral-50 py-4 pr-4 font-semibold text-brand">
                     Plan
                   </th>
                   {plans.map((plan) => (
                     <th
                       key={plan.id}
-                      className="min-w-[140px] py-4 px-4 font-semibold text-neutral-900"
+                      className="min-w-[140px] py-4 px-4 font-semibold text-brand"
                     >
                       {plan.name}
                     </th>
@@ -95,7 +95,7 @@ export function PlanComparison() {
               <li key={plan.id} id={plan.id}>
                 <Card className="overflow-hidden">
                   <div className="border-b border-neutral-200 bg-neutral-50 px-6 py-4">
-                    <h3 className="text-xl font-semibold text-neutral-900">
+                    <h3 className="text-xl font-semibold text-brand">
                       {plan.name}
                     </h3>
                     <p className="mt-1 font-semibold text-neutral-900">
