@@ -1,6 +1,6 @@
 import {
   HeroSection,
-  WhatWeDoSection,
+  StackedFixedSection2,
   PlansOverview,
   HowItWorks,
   StatsSection,
@@ -24,10 +24,8 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
       />
       <HeroSection />
-      <div className="relative z-20">
-        <WhatWeDoSection />
-      </div>
-      <div className="relative z-30">
+      <StackedFixedSection2 />
+      <div className="stacked-content-above relative z-[3]">
         <PlansOverview />
         <HowItWorks />
         <StatsSection />

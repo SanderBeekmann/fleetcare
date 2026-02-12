@@ -37,7 +37,7 @@ export function DottedSurface({
     const AMOUNTY = 60;
 
     const scene = new THREE.Scene();
-    scene.fog = new THREE.Fog(0xffffff, 2000, 10000);
+    /* Geen fog of ver weg, anders wassen dots uit tegen witte gradient */
 
     const camera = new THREE.PerspectiveCamera(
       60,
@@ -55,15 +55,21 @@ export function DottedSurface({
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor(0x000000, 0);
 
-    containerRef.current.appendChild(renderer.domElement);
+    const canvas = renderer.domElement;
+    canvas.style.position = "absolute";
+    canvas.style.inset = "0";
+    canvas.style.width = "100%";
+    canvas.style.height = "100%";
+    canvas.style.display = "block";
+    containerRef.current.appendChild(canvas);
 
     const positions: number[] = [];
     const colors: number[] = [];
 
-    /* Merkkleur (brand) voor dark variant: --color-brand-rgb 7, 71, 137 */
-    const r = variant === "light" ? 200 : 7;
-    const g = variant === "light" ? 200 : 71;
-    const b = variant === "light" ? 200 : 137;
+    /* Merkkleur (brand) voor dark variant: Three.js wil 0–1, brand-rgb is 7, 71, 137 */
+    const r = variant === "light" ? 200 / 255 : 7 / 255;
+    const g = variant === "light" ? 200 / 255 : 71 / 255;
+    const b = variant === "light" ? 200 / 255 : 137 / 255;
 
     for (let ix = 0; ix < AMOUNTX; ix++) {
       for (let iy = 0; iy < AMOUNTY; iy++) {
@@ -86,7 +92,7 @@ export function DottedSurface({
       size: 10,
       vertexColors: true,
       transparent: true,
-      opacity: 0.95,
+      opacity: 0.275,
       sizeAttenuation: true,
     });
 
@@ -115,7 +121,7 @@ export function DottedSurface({
 
       positionAttribute.needsUpdate = true;
       renderer.render(scene, camera);
-      count += 0.1;
+      count += 0.033;
     };
 
     const handleResize = () => {
@@ -144,11 +150,9 @@ export function DottedSurface({
         sceneRef.current.geometry.dispose();
         sceneRef.current.material.dispose();
         sceneRef.current.renderer.dispose();
-        if (
-          containerRef.current &&
-          sceneRef.current.renderer.domElement.parentNode === containerRef.current
-        ) {
-          containerRef.current.removeChild(sceneRef.current.renderer.domElement);
+        const canvas = sceneRef.current.renderer.domElement;
+        if (containerRef.current && canvas.parentNode === containerRef.current) {
+          containerRef.current.removeChild(canvas);
         }
       }
     };
@@ -157,7 +161,7 @@ export function DottedSurface({
   return (
     <div
       ref={containerRef}
-      className={`pointer-events-none absolute inset-0 z-0 ${className}`.trim()}
+      className={`pointer-events-none absolute inset-0 z-0 w-full h-full min-h-full ${className}`.trim()}
       aria-hidden
       {...props}
     />

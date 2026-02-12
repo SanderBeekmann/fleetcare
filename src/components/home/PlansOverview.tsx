@@ -36,16 +36,16 @@ const plans = [
 
 export function PlansOverview() {
   return (
-    <section className="py-section bg-white">
+    <section className="py-section bg-brand">
       <Container>
         <h2
-          className="text-3xl font-bold text-brand md:text-4xl"
+          className="text-3xl font-bold text-white md:text-4xl"
           data-reveal="fade-up"
         >
           Kies een plan dat bij u past
         </h2>
         <p
-          className="mt-3 max-w-2xl text-neutral-600"
+          className="mt-3 max-w-2xl text-white/90"
           data-reveal="fade-up"
           data-delay="0.05"
         >

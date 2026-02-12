@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { DottedSurface } from "@/components/ui/DottedSurface";
+import { AuroraBackground } from "@/components/ui/AuroraBackground";
 import { getStoreLink } from "@/lib/storeLinks";
 import { usePhoneScrollAnimation } from "@/hooks/usePhoneScrollAnimation";
 import { useCardContentOverSection } from "@/hooks/useCardContentOverSection";
@@ -17,16 +17,16 @@ export function HeroSection() {
 
   return (
     <div ref={heroScopeRef}>
-      <div className="fixed inset-0 z-10">
-        {/* Bewegende dots achter de gradient */}
-        <DottedSurface variant="dark" />
-        {/* Gradient overlay: lagere opacity zodat merkkleur-dots zichtbaar blijven */}
+      <div id="hero" className="fixed inset-0 z-[1] isolate">
+        {/* 1. Aurora bewegende achtergrond (achter) */}
+        <AuroraBackground showRadialGradient={true} />
+        {/* 2. Gradient overlay (voor de dots; hogere z-index) */}
         <div
-          className="absolute inset-0 z-[1] pointer-events-none opacity-55"
+          className="absolute inset-0 z-10 pointer-events-none opacity-95"
           style={{ background: "var(--gradient-hero)" }}
           aria-hidden
         />
-        <section className="relative h-screen overflow-hidden z-[2]">
+        <section className="relative h-screen overflow-hidden z-20">
       {/* Layer 3: Content grid (zonder phone) */}
       <Container className="relative z-10 flex min-h-screen flex-col justify-end pb-20 pt-24 md:pb-24">
         <div className="grid items-end gap-12 lg:grid-cols-2 lg:gap-16">
@@ -65,9 +65,10 @@ export function HeroSection() {
         </section>
       </div>
 
-      {/* iPhone mockup: z-25 — tussen wat-we-doen (z-20) en plannen + secties daaronder (z-30) */}
+      {/* iPhone mockup: z-3 — boven sectie 2 (z-2), onder rest (z-4) */}
       <div
-        className="fixed inset-0 z-[25] pointer-events-none flex items-end justify-center px-4 pb-20 pt-24 sm:px-6 md:pb-24 lg:grid lg:grid-cols-2 lg:items-center lg:px-8"
+        id="phone-layer"
+        className="fixed inset-0 pointer-events-none flex items-end justify-center px-4 pb-20 pt-24 sm:px-6 md:pb-24 lg:grid lg:grid-cols-2 lg:items-center lg:px-8"
         aria-hidden
       >
         <div className="hidden lg:block" aria-hidden />
@@ -81,12 +82,12 @@ export function HeroSection() {
           >
             <div className="phoneCardHeroContent relative flex flex-col opacity-100">
               <div className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-brand" style={{ minWidth: "8px" }} />
-                <span className="text-xs font-medium text-brand">
+                <span className="h-2 w-2 rounded-full bg-white" style={{ minWidth: "8px" }} />
+                <span className="text-xs font-medium text-white">
                   Realtime tracking
                 </span>
               </div>
-              <p className="mt-1 text-[10px] uppercase tracking-wider text-brand">
+              <p className="mt-1 text-[10px] uppercase tracking-wider text-white/90">
                 Altijd actueel
               </p>
             </div>
@@ -95,12 +96,12 @@ export function HeroSection() {
               aria-hidden
             >
               <div className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-brand" style={{ minWidth: "8px" }} />
-                <span className="text-xs font-medium text-brand">
+                <span className="h-2 w-2 rounded-full bg-white" style={{ minWidth: "8px" }} />
+                <span className="text-xs font-medium text-white">
                   Eén platform
                 </span>
               </div>
-              <p className="mt-1 text-[10px] uppercase tracking-wider text-brand">
+              <p className="mt-1 text-[10px] uppercase tracking-wider text-white/90">
                 Onderhoud & tracking
               </p>
             </div>
