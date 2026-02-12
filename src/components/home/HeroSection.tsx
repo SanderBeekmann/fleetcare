@@ -25,12 +25,13 @@ export function HeroSection() {
         <section className="relative h-screen w-screen max-w-none overflow-hidden z-20">
       {/* Layer 3: Content — full width, clamp padding voor alle schermgroottes */}
       <div
-        className="relative z-10 mx-auto flex min-h-screen w-full max-w-none flex-col justify-end pb-20 pt-24 md:pb-24 lg:pb-16 xl:pb-12"
+        className="relative z-10 mx-auto flex min-h-screen w-full max-w-none flex-col justify-end pb-20 pt-24 md:pb-24 lg:pb-16 xl:pb-12 2xl:justify-center"
         style={{ paddingLeft: "clamp(24px, 4vw, 120px)", paddingRight: "clamp(24px, 4vw, 120px)" }}
       >
-        <div className="grid items-end gap-12 lg:grid-cols-2 lg:gap-16">
-          {/* Left: tekst — op grote schermen verder in linker onderhoek (8px-grid) */}
-          <div className="max-w-xl 2xl:max-w-2xl" data-hero-stagger>
+        {/* 2 gelijke onzichtbare gridkolommen: links content, rechts ruimte voor phone */}
+        <div className="grid items-end gap-12 lg:grid-cols-2 lg:gap-16 2xl:grid-cols-2 2xl:items-center 2xl:gap-16">
+          {/* Links: content linksuitgelijnd in linker grid; op 2xl omhoog (gecentreerd) */}
+          <div className="max-w-xl 2xl:max-w-2xl 2xl:justify-self-start" data-hero-stagger>
             <p className="mb-3 text-sm font-medium uppercase tracking-wider text-neutral-600">
               Uw wagenpark in één oogopslag
             </p>
@@ -39,7 +40,7 @@ export function HeroSection() {
                 LEV-Fleetmanagement Van De Toekomst.
               </h1>
             </div>
-            <p className="mt-6 max-w-lg text-lg leading-relaxed text-neutral-600">
+            <p className="mt-4 max-w-lg text-base leading-relaxed text-neutral-700">
               Doe in 1 minuut een aanvraag, volg realtime de status en profiteer
               van ons landelijk netwerk aan gecertificeerde servicepartners. Alles in de FCC-app.
             </p>

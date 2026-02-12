@@ -6,6 +6,7 @@ import {
   KlantenPreview,
 } from "@/components/home";
 import { MethodSection } from "@/components/sections/MethodSection";
+import { ContactSection } from "@/components/sections/ContactSection";
 import { CtaBlock } from "@/components/oplossingen/CtaBlock";
 
 const organizationSchema = {
@@ -32,6 +33,7 @@ export default function HomePage() {
         <StatsSection />
         <CtaBlock />
         <KlantenPreview />
+        <ContactSection variant="onDark" />
       </div>
     </>
   );

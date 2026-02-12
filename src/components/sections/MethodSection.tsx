@@ -55,14 +55,14 @@ function StepCard({
 }) {
   const Icon = step.icon;
   return (
-    <div className="method-card relative flex gap-8 pb-4 last:pb-0 md:gap-16">
+    <div className="method-card relative flex gap-8 pb-12 last:pb-0 md:gap-16">
       {/* Icon & vertical line — lijn sluit aan op icon */}
       <div className="flex flex-col items-center">
         <div className="z-10 flex h-14 w-14 flex-shrink-0 items-center justify-center">
           <Icon className="text-brand" size={28} strokeWidth={1.5} />
         </div>
         {!isLast && (
-          <div className="relative -mt-px -mb-5 min-h-[4rem] flex-1 w-px bg-neutral-200">
+          <div className="relative -mt-px -mb-5 min-h-[6rem] flex-1 w-px bg-neutral-200">
             <div
               className="method-line-fill h-full w-full origin-top bg-brand"
               style={{ transform: "scaleY(0)" }}
@@ -83,7 +83,7 @@ function StepCard({
         <h3 className="mb-4 text-2xl font-light uppercase tracking-tight text-brand md:text-3xl">
           {step.title}
         </h3>
-        <p className="max-w-xl text-lg font-light leading-relaxed text-neutral-600">
+        <p className="max-w-xl text-sm font-light leading-relaxed text-neutral-600">
           {step.description}
         </p>
         <Link
@@ -182,12 +182,12 @@ export function MethodSection() {
               </h4>
               <h2
                 id="method-heading"
-                className="text-5xl font-light leading-[1.1] tracking-tighter text-brand md:text-6xl"
+                className="font-heading text-5xl font-light leading-[1.1] tracking-tighter text-brand md:text-6xl"
               >
                 Hoe het <br />
                 <span className="font-bold">werkt.</span>
               </h2>
-              <p className="mb-12 max-w-md text-base font-light leading-relaxed text-neutral-600">
+              <p className="mb-12 max-w-md text-sm font-light leading-relaxed text-neutral-600">
                 In drie stappen naar een beter beheerd wagenpark. Wij combineren
                 data met intuïtieve technologie.
               </p>

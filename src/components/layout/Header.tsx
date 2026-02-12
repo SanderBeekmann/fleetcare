@@ -14,7 +14,6 @@ const navLinks = [
   { href: "/oplossingen", label: "Oplossingen" },
   { href: "/over", label: "Over" },
   { href: "/klanten", label: "Klanten" },
-  { href: "/contact", label: "Contact" },
 ];
 
 const SCROLL_TOP_THRESHOLD = 24;
@@ -105,10 +104,8 @@ export function Header() {
       return;
     }
     if (pathname === "/oplossingen") {
-      const update = () => setNavOpaque(window.scrollY > 20);
-      update();
-      window.addEventListener("scroll", update, { passive: true });
-      return () => window.removeEventListener("scroll", update);
+      setNavOpaque(true);
+      return;
     }
     const watWeDoen = document.getElementById("wat-we-doen");
     const update = () => {
@@ -126,7 +123,7 @@ export function Header() {
 
   const linkClass = (href: string) => {
     const isActive = href === "/" ? pathname === "/" : pathname.startsWith(href);
-    return `${isActive ? "font-semibold text-brand" : "text-neutral-500 hover:text-brand"}`;
+    return `${isActive ? "font-semibold text-brand" : "text-neutral-600 hover:text-brand"}`;
   };
 
   const headerClass = navOpaque
@@ -134,35 +131,59 @@ export function Header() {
     : "sticky top-0 z-50 border-b border-transparent bg-transparent shadow-none backdrop-blur-none transition-[background-color,border-color,box-shadow] duration-300";
 
   return (
-    <header ref={headerRef} className={headerClass}>
-      <Container className="md:grid md:grid-cols-3 md:grid-rows-2 md:items-stretch md:gap-0">
-        {/* Desktop grid: CTA kolom spans 2 rijen en is verticaal gecentreerd */}
-        <div className="hidden md:block" />
-        <div className="hidden md:flex md:justify-center md:pt-2 md:pb-0">
-          <Link
-            href="/"
-            className="text-lg font-semibold text-brand"
-          >
-            FleetCare Connect
-          </Link>
+    <header ref={headerRef} className={`${headerClass} w-full`}>
+      {/* Desktop: grid 1fr auto 1fr zodat logo+nav centraal staan tussen gelijke flanken */}
+      <div className="hidden md:grid md:w-full md:grid-cols-[1fr_auto_1fr] md:items-stretch">
+        <div aria-hidden />
+        <div className="flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 2xl:px-12" style={{ maxWidth: "var(--container-xl, 1280px)" }}>
+          <div className="flex pt-2 pb-0">
+            <Link href="/" className="font-heading text-lg font-semibold text-brand">
+              FleetCare Connect
+            </Link>
+          </div>
+          <nav className="flex h-12 -mt-2 w-full items-center justify-center gap-8">
+            {navLinks.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                className={`group relative flex h-full items-center text-xs font-medium uppercase tracking-[0.15em] ${linkClass(href)}`}
+              >
+                {label}
+                <span
+                  className="absolute bottom-0 left-0 h-0.5 w-full origin-left scale-x-0 bg-brand transition-transform duration-200 ease-out group-hover:scale-x-100"
+                  aria-hidden
+                />
+              </Link>
+            ))}
+          </nav>
         </div>
-        <div className="hidden md:flex md:row-span-2 md:items-center md:justify-end">
+        <div
+          className="flex items-center justify-end pl-8"
+          style={{ paddingRight: "clamp(24px, 4vw, 48px)" }}
+        >
           {storeLink.disabled ? (
-            <Button variant="secondary" disabled>
-              {storeLink.label}
-            </Button>
+            <div className="flex">
+              <Button variant="primary" href="/contact" className="-mr-px rounded-l-md rounded-r-none px-3 py-2 text-xs focus:ring-0 focus:ring-offset-0">
+                Contact
+              </Button>
+              <Button variant="secondary" disabled className="rounded-r-md rounded-l-none px-3 py-2 text-xs focus:ring-0 focus:ring-offset-0">
+                {storeLink.label}
+              </Button>
+            </div>
           ) : (
             <Button variant="secondary" href={storeLink.href}>
               {storeLink.label}
             </Button>
           )}
         </div>
-        <div className="hidden md:block" />
-        {/* Mainbar: nav op desktop, logo + hamburger op mobile */}
-        <div className="flex h-16 md:h-12 md:-mt-2 items-center justify-between">
+      </div>
+
+      {/* Mobile: container-based layout, ongewijzigd */}
+      <Container className="md:hidden">
+        <div className="flex h-16 items-center justify-between">
           <Link
             href="/"
-            className="text-lg font-semibold text-black md:hidden"
+            className="font-heading text-lg font-semibold text-black md:hidden"
           >
             FleetCare Connect
           </Link>
@@ -216,9 +237,23 @@ export function Header() {
               ))}
               <li>
                 {storeLink.disabled ? (
-                  <Button variant="secondary" className="w-full" disabled>
-                    {storeLink.label}
-                  </Button>
+                  <div className="flex">
+                    <Button
+                      variant="primary"
+                      href="/contact"
+                      className="-mr-px flex-1 rounded-l-md rounded-r-none focus:ring-0 focus:ring-offset-0"
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      Contact
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      disabled
+                      className="flex-1 rounded-r-md rounded-l-none focus:ring-0 focus:ring-offset-0"
+                    >
+                      {storeLink.label}
+                    </Button>
+                  </div>
                 ) : (
                   <Button
                     variant="secondary"

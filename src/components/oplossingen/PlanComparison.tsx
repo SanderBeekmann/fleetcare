@@ -1,5 +1,6 @@
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
 import { plans, featureLabels, type Plan } from "@/data/plans";
 
 const featureKeys = Object.keys(featureLabels) as (keyof Plan["features"])[];
@@ -23,12 +24,12 @@ export function PlanComparison() {
             <article
               key={plan.id}
               id={plan.id}
-              className={`relative flex flex-col rounded-2xl border border-neutral-200 p-6 pb-16 shadow-sm transition-shadow hover:shadow-md ${isHighlighted ? "bg-[color-mix(in_srgb,var(--color-brand)_30%,white)]" : "bg-white"}`}
+              className={`relative flex flex-col border border-neutral-200 p-6 pb-16 shadow-sm transition-shadow hover:shadow-md ${isHighlighted ? "bg-[color-mix(in_srgb,var(--color-brand)_10%,white)]" : "bg-white"}`}
             >
               {plan.badge && (
-                <span className="absolute right-4 top-4 rounded-full bg-[#212B36] px-3 py-1 text-xs font-semibold text-white">
-                  {plan.badge}
-                </span>
+                <div className="absolute right-4 top-4">
+                  <Badge>{plan.badge}</Badge>
+                </div>
               )}
 
               <div

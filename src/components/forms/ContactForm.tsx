@@ -56,7 +56,7 @@ export function ContactForm({ variant = "default" }: ContactFormProps) {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="mx-auto max-w-lg space-y-4"
+      className="max-w-lg space-y-4"
     >
       <div>
         <label htmlFor="name" className={`mb-1 block text-sm font-medium ${labelClass}`}>

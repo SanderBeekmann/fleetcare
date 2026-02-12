@@ -49,6 +49,25 @@
   .aurora-animate {
     animation: none !important;
   }
+  .scroll-hint-bounce {
+    animation: none !important;
+  }
+}
+
+/* Scroll-hint pijltje: subtiele bounce omlaag */
+@keyframes scroll-hint-bounce {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(6px);
+    opacity: 1;
+  }
+}
+
+.scroll-hint-bounce {
+  animation: scroll-hint-bounce 2s ease-in-out infinite;
 }
 
 /* Aurora bewegende achtergrond (merkkleur) */

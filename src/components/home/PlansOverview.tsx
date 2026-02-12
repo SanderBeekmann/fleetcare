@@ -39,7 +39,7 @@ const plans = [
 
 export function PlansOverview() {
   return (
-    <section className="py-section bg-brand">
+    <section id="plannen" className="py-section bg-brand">
       <Container>
         <h2
           className="text-3xl font-bold text-white md:text-4xl"

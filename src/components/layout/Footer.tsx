@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
-import { ContactForm } from "@/components/forms/ContactForm";
+import { Button } from "@/components/ui/Button";
 
 const columns = [
   {
@@ -25,36 +25,26 @@ const columns = [
 
 export function Footer() {
   return (
-    <footer className="relative z-40 bg-brand text-white/90">
-      <section className="border-b border-white/20 bg-brand-hover/50 py-12">
-        <Container>
-          <h2 className="mb-6 text-lg font-semibold text-white">
-            Neem contact op
-          </h2>
-          <div className="max-w-xl">
-            <ContactForm variant="onDark" />
-          </div>
-        </Container>
-      </section>
+    <footer className="relative z-40 bg-white text-neutral-700">
       <Container>
-        <div className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-10 py-20 sm:grid-cols-2 lg:grid-cols-4">
           <div>
-            <p className="text-lg font-semibold text-white">
+            <p className="text-lg font-semibold text-neutral-900">
               FleetCare Connect
             </p>
-            <p className="mt-2 text-sm">
+            <p className="mt-2 text-sm text-neutral-600">
               Uw partner in fleetmanagement. Eenvoudig, inzichtelijk, betrouwbaar.
             </p>
           </div>
           {columns.map((col) => (
             <div key={col.title}>
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-white">
+              <h3 className="text-sm font-semibold uppercase tracking-wider text-neutral-900">
                 {col.title}
               </h3>
               <ul className="mt-4 space-y-2">
                 {col.links.map(({ href, label }) => (
                   <li key={`${col.title}-${label}`}>
-                    <Link href={href} className="text-sm hover:text-white">
+                    <Link href={href} className="text-sm text-neutral-600 hover:text-brand">
                       {label}
                     </Link>
                   </li>
@@ -63,8 +53,26 @@ export function Footer() {
             </div>
           ))}
         </div>
-        <div className="border-t border-white/20 py-6 text-center text-sm text-white/80">
-          © {new Date().getFullYear()} FleetCare Connect. Alle rechten voorbehouden.
+        <div className="flex flex-col items-center justify-between gap-6 border-t border-neutral-200 py-16 sm:flex-row sm:items-center">
+          <div className="flex flex-col items-center gap-1 text-center sm:items-start sm:text-left">
+            <p className="text-sm text-neutral-500">
+              © {new Date().getFullYear()} FleetCare Connect. Alle rechten voorbehouden.
+            </p>
+            <p className="text-xs text-neutral-400">
+              Created by{" "}
+              <a
+                href="https://blitzworx.nl"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-neutral-500 hover:text-brand transition-colors"
+              >
+                BLITZWORX
+              </a>
+            </p>
+          </div>
+          <Button variant="secondary" href="/contact">
+            Neem contact op
+          </Button>
         </div>
       </Container>
     </footer>
