@@ -2,10 +2,10 @@ import {
   HeroSection,
   StackedFixedSection2,
   PlansOverview,
-  HowItWorks,
   StatsSection,
   KlantenPreview,
 } from "@/components/home";
+import { MethodSection } from "@/components/sections/MethodSection";
 
 const organizationSchema = {
   "@context": "https://schema.org",
@@ -27,7 +27,7 @@ export default function HomePage() {
       <StackedFixedSection2 />
       <div className="stacked-content-above relative z-[3]">
         <PlansOverview />
-        <HowItWorks />
+        <MethodSection />
         <StatsSection />
         <KlantenPreview />
       </div>

@@ -18,7 +18,7 @@ export function StatsSection() {
               className="text-center"
               data-reveal="fade-up"
             >
-              <p className="text-4xl font-bold text-accent md:text-5xl">
+              <p className="text-4xl font-bold text-brand md:text-5xl">
                 <span data-counter={String(stat.value)}>0</span>
                 {stat.suffix}
               </p>

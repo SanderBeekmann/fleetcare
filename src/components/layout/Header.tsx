@@ -43,7 +43,7 @@ export function Header() {
 
   const linkClass = (href: string) => {
     const isActive = href === "/" ? pathname === "/" : pathname.startsWith(href);
-    return `text-black hover:text-neutral-800 ${isActive ? "font-semibold text-black" : ""}`;
+    return `text-black hover:text-brand ${isActive ? "font-semibold text-brand" : ""}`;
   };
 
   const headerClass = navOpaque

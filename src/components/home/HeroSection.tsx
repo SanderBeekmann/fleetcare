@@ -6,26 +6,18 @@ import { Button } from "@/components/ui/Button";
 import { AuroraBackground } from "@/components/ui/AuroraBackground";
 import { getStoreLink } from "@/lib/storeLinks";
 import { usePhoneScrollAnimation } from "@/hooks/usePhoneScrollAnimation";
-import { useCardContentOverSection } from "@/hooks/useCardContentOverSection";
 
 export function HeroSection() {
   const heroScopeRef = useRef<HTMLDivElement>(null);
   const storeLink = getStoreLink();
 
   usePhoneScrollAnimation(heroScopeRef);
-  useCardContentOverSection();
 
   return (
     <div ref={heroScopeRef}>
       <div id="hero" className="fixed inset-0 z-[1] isolate">
         {/* 1. Aurora bewegende achtergrond (achter) */}
         <AuroraBackground showRadialGradient={true} />
-        {/* 2. Gradient overlay (voor de dots; hogere z-index) */}
-        <div
-          className="absolute inset-0 z-10 pointer-events-none opacity-95"
-          style={{ background: "var(--gradient-hero)" }}
-          aria-hidden
-        />
         <section className="relative h-screen overflow-hidden z-20">
       {/* Layer 3: Content grid (zonder phone) */}
       <Container className="relative z-10 flex min-h-screen flex-col justify-end pb-20 pt-24 md:pb-24">
@@ -44,15 +36,15 @@ export function HeroSection() {
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               {storeLink.disabled ? (
-                <Button variant="primary" disabled className="transition-transform duration-200 hover:scale-[1.02]">
+                <Button variant="primary" disabled>
                   {storeLink.label}
                 </Button>
               ) : (
-                <Button variant="primary" href={storeLink.href} className="transition-transform duration-200 hover:scale-[1.02]">
+                <Button variant="primary" href={storeLink.href}>
                   {storeLink.label}
                 </Button>
               )}
-              <Button variant="secondary" href="/oplossingen" className="transition-transform duration-200 hover:scale-[1.02]">
+              <Button variant="secondary" href="/oplossingen">
                 Bekijk oplossingen
               </Button>
             </div>
@@ -75,57 +67,43 @@ export function HeroSection() {
         <div className="phoneWrap relative flex w-full items-end justify-center lg:items-center lg:justify-center">
           {/* Glasmorphism card: animeert naar rechterbovenhoek iPhone bij scroll */}
           <div
-            className="phoneCard absolute bottom-6 right-4 z-20 rounded-lg border border-brand bg-brand px-4 py-3 shadow-lg backdrop-blur-md md:bottom-8 md:right-6 lg:left-[calc(25vw+60px)] lg:top-[calc(50vh+100px)] lg:bottom-auto lg:right-auto"
+            className="phoneCard absolute bottom-6 right-4 z-20 rounded-lg border border-brand bg-brand px-6 py-3 shadow-lg backdrop-blur-md md:bottom-8 md:right-6 lg:left-[calc(25vw+60px)] lg:top-[calc(50vh+100px)] lg:bottom-auto lg:right-auto"
             style={{
               boxShadow: "0 8px 32px -8px rgba(var(--color-brand-rgb), 0.25)",
             }}
           >
-            <div className="phoneCardHeroContent relative flex flex-col opacity-100">
-              <div className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-white" style={{ minWidth: "8px" }} />
+            <div className="flex items-start justify-end gap-2">
+              <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-white" style={{ minWidth: "8px" }} />
+              <div className="flex flex-col">
                 <span className="text-xs font-medium text-white">
                   Realtime tracking
                 </span>
+                <p className="mt-1 text-[10px] uppercase tracking-wider text-white/90">
+                  Altijd actueel
+                </p>
               </div>
-              <p className="mt-1 text-[10px] uppercase tracking-wider text-white/90">
-                Altijd actueel
-              </p>
-            </div>
-            <div
-              className="phoneCardSectionContent absolute inset-0 flex flex-col justify-center opacity-0"
-              aria-hidden
-            >
-              <div className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-white" style={{ minWidth: "8px" }} />
-                <span className="text-xs font-medium text-white">
-                  Eén platform
-                </span>
-              </div>
-              <p className="mt-1 text-[10px] uppercase tracking-wider text-white/90">
-                Onderhoud & tracking
-              </p>
             </div>
           </div>
           {/* Extra cards:zelfde hoogte als phoneCard, horizontaal, zonder pivot */}
           <div
-            className="phoneCardLeft absolute top-[30%] left-0 z-20 hidden flex-col opacity-0 rounded-lg border border-brand bg-brand px-4 py-3 shadow-lg backdrop-blur-md lg:flex"
+            className="phoneCardLeft absolute top-[30%] left-0 z-20 hidden items-start gap-2 opacity-0 rounded-lg border border-brand bg-brand px-4 py-3 shadow-lg backdrop-blur-md lg:flex"
             style={{ boxShadow: "0 8px 32px -8px rgba(var(--color-brand-rgb), 0.2)" }}
           >
-            <div className="flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-white" style={{ minWidth: "8px" }} />
+            <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-white" style={{ minWidth: "8px" }} />
+            <div className="flex flex-col">
               <span className="text-xs font-medium text-white">Onderhoud</span>
+              <p className="mt-1 text-[10px] uppercase tracking-wider text-white/90">Planning</p>
             </div>
-            <p className="mt-1 text-[10px] uppercase tracking-wider text-white/90">Planning</p>
           </div>
           <div
-            className="phoneCardRight absolute bottom-[30%] right-0 z-20 hidden flex-col opacity-0 rounded-lg border border-brand bg-brand px-4 py-3 shadow-lg backdrop-blur-md lg:flex"
+            className="phoneCardRight absolute bottom-[30%] right-0 z-20 hidden items-start gap-2 opacity-0 rounded-lg border border-brand bg-brand px-4 py-3 shadow-lg backdrop-blur-md lg:flex"
             style={{ boxShadow: "0 8px 32px -8px rgba(var(--color-brand-rgb), 0.2)" }}
           >
-            <div className="flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-white" style={{ minWidth: "8px" }} />
+            <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-white" style={{ minWidth: "8px" }} />
+            <div className="flex flex-col">
               <span className="text-xs font-medium text-white">Rapportages</span>
+              <p className="mt-1 text-[10px] uppercase tracking-wider text-white/90">Real-time</p>
             </div>
-            <p className="mt-1 text-[10px] uppercase tracking-wider text-white/90">Real-time</p>
           </div>
           <div className="phoneMockup relative z-10 mx-auto h-[320px] w-[160px] sm:h-[400px] sm:w-[200px] md:h-[440px] md:w-[220px] lg:h-[480px] lg:w-[240px]">
           {/* Canonical size 310×630 — Premium iPhone 16 Pro mockup */}

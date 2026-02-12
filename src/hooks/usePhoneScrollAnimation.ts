@@ -8,6 +8,11 @@ const PHONE_MOVE_X = 60;
 const PHONE_MOVE_Y = -15;
 const CARD_SCALE_END = 0.92;
 const PIVOT_ROTATION = 3; // Kleine pivot (graden) aan einde
+/** Op kleinere desktop: telefoon verkleint tijdens scroll (alleen binnen matchMedia). */
+const SMALL_DESKTOP_BREAKPOINT = "(max-width: 1280px)";
+const PHONE_SCALE_END = 0.88; // scale telefoon aan einde scroll (kleinere desktop)
+/** Op kleinere desktop: cards 64px lager in endstate (startpositie in hero ongewijzigd). */
+const CARD_END_Y_OFFSET_SMALL_DESKTOP = 64;
 
 /**
  * Scroll-gekoppelde animatie: phoneWrap naar rechts, phoneCard naar rechterbovenhoek phoneMockup.
@@ -16,6 +21,7 @@ const PIVOT_ROTATION = 3; // Kleine pivot (graden) aan einde
 export function usePhoneScrollAnimation(scopeRef: React.RefObject<HTMLElement | null>) {
   const prefersReducedMotion = usePrefersReducedMotion();
   const ctxRef = useRef<ReturnType<typeof gsap.context> | null>(null);
+  const mmRef = useRef<ReturnType<typeof gsap.matchMedia> | null>(null);
 
   useLayoutEffect(() => {
     if (prefersReducedMotion || typeof window === "undefined") return;
@@ -57,6 +63,24 @@ export function usePhoneScrollAnimation(scopeRef: React.RefObject<HTMLElement | 
         0
       );
 
+      // Kleinere desktop: telefoon verkleint tijdens scroll (zelfde timeline, geen extra trigger)
+      mmRef.current = gsap.matchMedia();
+      mmRef.current.add(SMALL_DESKTOP_BREAKPOINT, () => {
+        gsap.set(phoneMockup, { transformOrigin: "center bottom" });
+        tl.to(
+          phoneMockup,
+          {
+            scale: PHONE_SCALE_END,
+            ease: "none",
+            duration: 1,
+          },
+          0
+        );
+        return () => {
+          gsap.set(phoneMockup, { scale: 1 });
+        };
+      });
+
       // phoneCard: dynamisch naar rechterbovenhoek phoneMockup (relatief t.o.v. phoneWrap)
       const getCardEndPosition = () => {
         const wrap = phoneWrap.getBoundingClientRect();
@@ -66,7 +90,11 @@ export function usePhoneScrollAnimation(scopeRef: React.RefObject<HTMLElement | 
         const phoneTop = pm.top - wrap.top;
         const cardRight = pc.right - wrap.left;
         const cardTop = pc.top - wrap.top;
-        return { x: phoneRight - cardRight, y: phoneTop - cardTop };
+        const yOffset =
+          typeof window !== "undefined" && window.innerWidth <= 1280
+            ? CARD_END_Y_OFFSET_SMALL_DESKTOP
+            : 0;
+        return { x: phoneRight - cardRight, y: phoneTop - cardTop + yOffset };
       };
 
       tl.to(
@@ -102,13 +130,18 @@ export function usePhoneScrollAnimation(scopeRef: React.RefObject<HTMLElement | 
           const wrapWidth = wrap.width;
           return { x: phoneRight - wrapWidth + cr.width - INWARD_OFFSET };
         };
+        const cardEndY = () =>
+          typeof window !== "undefined" && window.innerWidth <= 1280
+            ? CARD_END_Y_OFFSET_SMALL_DESKTOP
+            : 0;
         tl.fromTo(
           cardLeft,
-          { x: () => getCardLeftEnd().x - 80, autoAlpha: 0 },
+          { x: () => getCardLeftEnd().x - 80, y: 0, autoAlpha: 0 },
           {
             x: () => getCardLeftEnd().x,
+            y: cardEndY,
             autoAlpha: 1,
-            rotation: -PIVOT_ROTATION, // Tegendraaien: horizontaal zonder pivot
+            rotation: -PIVOT_ROTATION,
             transformOrigin: "center center",
             ease: "none",
             duration: 0.1,
@@ -117,11 +150,12 @@ export function usePhoneScrollAnimation(scopeRef: React.RefObject<HTMLElement | 
         );
         tl.fromTo(
           cardRight,
-          { x: () => getCardRightEnd().x + 80, autoAlpha: 0 },
+          { x: () => getCardRightEnd().x + 80, y: 0, autoAlpha: 0 },
           {
             x: () => getCardRightEnd().x,
+            y: cardEndY,
             autoAlpha: 1,
-            rotation: -PIVOT_ROTATION, // Tegendraaien: horizontaal zonder pivot
+            rotation: -PIVOT_ROTATION,
             transformOrigin: "center center",
             ease: "none",
             duration: 0.1,
@@ -132,6 +166,8 @@ export function usePhoneScrollAnimation(scopeRef: React.RefObject<HTMLElement | 
     }, scopeRef);
 
     return () => {
+      mmRef.current?.revert();
+      mmRef.current = null;
       ctxRef.current?.revert();
       ctxRef.current = null;
     };

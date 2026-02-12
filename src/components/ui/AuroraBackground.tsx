@@ -29,13 +29,13 @@ export function AuroraBackground({
     >
       <div
         className={cn(
-          "aurora-layer aurora-layer-base pointer-events-none absolute -inset-[10px] opacity-50 will-change-transform",
+          "aurora-layer aurora-layer-base pointer-events-none absolute -inset-[10px] opacity-65 will-change-transform",
           maskClass
         )}
       />
       <div
         className={cn(
-          "aurora-layer aurora-layer-animate pointer-events-none absolute -inset-[10px] opacity-50 will-change-transform",
+          "aurora-layer aurora-layer-animate pointer-events-none absolute -inset-[10px] opacity-65 will-change-transform",
           maskClass
         )}
       />
