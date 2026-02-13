@@ -8,8 +8,8 @@ export function WhatWeDoSection() {
     <section id="wat-we-doen" className="flex min-h-screen flex-col justify-center bg-white">
       <Container>
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-          {/* Linkergrid: tekst met gestaggerde reveal-animatie */}
-          <div className="flex flex-col justify-center">
+          {/* Linkergrid: tekst met gestaggerde reveal-animatie — data-card-anchor voor mobiele scroll-animatie */}
+          <div className="flex flex-col justify-center pt-32 lg:pt-0" data-card-anchor>
             <h2
               className="text-3xl font-bold text-brand md:text-4xl"
               data-reveal="fade-up"

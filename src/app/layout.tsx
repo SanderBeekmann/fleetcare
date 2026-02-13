@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     default: "FleetCare Connect",
     template: "%s | FleetCare Connect",
   },
-  description: "FleetCare Connect — Uw partner in fleetmanagement.",
+  description: "FleetCare Connect is uw partner in fleetmanagement.",
   metadataBase: new URL(baseUrl),
   openGraph: {
     type: "website",

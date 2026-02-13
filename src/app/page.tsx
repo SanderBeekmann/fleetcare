@@ -15,7 +15,7 @@ const organizationSchema = {
   name: "FleetCare Connect",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://fleetcareconnect.nl",
   description:
-    "FleetCare Connect — Uw partner in fleetmanagement. Eenvoudig, inzichtelijk, betrouwbaar.",
+    "FleetCare Connect is uw partner in fleetmanagement. Eenvoudig, inzichtelijk, betrouwbaar.",
 };
 
 export default function HomePage() {

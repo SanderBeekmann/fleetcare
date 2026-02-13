@@ -22,6 +22,7 @@ export function StackedFixedSection2() {
         ref={sectionRef}
         data-stacked-section
         className={`stacked-fixed-section flex min-h-screen flex-col justify-center bg-white ${isFixed ? "is-fixed" : ""}`}
+        style={isFixed && slotHeight != null ? { height: `${slotHeight}px` } : undefined}
         {...(isFixed ? { "data-stacked-fixed": "true" } : {})}
       >
         <WhatWeDoSection />

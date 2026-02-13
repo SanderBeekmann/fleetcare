@@ -61,7 +61,7 @@ export function PlansOverview() {
         >
           {plans.map((plan) => (
             <li key={plan.name} className="flex">
-              <Card className="relative flex min-h-[320px] flex-1 flex-col">
+              <Card className="shadow-plan-card relative flex min-h-[320px] flex-1 flex-col transition-shadow duration-300">
                 {plan.badge && (
                   <div className="absolute right-4 top-4">
                     <Badge>{plan.badge}</Badge>

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/Button";
 
 export function CtaBlock() {
   return (
-    <section className="py-section bg-neutral-900 text-white">
+    <section className="cta-klaar-om-te-starten py-section bg-neutral-900 text-white">
       <Container>
         <div className="mx-auto max-w-2xl text-center">
           <h2

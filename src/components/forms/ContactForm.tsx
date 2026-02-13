@@ -66,7 +66,7 @@ export function ContactForm({ variant = "default" }: ContactFormProps) {
           id="name"
           type="text"
           {...register("name")}
-          className="w-full rounded-md border border-neutral-300 px-3 py-2 text-neutral-900 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+          className="w-full rounded-md border border-neutral-300 bg-neutral-100 px-3 py-2 text-neutral-900 focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand"
           autoComplete="name"
         />
         {errors.name && (
@@ -84,7 +84,7 @@ export function ContactForm({ variant = "default" }: ContactFormProps) {
           id="email"
           type="email"
           {...register("email")}
-          className="w-full rounded-md border border-neutral-300 px-3 py-2 text-neutral-900 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+          className="w-full rounded-md border border-neutral-300 bg-neutral-100 px-3 py-2 text-neutral-900 focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand"
           autoComplete="email"
         />
         {errors.email && (
@@ -102,7 +102,7 @@ export function ContactForm({ variant = "default" }: ContactFormProps) {
           id="company"
           type="text"
           {...register("company")}
-          className="w-full rounded-md border border-neutral-300 px-3 py-2 text-neutral-900 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+          className="w-full rounded-md border border-neutral-300 bg-neutral-100 px-3 py-2 text-neutral-900 focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand"
           autoComplete="organization"
         />
       </div>
@@ -115,7 +115,7 @@ export function ContactForm({ variant = "default" }: ContactFormProps) {
           id="message"
           rows={4}
           {...register("message")}
-          className="w-full rounded-md border border-neutral-300 px-3 py-2 text-neutral-900 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent"
+          className="w-full rounded-md border border-neutral-300 bg-neutral-100 px-3 py-2 text-neutral-900 focus:border-brand focus:outline-none focus:ring-1 focus:ring-brand"
         />
         {errors.message && (
           <p className="mt-1 text-sm text-red-600" role="alert">

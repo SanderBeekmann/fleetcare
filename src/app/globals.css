@@ -145,6 +145,40 @@
   background: linear-gradient(105deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 20%, transparent 40%, transparent 100%);
 }
 
+/* Primary CTA: omgekeerde animatie van secondary — blauwe laag krimpt (height 100% → 0) */
+.btn-primary-animate {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--color-brand);
+  color: white;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+.btn-primary-animate::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: white;
+  z-index: -2;
+}
+.btn-primary-animate::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  background: var(--color-brand);
+  transition: height 0.3s ease;
+  z-index: -1;
+}
+.btn-primary-animate:hover {
+  color: var(--color-brand);
+  border-color: var(--color-brand);
+}
+.btn-primary-animate:hover::before {
+  height: 0;
+}
+
 /* Secondary CTA: glasmorphism + hover fill van onder naar boven (merkleur) */
 .btn-secondary-glass {
   position: relative;
@@ -207,4 +241,29 @@
 .stacked-content-above {
   position: relative;
   z-index: 4;
+}
+
+/* CTA "Klaar om te starten": secondary button 100% opacity (alleen deze sectie) */
+.cta-klaar-om-te-starten .btn-secondary-glass {
+  background: rgba(255, 255, 255, 1);
+}
+
+/* Plancards: luxe multi-layer schaduwen voor diepte */
+.shadow-plan-card {
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 4px 8px rgba(0, 0, 0, 0.06),
+    0 12px 24px rgba(0, 0, 0, 0.08),
+    0 24px 48px -12px rgba(0, 0, 0, 0.12),
+    0 0 0 1px rgba(0, 0, 0, 0.03),
+    0 0 80px -20px rgba(var(--color-brand-rgb), 0.08);
+}
+.shadow-plan-card:hover {
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 8px 16px rgba(0, 0, 0, 0.08),
+    0 20px 40px rgba(0, 0, 0, 0.1),
+    0 32px 64px -16px rgba(0, 0, 0, 0.14),
+    0 0 0 1px rgba(0, 0, 0, 0.04),
+    0 0 100px -16px rgba(var(--color-brand-rgb), 0.12);
 }

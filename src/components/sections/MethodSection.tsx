@@ -55,14 +55,14 @@ function StepCard({
 }) {
   const Icon = step.icon;
   return (
-    <div className="method-card relative flex gap-8 pb-12 last:pb-0 md:gap-16">
+    <div className="method-card relative flex gap-8 pb-20 last:pb-0 md:gap-16">
       {/* Icon & vertical line — lijn sluit aan op icon */}
       <div className="flex flex-col items-center">
         <div className="z-10 flex h-14 w-14 flex-shrink-0 items-center justify-center">
           <Icon className="text-brand" size={28} strokeWidth={1.5} />
         </div>
         {!isLast && (
-          <div className="relative -mt-px -mb-5 min-h-[6rem] flex-1 w-px bg-neutral-200">
+          <div className="relative -mt-px -mb-5 min-h-[10rem] flex-1 w-px bg-neutral-200">
             <div
               className="method-line-fill h-full w-full origin-top bg-brand"
               style={{ transform: "scaleY(0)" }}

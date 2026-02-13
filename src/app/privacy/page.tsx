@@ -50,13 +50,13 @@ export default function PrivacyPage() {
               </h3>
               <ul className="mt-4 space-y-3 text-neutral-600 leading-relaxed">
                 <li>
-                  <strong className="text-neutral-900">Noodzakelijke cookies</strong> — Deze cookies zijn essentieel voor het functioneren van de website en kunnen niet worden uitgeschakeld.
+                  <strong className="text-neutral-900">Noodzakelijke cookies</strong>: Deze cookies zijn essentieel voor het functioneren van de website en kunnen niet worden uitgeschakeld.
                 </li>
                 <li>
-                  <strong className="text-neutral-900">Analytische cookies</strong> — Wij gebruiken o.a. Vercel Analytics om anoniem te meten hoe bezoekers onze website gebruiken. Dit helpt ons de site te verbeteren.
+                  <strong className="text-neutral-900">Analytische cookies</strong>: Wij gebruiken o.a. Vercel Analytics om anoniem te meten hoe bezoekers onze website gebruiken. Dit helpt ons de site te verbeteren.
                 </li>
                 <li>
-                  <strong className="text-neutral-900">Marketing cookies</strong> — Deze cookies worden momenteel niet gebruikt op onze website.
+                  <strong className="text-neutral-900">Marketing cookies</strong>: Deze cookies worden momenteel niet gebruikt op onze website.
                 </li>
               </ul>
               <p className="mt-6 text-neutral-600 leading-relaxed">

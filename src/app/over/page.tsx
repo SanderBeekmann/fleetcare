@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { CtaBlock } from "@/components/oplossingen/CtaBlock";
 import { OverPageHero } from "@/components/over/OverPageHero";
 import { OverStackedSection } from "@/components/over/OverStackedSection";
+import { WatIsFleetCareSection } from "@/components/over/WatIsFleetCareSection";
 
 export const metadata: Metadata = {
   title: "Over ons",
@@ -43,65 +43,9 @@ export default function OverPage() {
     <>
       <OverPageHero />
       <OverStackedSection />
+      <WatIsFleetCareSection />
 
       <div className="stacked-content-above relative z-[3]">
-      {/* Wat is FleetCare Connect — lichte sectie, titel links in linker kolom */}
-      <section className="py-section bg-neutral-50">
-        <Container>
-          <div className="grid gap-10 lg:grid-cols-[1fr_2fr] lg:items-start">
-            <div className="text-left">
-<h2
-              className="text-2xl font-bold text-brand md:text-3xl"
-              data-reveal="fade-up"
-            >
-              Wat is FleetCare Connect
-            </h2>
-            </div>
-            <div>
-              <p
-                className="text-base leading-relaxed text-neutral-600"
-                data-reveal="fade-up"
-                data-delay="0.05"
-              >
-                FleetCare Connect (FCC) is hét centrale aftersalesplatform voor Light Electric Vehicles (LEV&apos;s). Wij brengen gecertificeerde servicepartners en LEV-gebruikers samen, om onderhoud, reparaties en pechhulp eenvoudig en betrouwbaar aan te bieden.
-              </p>
-              <h3
-                className="mt-10 text-lg font-semibold text-brand"
-                data-reveal="fade-up"
-              >
-                Met FCC kunt u:
-              </h3>
-              <ul
-                className="mt-6 space-y-4 text-neutral-600 leading-relaxed"
-                data-stagger="children"
-                data-stagger-delay="0.06"
-              >
-              <li className="flex gap-4">
-                <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-brand" aria-hidden />
-                <span>In 1 minuut een aanvraag doen voor de oplossing die het beste bij uw situatie past</span>
-              </li>
-              <li className="flex gap-4">
-                <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-brand" aria-hidden />
-                <span>Een passende oplossing krijgen voor uw LEV-voertuig</span>
-              </li>
-              <li className="flex gap-4">
-                <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-brand" aria-hidden />
-                <span>Realtime statusupdates over uw aanvraag volgen</span>
-              </li>
-              <li className="flex gap-4">
-                <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-brand" aria-hidden />
-                <span>Profiteren van een landelijk netwerk aan gecertificeerde servicepartners</span>
-              </li>
-              <li className="flex gap-4">
-                <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-brand" aria-hidden />
-                <span>Dit allemaal beschikbaar in de FCC-app</span>
-              </li>
-            </ul>
-            </div>
-          </div>
-        </Container>
-      </section>
-
       {/* Waarom FleetCare Connect — brand-achtergrond, drie waarden met iconen */}
       <section className="py-16 md:py-24 bg-brand">
         <Container>
@@ -196,7 +140,6 @@ export default function OverPage() {
         </Container>
       </section>
 
-      <CtaBlock />
       </div>
     </>
   );

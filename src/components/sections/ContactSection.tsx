@@ -34,18 +34,20 @@ export function ContactSection({ variant = "default" }: ContactSectionProps) {
   return (
     <section className={sectionClass}>
       <Container>
-        <h2
-          className={`text-2xl font-bold md:text-3xl ${isOnDark ? "text-white" : "text-brand"}`}
-          data-reveal="fade-up"
-        >
-          Neem contact op
-        </h2>
-        <div className="mt-8 grid gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 lg:items-start">
           <div>
-            <ContactForm variant={isOnDark ? "onDark" : "default"} />
+            <h2
+              className={`text-2xl font-bold md:text-3xl ${isOnDark ? "text-white" : "text-brand"}`}
+              data-reveal="fade-up"
+            >
+              Neem contact op
+            </h2>
+            <div className="mt-8">
+              <ContactForm variant={isOnDark ? "onDark" : "default"} />
+            </div>
           </div>
           <div>
-            <h3 className={`text-sm font-semibold uppercase tracking-wider ${isOnDark ? "text-white" : "text-neutral-900"}`}>
+            <h3 className={`text-sm font-bold uppercase tracking-wider ${isOnDark ? "text-white" : "text-neutral-900"}`}>
               Contactgegevens
             </h3>
             <ul className="mt-4 space-y-4">

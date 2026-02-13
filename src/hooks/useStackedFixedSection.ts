@@ -35,12 +35,16 @@ export function useStackedFixedSection() {
     if (!slot || !section) return;
 
     const top = slot.getBoundingClientRect().top;
+    // Hysteresis: voorkomt flikkeren bij de drempel (5px buffer)
     const shouldBeFixed = top <= 0;
+    const shouldBeUnfixed = top > 5;
 
     if (shouldBeFixed) {
+      // Gebruik de actuele slot-hoogte om layout-shift te voorkomen
+      const height = slot.offsetHeight;
       setIsFixed(true);
-      setSlotHeight(window.innerHeight);
-    } else {
+      setSlotHeight(height);
+    } else if (shouldBeUnfixed) {
       setIsFixed(false);
       setSlotHeight(null);
     }

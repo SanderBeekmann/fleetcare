@@ -25,7 +25,7 @@ export function HeroSection() {
         <section className="relative h-screen w-screen max-w-none overflow-hidden z-20">
       {/* Layer 3: Content — full width, clamp padding voor alle schermgroottes */}
       <div
-        className="relative z-10 mx-auto flex min-h-screen w-full max-w-none flex-col justify-end pb-20 pt-24 md:pb-24 lg:pb-16 xl:pb-12 2xl:justify-center"
+        className="relative z-10 mx-auto flex min-h-screen w-full max-w-none flex-col justify-end pb-20 pt-[min(55vh,420px)] md:pt-24 md:pb-24 lg:pb-16 xl:pb-12 2xl:justify-center"
         style={{ paddingLeft: "clamp(24px, 4vw, 120px)", paddingRight: "clamp(24px, 4vw, 120px)" }}
       >
         {/* 2 gelijke onzichtbare gridkolommen: links content, rechts ruimte voor phone */}
@@ -70,7 +70,7 @@ export function HeroSection() {
       {/* iPhone mockup: z-3 — boven sectie 2 (z-2), onder rest (z-4) */}
       <div
         id="phone-layer"
-        className="fixed inset-0 pointer-events-none flex items-end justify-center pb-20 pt-24 md:pb-24 lg:grid lg:grid-cols-2 lg:items-center"
+        className="fixed inset-0 pointer-events-none flex items-start justify-center pb-20 pt-24 md:pb-24 lg:grid lg:grid-cols-2 lg:items-center"
         style={{ paddingLeft: "clamp(24px, 4vw, 120px)", paddingRight: "clamp(24px, 4vw, 120px)" }}
         aria-hidden
       >

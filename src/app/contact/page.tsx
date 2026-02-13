@@ -15,21 +15,23 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      <section className="border-b border-neutral-200 bg-white py-16 md:py-20">
+      <section className="border-b border-neutral-200 bg-neutral-100 py-16 md:py-20">
         <Container>
-          <h1
-            className="text-3xl font-bold text-brand md:text-4xl lg:text-5xl"
-            data-reveal="fade-up"
-          >
-            Contact
-          </h1>
-          <p
-            className="mt-4 max-w-2xl text-lg text-neutral-600"
-            data-reveal="fade-up"
-            data-delay="0.05"
-          >
-            Heeft u een vraag of wilt u een demo? Laat uw gegevens achter en wij nemen zo snel mogelijk contact met u op.
-          </p>
+          <div className="mx-auto max-w-2xl text-center">
+            <h1
+              className="text-3xl font-bold text-brand md:text-4xl lg:text-5xl"
+              data-reveal="fade-up"
+            >
+              Contact
+            </h1>
+            <p
+              className="mt-4 text-lg text-neutral-600"
+              data-reveal="fade-up"
+              data-delay="0.05"
+            >
+              Heeft u een vraag of wilt u een demo? Laat uw gegevens achter en wij nemen zo snel mogelijk contact met u op.
+            </p>
+          </div>
         </Container>
       </section>
       <ContactSection />

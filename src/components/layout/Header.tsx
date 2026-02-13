@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useLayoutEffect, useRef } from "react";
+import { useState, useLayoutEffect, useRef, useEffect } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
@@ -25,6 +25,20 @@ export function Header() {
   const storeLink = getStoreLink();
   const headerRef = useRef<HTMLElement>(null);
   const lastHideStateRef = useRef<"visible" | "hidden">("visible");
+  const mobileOpenRef = useRef(mobileOpen);
+  mobileOpenRef.current = mobileOpen;
+  const mobileNavRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (mobileNavRef.current && !mobileNavRef.current.contains(e.target as Node)) {
+        setMobileOpen(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, [mobileOpen]);
 
   useLayoutEffect(() => {
     registerGSAP();
@@ -68,7 +82,7 @@ export function Header() {
             applyState(true);
             return;
           }
-          if (direction === 1) applyState(false);
+          if (direction === 1 && !mobileOpenRef.current) applyState(false);
           else if (direction === -1) applyState(true);
         },
       });
@@ -85,7 +99,7 @@ export function Header() {
         applyState(true);
       } else {
         const direction = scrollY > prevScrollY ? 1 : -1;
-        if (direction === 1) applyState(false);
+        if (direction === 1 && !mobileOpenRef.current) applyState(false);
         else applyState(true);
       }
       prevScrollY = scrollY;
@@ -162,11 +176,11 @@ export function Header() {
           style={{ paddingRight: "clamp(24px, 4vw, 48px)" }}
         >
           {storeLink.disabled ? (
-            <div className="flex">
-              <Button variant="primary" href="/contact" className="-mr-px rounded-l-md rounded-r-none px-3 py-2 text-xs focus:ring-0 focus:ring-offset-0">
+            <div className="flex items-stretch">
+              <Button variant="primary" href="/contact" className="-mr-px flex h-9 items-center rounded-l-md rounded-r-none px-3 text-xs focus:ring-0 focus:ring-offset-0">
                 Contact
               </Button>
-              <Button variant="secondary" disabled className="rounded-r-md rounded-l-none px-3 py-2 text-xs focus:ring-0 focus:ring-offset-0">
+              <Button variant="secondary" disabled className="flex h-9 items-center rounded-r-md rounded-l-none px-3 text-xs focus:ring-0 focus:ring-offset-0">
                 {storeLink.label}
               </Button>
             </div>
@@ -179,7 +193,8 @@ export function Header() {
       </div>
 
       {/* Mobile: container-based layout, ongewijzigd */}
-      <Container className="md:hidden">
+      <div ref={mobileNavRef} className="md:hidden">
+      <Container>
         <div className="flex h-16 items-center justify-between">
           <Link
             href="/"
@@ -269,6 +284,7 @@ export function Header() {
           </nav>
         )}
       </Container>
+      </div>
     </header>
   );
 }

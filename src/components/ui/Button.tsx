@@ -24,7 +24,7 @@ type ButtonProps = ButtonAsButton | ButtonAsLink;
 
 const variantStyles: Record<Variant, string> = {
   primary:
-    "bg-brand text-white hover:bg-[var(--color-brand-hover)] border-transparent",
+    "btn-primary-animate border-transparent",
   secondary:
     "btn-secondary-glass",
 };
