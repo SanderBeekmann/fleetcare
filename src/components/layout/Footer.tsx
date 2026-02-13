@@ -57,6 +57,10 @@ export function Footer() {
           <div className="flex flex-col items-center gap-1 text-center sm:items-start sm:text-left">
             <p className="text-sm text-neutral-500">
               © {new Date().getFullYear()} FleetCare Connect. Alle rechten voorbehouden.
+              {" "}
+              <Link href="/privacy" className="text-neutral-500 hover:text-brand">
+                Privacy & Cookies
+              </Link>
             </p>
             <p className="text-xs text-neutral-400">
               Created by{" "}

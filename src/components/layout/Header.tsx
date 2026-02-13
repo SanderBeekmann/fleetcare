@@ -132,33 +132,33 @@ export function Header() {
 
   return (
     <header ref={headerRef} className={`${headerClass} w-full`}>
-      {/* Desktop: grid 1fr auto 1fr zodat logo+nav centraal staan tussen gelijke flanken */}
-      <div className="hidden md:grid md:w-full md:grid-cols-[1fr_auto_1fr] md:items-stretch">
-        <div aria-hidden />
-        <div className="flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 2xl:px-12" style={{ maxWidth: "var(--container-xl, 1280px)" }}>
-          <div className="flex pt-2 pb-0">
-            <Link href="/" className="font-heading text-lg font-semibold text-brand">
-              FleetCare Connect
-            </Link>
-          </div>
-          <nav className="flex h-12 -mt-2 w-full items-center justify-center gap-8">
-            {navLinks.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                className={`group relative flex h-full items-center text-xs font-medium uppercase tracking-[0.15em] ${linkClass(href)}`}
-              >
-                {label}
-                <span
-                  className="absolute bottom-0 left-0 h-0.5 w-full origin-left scale-x-0 bg-brand transition-transform duration-200 ease-out group-hover:scale-x-100"
-                  aria-hidden
-                />
-              </Link>
-            ))}
-          </nav>
-        </div>
+      {/* Desktop: logo links, nav midden, CTA's rechts */}
+      <div className="hidden md:flex md:h-16 md:w-full md:items-center">
         <div
-          className="flex items-center justify-end pl-8"
+          className="flex shrink-0 items-center"
+          style={{ paddingLeft: "clamp(24px, 4vw, 48px)" }}
+        >
+          <Link href="/" className="font-heading text-lg font-semibold text-brand">
+            FleetCare Connect
+          </Link>
+        </div>
+        <nav className="flex h-16 flex-1 items-center justify-center gap-8">
+          {navLinks.map(({ href, label }) => (
+            <Link
+              key={href}
+              href={href}
+              className={`group relative flex h-full items-center text-xs font-medium uppercase tracking-[0.15em] ${linkClass(href)}`}
+            >
+              {label}
+              <span
+                className="absolute bottom-0 left-0 h-0.5 w-full origin-left scale-x-0 bg-brand transition-transform duration-200 ease-out group-hover:scale-x-100"
+                aria-hidden
+              />
+            </Link>
+          ))}
+        </nav>
+        <div
+          className="flex shrink-0 items-center"
           style={{ paddingRight: "clamp(24px, 4vw, 48px)" }}
         >
           {storeLink.disabled ? (

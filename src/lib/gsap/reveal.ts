@@ -10,6 +10,8 @@ const REVEAL_DURATION = 0.6;
 const REVEAL_EASE = "power2.out";
 const REVEAL_START = "top 95%";
 const REVEAL_TOGGLE = "play none none reverse";
+/** Geen reverse: animatie speelt eenmaal en blijft zichtbaar (bv. vaste hero bij scroll terug omhoog). */
+const REVEAL_TOGGLE_NO_REVERSE = "play none none none";
 
 export type RevealType = "fade-up" | "fade-down" | "fade" | "fade-up-small";
 
@@ -64,6 +66,8 @@ export function createRevealAnimations(scope: HTMLElement | null): void {
     const type = (el.dataset.reveal?.trim() || "fade-up") as RevealType;
     const from = revealFrom[type] ?? revealFrom["fade-up"];
     const delay = parseDelay(el);
+    const noReverse = el.hasAttribute("data-reveal-no-reverse");
+    const toggleActions = noReverse ? REVEAL_TOGGLE_NO_REVERSE : REVEAL_TOGGLE;
 
     gsap.fromTo(
       el,
@@ -77,7 +81,7 @@ export function createRevealAnimations(scope: HTMLElement | null): void {
         scrollTrigger: {
           trigger: el,
           start: REVEAL_START,
-          toggleActions: REVEAL_TOGGLE,
+          toggleActions,
         },
       }
     );

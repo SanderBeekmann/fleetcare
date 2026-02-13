@@ -11,6 +11,7 @@ const headingFont = Montserrat({
 });
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { CookieBanner } from "@/components/layout/CookieBanner";
 import { GsapProvider } from "@/components/animations/GsapProvider";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://fleetcareconnect.nl";
@@ -43,6 +44,7 @@ export default function RootLayout({
           <GsapProvider>{children}</GsapProvider>
         </main>
         <Footer />
+        <CookieBanner />
         <Analytics />
       </body>
     </html>

@@ -37,7 +37,7 @@ export function HeroSection() {
             </p>
             <div className="max-w-lg 2xl:max-w-xl">
               <h1 className="text-2xl font-semibold leading-[1.25] text-brand md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl">
-                LEV-Fleetmanagement Van De Toekomst.
+                Fleetmanagement Van De Toekomst.
               </h1>
             </div>
             <p className="mt-4 max-w-lg text-base leading-relaxed text-neutral-700">
