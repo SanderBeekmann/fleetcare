@@ -116,7 +116,7 @@ export default function OverPage() {
             className="text-2xl font-bold text-brand md:text-3xl"
             data-reveal="fade-up"
           >
-            Kennis gemaakt?
+            KENNISMAKEN?
           </h2>
             <p
               className="mt-6 text-base leading-relaxed text-neutral-600"

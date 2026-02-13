@@ -17,19 +17,21 @@ export function getStorePlatform(): StorePlatform {
 export type StoreLinkResult = {
   href: string;
   label: string;
+  hoverLabel?: string;
   disabled: boolean;
 };
 
 /**
  * Geeft link en label voor de app store CTA.
- * Nu: disabled met label "Binnenkort beschikbaar", href "#".
+ * Nu: disabled met label "Webportaal", hover toont "Binnenkort", href "#".
  * Later: echte URLs bij enabled: true.
  */
 export function getStoreLink(): StoreLinkResult {
   const platform = typeof window !== "undefined" ? getStorePlatform() : null;
   return {
     href: "#",
-    label: "Binnenkort beschikbaar",
+    label: "Webportaal",
+    hoverLabel: "Binnenkort",
     disabled: true,
   };
 }

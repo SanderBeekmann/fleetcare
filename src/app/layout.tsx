@@ -40,10 +40,10 @@ export default function RootLayout({
     <html lang="nl" className={headingFont.variable}>
       <body>
         <Header />
-        <main>
-          <GsapProvider>{children}</GsapProvider>
-        </main>
-        <Footer />
+        <GsapProvider>
+          <main>{children}</main>
+          <Footer />
+        </GsapProvider>
         <CookieBanner />
         <Analytics />
       </body>

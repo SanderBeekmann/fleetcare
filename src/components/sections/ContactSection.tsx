@@ -4,6 +4,7 @@ import { ContactForm } from "@/components/forms/ContactForm";
 
 type ContactSectionProps = {
   variant?: "default" | "onDark";
+  id?: string;
 };
 
 const contactDetails = [
@@ -24,7 +25,7 @@ const contactDetails = [
   },
 ];
 
-export function ContactSection({ variant = "default" }: ContactSectionProps) {
+export function ContactSection({ variant = "default", id }: ContactSectionProps) {
   const isOnDark = variant === "onDark";
   const sectionClass = isOnDark
     ? "border-t border-white/20 bg-brand py-section text-white"
@@ -32,7 +33,7 @@ export function ContactSection({ variant = "default" }: ContactSectionProps) {
   const textMuted = isOnDark ? "text-white/80" : "text-neutral-600";
 
   return (
-    <section className={sectionClass}>
+    <section id={id} className={sectionClass}>
       <Container>
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 lg:items-start">
           <div>
@@ -47,7 +48,7 @@ export function ContactSection({ variant = "default" }: ContactSectionProps) {
             </div>
           </div>
           <div>
-            <h3 className={`text-sm font-bold uppercase tracking-wider ${isOnDark ? "text-white" : "text-neutral-900"}`}>
+            <h3 className={`text-base font-bold uppercase tracking-wider ${isOnDark ? "text-white" : "text-brand"}`}>
               Contactgegevens
             </h3>
             <ul className="mt-4 space-y-4">

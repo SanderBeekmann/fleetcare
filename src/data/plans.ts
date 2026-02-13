@@ -78,3 +78,12 @@ export const featureLabels: Record<keyof Plan["features"], string> = {
   whiteLabel: "White label",
   personalContact: "Persoonlijk contact",
 };
+
+export const featureTooltips: Record<keyof Plan["features"], string> = {
+  app: "Beheer uw wagenpark via de mobiele FleetCare Connect app.",
+  webPortal: "Toegang tot het online portaal voor overzicht en rapportages.",
+  realtimeTracking: "Volg uw voertuigen realtime op de kaart.",
+  chat24_7: "Direct contact met onze support via chat, 24 uur per dag.",
+  whiteLabel: "Uw eigen huisstijl in de app en het portaal.",
+  personalContact: "Persoonlijke accountmanager voor uw organisatie.",
+};

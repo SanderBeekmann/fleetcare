@@ -71,11 +71,11 @@ export function FaqSection() {
                     {faq.question}
                   </span>
                   <span
-                    className="flex h-8 w-8 shrink-0 items-center justify-center text-brand transition-transform duration-300 ease-out"
+                    className={`flex h-8 w-8 shrink-0 items-center justify-center text-brand transition-transform duration-250 ease-[cubic-bezier(0.4,0,0.2,1)] origin-center ${isOpen ? "rotate-180" : ""}`}
                     aria-hidden
                   >
                     <ChevronDownIcon
-                      className={`h-5 w-5 ${isOpen ? "rotate-180" : ""}`}
+                      className="h-5 w-5"
                       strokeWidth={2}
                     />
                   </span>

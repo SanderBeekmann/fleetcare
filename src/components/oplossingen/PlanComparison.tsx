@@ -1,7 +1,8 @@
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
-import { plans, featureLabels, type Plan } from "@/data/plans";
+import { InformationCircleIcon } from "@heroicons/react/24/outline";
+import { plans, featureLabels, featureTooltips, type Plan } from "@/data/plans";
 
 const featureKeys = Object.keys(featureLabels) as (keyof Plan["features"])[];
 
@@ -68,7 +69,7 @@ export function PlanComparison() {
                   {getCTAText(plan)}
                 </Button>
 
-                <div className="mt-6 border-t border-neutral-100 pt-6">
+                <div className="mt-6 overflow-visible border-t border-neutral-100 pt-6">
                   <p className="font-semibold text-neutral-900">
                     Alles in {plan.name} +
                   </p>
@@ -78,10 +79,20 @@ export function PlanComparison() {
                         key={key}
                         className="flex items-center gap-2 text-base text-neutral-700"
                       >
-                        <span className="text-brand" aria-hidden>
+                        <span className="shrink-0 text-brand" aria-hidden>
                           ✓
                         </span>
-                        {featureLabels[key]}
+                        <span className="min-w-0 flex-1">{featureLabels[key]}</span>
+                        <span
+                          className="group relative flex shrink-0 cursor-help text-neutral-400 transition-colors hover:text-brand"
+                          aria-label={featureTooltips[key]}
+                        >
+                          <InformationCircleIcon className="h-4 w-4" />
+                          <span className="pointer-events-none absolute bottom-full left-1/2 z-50 mb-1.5 -translate-x-1/2 whitespace-nowrap rounded bg-neutral-900 px-2.5 py-1.5 text-xs font-normal text-white opacity-0 shadow-lg transition-opacity duration-150 group-hover:opacity-100">
+                            {featureTooltips[key]}
+                            <span className="absolute left-1/2 top-full h-0 w-0 -translate-x-1/2 border-4 border-transparent border-t-neutral-900" />
+                          </span>
+                        </span>
                       </li>
                     ))}
                   </ul>

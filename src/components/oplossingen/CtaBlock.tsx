@@ -21,7 +21,7 @@ export function CtaBlock() {
             Neem contact op voor een vrijblijvend gesprek of een demo op maat.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4" data-reveal="fade-up">
-            <Button variant="primary" href="/contact">
+            <Button variant="primary" href="/contact" className="btn-cta-contact">
               Contact opnemen
             </Button>
             <Button variant="secondary" href="/oplossingen#standaard">

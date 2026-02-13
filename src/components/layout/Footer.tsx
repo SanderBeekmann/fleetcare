@@ -27,7 +27,11 @@ export function Footer() {
   return (
     <footer className="relative z-40 bg-white text-neutral-700">
       <Container>
-        <div className="grid gap-10 py-20 sm:grid-cols-2 lg:grid-cols-4">
+        <div
+          className="grid gap-10 py-20 sm:grid-cols-2 lg:grid-cols-4"
+          data-stagger="children"
+          data-stagger-delay="0.06"
+        >
           <div>
             <p className="text-lg font-semibold text-neutral-900">
               FleetCare Connect
@@ -53,7 +57,11 @@ export function Footer() {
             </div>
           ))}
         </div>
-        <div className="flex flex-col items-center justify-between gap-6 border-t border-neutral-200 py-16 sm:flex-row sm:items-center">
+        <div
+          className="flex flex-col items-center justify-between gap-6 border-t border-neutral-200 py-16 sm:flex-row sm:items-center"
+          data-stagger="children"
+          data-stagger-delay="0.08"
+        >
           <div className="flex flex-col items-center gap-1 text-center sm:items-start sm:text-left">
             <p className="text-sm text-neutral-500">
               © {new Date().getFullYear()} FleetCare Connect. Alle rechten voorbehouden.

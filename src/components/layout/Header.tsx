@@ -12,7 +12,7 @@ import { registerGSAP, gsap, ScrollTrigger } from "@/lib/gsap/gsapClient";
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/oplossingen", label: "Oplossingen" },
-  { href: "/over", label: "Over" },
+  { href: "/over", label: "Over ons" },
   { href: "/klanten", label: "Klanten" },
 ];
 
@@ -180,8 +180,15 @@ export function Header() {
               <Button variant="primary" href="/contact" className="-mr-px flex h-9 items-center rounded-l-md rounded-r-none px-3 text-xs focus:ring-0 focus:ring-offset-0">
                 Contact
               </Button>
-              <Button variant="secondary" disabled className="flex h-9 items-center rounded-r-md rounded-l-none px-3 text-xs focus:ring-0 focus:ring-offset-0">
-                {storeLink.label}
+              <Button variant="secondary" disabled className="group/btn relative flex h-9 min-w-0 items-center justify-center overflow-hidden rounded-r-md rounded-l-none px-3 text-xs focus:ring-0 focus:ring-offset-0">
+                <span className="block truncate transition-opacity duration-200 group-hover/btn:opacity-0">
+                  {storeLink.label}
+                </span>
+                {storeLink.hoverLabel && (
+                  <span className="absolute inset-0 flex items-center justify-center truncate opacity-0 transition-opacity duration-200 group-hover/btn:opacity-100">
+                    {storeLink.hoverLabel}
+                  </span>
+                )}
               </Button>
             </div>
           ) : (
@@ -264,9 +271,16 @@ export function Header() {
                     <Button
                       variant="secondary"
                       disabled
-                      className="flex-1 rounded-r-md rounded-l-none focus:ring-0 focus:ring-offset-0"
+                      className="group/btn relative flex-1 overflow-hidden rounded-r-md rounded-l-none focus:ring-0 focus:ring-offset-0"
                     >
-                      {storeLink.label}
+                      <span className="block truncate transition-opacity duration-200 group-hover/btn:opacity-0">
+                        {storeLink.label}
+                      </span>
+                      {storeLink.hoverLabel && (
+                        <span className="absolute inset-0 flex items-center justify-center truncate opacity-0 transition-opacity duration-200 group-hover/btn:opacity-100">
+                          {storeLink.hoverLabel}
+                        </span>
+                      )}
                     </Button>
                   </div>
                 ) : (

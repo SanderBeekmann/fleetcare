@@ -104,6 +104,7 @@
     @apply scroll-smooth;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
   }
   body {
     @apply bg-neutral-50 text-neutral-900 antialiased;
@@ -157,8 +158,13 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: white;
+  background: rgba(255, 255, 255, 0.4);
   z-index: -2;
+}
+
+/* CTA "Klaar om te starten": Contact opnemen — eigen opmaak, witte achtergrond bij hover */
+.cta-klaar-om-te-starten .btn-cta-contact.btn-primary-animate::after {
+  background: white;
 }
 .btn-primary-animate::before {
   content: "";
@@ -209,6 +215,14 @@
   height: 100%;
 }
 
+/* Contactform Verstuur-knop: fix witte overlay (form context overschrijft anders de primary CTA) */
+[data-contact-form] .contact-form-submit.btn-primary-animate {
+  background-color: var(--color-brand);
+}
+[data-contact-form] .contact-form-submit.btn-primary-animate:hover {
+  background-color: transparent;
+}
+
 /* Stacked layers: hero 1, section2 2, phone 3, rest 4 */
 #hero {
   z-index: 1;
@@ -246,6 +260,15 @@
 /* CTA "Klaar om te starten": secondary button 100% opacity (alleen deze sectie) */
 .cta-klaar-om-te-starten .btn-secondary-glass {
   background: rgba(255, 255, 255, 1);
+}
+
+/* Contact page: vloeiende tab-overgang */
+@keyframes contact-tab-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.contact-tab-content {
+  animation: contact-tab-fade 0.3s ease-out;
 }
 
 /* Plancards: luxe multi-layer schaduwen voor diepte */

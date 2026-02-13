@@ -46,8 +46,15 @@ export function HeroSection() {
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               {storeLink.disabled ? (
-                <Button variant="primary" disabled>
-                  {storeLink.label}
+                <Button variant="primary" disabled className="group/btn relative overflow-hidden">
+                  <span className="block transition-opacity duration-200 group-hover/btn:opacity-0">
+                    {storeLink.label}
+                  </span>
+                  {storeLink.hoverLabel && (
+                    <span className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-200 group-hover/btn:opacity-100">
+                      {storeLink.hoverLabel}
+                    </span>
+                  )}
                 </Button>
               ) : (
                 <Button variant="primary" href={storeLink.href}>
