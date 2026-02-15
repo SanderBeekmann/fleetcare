@@ -8,6 +8,7 @@ import {
   createRevealAnimations,
   createCounterAnimations,
   createStaggerAnimations,
+  createLetterStaggerAnimations,
 } from "@/lib/gsap";
 import { registerGSAP, ScrollTrigger } from "@/lib/gsap/gsapClient";
 import type { ReactNode } from "react";
@@ -35,6 +36,7 @@ export function GsapProvider({ children }: GsapProviderProps) {
       createRevealAnimations(scope);
       createCounterAnimations(scope);
       createStaggerAnimations(scope);
+      createLetterStaggerAnimations(scope);
     },
     { enabled: !prefersReducedMotion, deps: [pathname] }
   );

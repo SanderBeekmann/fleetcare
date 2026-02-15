@@ -34,7 +34,7 @@ const DURATION = 36;
 
 function TestimonialCard({ item }: { item: (typeof testimonials)[0] }) {
   return (
-    <Card className="relative flex h-full w-[280px] min-h-[240px] shrink-0 flex-col overflow-hidden border-l-4 border-l-brand px-8 pt-3 pb-10 shadow-md transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg sm:min-h-[260px] sm:w-[320px] sm:px-10 sm:pt-4 sm:pb-12">
+    <Card className="relative flex h-full w-[280px] min-h-[240px] shrink-0 flex-col overflow-hidden border-0 border-l-4 border-l-brand px-8 pt-3 pb-10 transition-all duration-300 ease-out hover:-translate-y-1 sm:min-h-[260px] sm:w-[320px] sm:px-10 sm:pt-4 sm:pb-12 [box-shadow:16px_20px_40px_-12px_rgba(0,0,0,0.22),10px_10px_24px_-8px_rgba(0,0,0,0.14)] hover:[box-shadow:20px_24px_48px_-12px_rgba(0,0,0,0.25),14px_12px_28px_-8px_rgba(0,0,0,0.16)]">
       <div className="mb-3 flex h-10 shrink-0 items-center sm:mb-4 sm:h-12" aria-hidden>
         <div className="flex h-8 w-16 items-center justify-center rounded bg-neutral-200 text-xs font-semibold text-neutral-900 sm:h-10 sm:w-20">
           {item.logo}
@@ -55,7 +55,6 @@ export function TestimonialCarousel() {
   const trackRef = useRef<HTMLDivElement>(null);
   const tlRef = useRef<gsap.core.Timeline | null>(null);
   const prefersReducedMotion = usePrefersReducedMotion();
-  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     if (prefersReducedMotion || typeof window === "undefined") return;
@@ -91,13 +90,6 @@ export function TestimonialCarousel() {
     };
   }, [prefersReducedMotion]);
 
-  useEffect(() => {
-    const tl = tlRef.current;
-    if (!tl) return;
-    if (isHovered) tl.pause();
-    else tl.play();
-  }, [isHovered]);
-
   // Extra sets voor brede viewports — voorkomt lege ruimte aan de rechterkant
   const items = [...testimonials, ...testimonials, ...testimonials, ...testimonials];
 
@@ -106,39 +98,49 @@ export function TestimonialCarousel() {
   return (
     <>
       {/* Mobiel: slideshow met pijltjes, geen pivot */}
-      <div className="relative md:hidden">
-        <div className="flex justify-center overflow-hidden">
+      <div className="relative mx-auto w-[280px] sm:w-[320px] md:hidden">
+        <div className="overflow-hidden">
           <TestimonialCard item={testimonials[mobileIndex]} />
         </div>
-        <div className="mt-6 flex items-center justify-center gap-4">
-          <button
-            type="button"
-            onClick={() => setMobileIndex((i) => (i === 0 ? testimonials.length - 1 : i - 1))}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-neutral-300 bg-white text-neutral-700 shadow-sm transition-colors hover:bg-neutral-50 hover:text-brand"
-            aria-label="Vorige testimonial"
-          >
-            <ChevronLeftIcon className="h-5 w-5" />
-          </button>
-          <span className="text-sm text-neutral-500">
-            {mobileIndex + 1} / {testimonials.length}
-          </span>
-          <button
-            type="button"
-            onClick={() => setMobileIndex((i) => (i === testimonials.length - 1 ? 0 : i + 1))}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-neutral-300 bg-white text-neutral-700 shadow-sm transition-colors hover:bg-neutral-50 hover:text-brand"
-            aria-label="Volgende testimonial"
-          >
-            <ChevronRightIcon className="h-5 w-5" />
-          </button>
+        <div className="mt-6 flex justify-center">
+          <div className="ml-6 flex items-center gap-4">
+            <div className="flex">
+              <button
+              type="button"
+              onClick={() => setMobileIndex((i) => (i === 0 ? testimonials.length - 1 : i - 1))}
+              className="btn-secondary-glass group -mr-px flex h-10 w-10 items-center justify-center rounded-none border"
+              aria-label="Vorige testimonial"
+            >
+              <ChevronLeftIcon
+                className={`h-5 w-5 transition-colors group-hover:text-white ${
+                  mobileIndex === 0 ? "text-neutral-400" : "text-brand"
+                }`}
+              />
+            </button>
+            <button
+              type="button"
+              onClick={() => setMobileIndex((i) => (i === testimonials.length - 1 ? 0 : i + 1))}
+              className="btn-secondary-glass group flex h-10 w-10 items-center justify-center rounded-none border"
+              aria-label="Volgende testimonial"
+            >
+              <ChevronRightIcon
+                className={`h-5 w-5 transition-colors group-hover:text-white ${
+                  mobileIndex === testimonials.length - 1 ? "text-neutral-400" : "text-brand"
+                }`}
+              />
+            </button>
+            </div>
+            <span className="tabular-nums text-sm text-neutral-500">
+              {mobileIndex + 1} / {testimonials.length}
+            </span>
+          </div>
         </div>
       </div>
 
       {/* Desktop: carousel met pivot */}
       <div
-        className="relative hidden w-[100vw] max-w-none overflow-hidden py-12 sm:py-16 md:block"
+        className="relative hidden w-[100vw] max-w-none overflow-hidden pt-4 pb-20 sm:pt-8 sm:pb-24 md:block"
         style={{ marginLeft: "calc(50% - 50vw)", perspective: "800px" }}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
       >
         <div
           className="origin-center"

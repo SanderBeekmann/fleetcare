@@ -39,7 +39,7 @@ export function ContactSection({ variant = "default", id }: ContactSectionProps)
           <div>
             <h2
               className={`text-2xl font-bold md:text-3xl ${isOnDark ? "text-white" : "text-brand"}`}
-              data-reveal="fade-up"
+              data-letter-stagger
             >
               Neem contact op
             </h2>

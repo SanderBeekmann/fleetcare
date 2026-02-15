@@ -25,7 +25,7 @@ export default function OplossingenPage() {
           <Container>
             <h1
               className="text-3xl font-bold text-brand md:text-4xl lg:text-5xl"
-              data-reveal="fade-up"
+              data-letter-stagger
             >
               Oplossingen
             </h1>

@@ -46,7 +46,7 @@ export function FaqSection() {
         <div className="bg-white p-8 md:p-10">
           <h2
             className="text-2xl font-semibold uppercase tracking-wide text-brand md:text-3xl"
-            data-reveal="fade-up"
+            data-letter-stagger
           >
             Veelgestelde vragen
           </h2>

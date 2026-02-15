@@ -26,7 +26,7 @@ export function ContactPageContent() {
           <div className="mx-auto flex max-w-2xl flex-1 flex-col text-center">
             <h1
               className="text-3xl font-bold text-brand md:text-4xl lg:text-5xl"
-              data-reveal="fade-up"
+              data-letter-stagger
             >
               Contact
             </h1>

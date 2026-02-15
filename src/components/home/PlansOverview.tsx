@@ -43,7 +43,7 @@ export function PlansOverview() {
       <Container>
         <h2
           className="text-3xl font-bold text-white md:text-4xl"
-          data-reveal="fade-up"
+          data-letter-stagger
         >
           Kies een plan dat bij u past
         </h2>

@@ -29,7 +29,9 @@ export function WatIsFleetCareSection() {
                 className="text-2xl font-bold text-brand md:text-3xl"
                 data-reveal="fade-up"
               >
-                Wat is FleetCare Connect
+                Wat is FleetCare
+                <br />
+                Connect
               </h2>
             </div>
             <div>

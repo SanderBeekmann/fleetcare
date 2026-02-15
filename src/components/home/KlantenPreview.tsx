@@ -9,7 +9,7 @@ export function KlantenPreview() {
       <Container>
         <h2
           className="text-3xl font-bold text-brand md:text-4xl"
-          data-reveal="fade-up"
+          data-letter-stagger
         >
           Wat klanten zeggen
         </h2>

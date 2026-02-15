@@ -24,7 +24,7 @@ export function HowItWorks() {
       <Container>
         <h2
           className="text-3xl font-bold text-brand md:text-4xl"
-          data-reveal="fade-up"
+          data-letter-stagger
         >
           Hoe het werkt
         </h2>

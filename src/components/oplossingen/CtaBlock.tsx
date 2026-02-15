@@ -9,7 +9,7 @@ export function CtaBlock() {
         <div className="mx-auto max-w-2xl text-center">
           <h2
             className="text-3xl font-bold text-white md:text-4xl"
-            data-reveal="fade-up"
+            data-letter-stagger
           >
             Klaar om te starten?
           </h2>

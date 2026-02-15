@@ -37,7 +37,7 @@ export function OverStackedSection() {
             <div className="max-w-3xl text-left">
               <h2
                 className="text-2xl font-bold text-brand md:text-3xl"
-                data-reveal="fade-up"
+                data-letter-stagger
               >
                 Ons verhaal
               </h2>

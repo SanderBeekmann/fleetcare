@@ -12,7 +12,7 @@ export function WhatWeDoSection() {
           <div className="flex flex-col justify-center pt-32 lg:pt-0" data-card-anchor>
             <h2
               className="text-3xl font-bold text-brand md:text-4xl"
-              data-reveal="fade-up"
+              data-letter-stagger
               data-delay="0"
             >
               Wat we doen

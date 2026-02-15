@@ -21,7 +21,7 @@ export default function KlantenPage() {
         <div className="mx-auto max-w-3xl text-center">
           <h1
             className="text-3xl font-bold text-brand md:text-4xl lg:text-5xl"
-            data-reveal="fade-up"
+            data-letter-stagger
           >
             Uw succesverhaal hier?
           </h1>
