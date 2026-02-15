@@ -49,5 +49,6 @@ export function useGsapContext<T extends HTMLElement>(
       cancelAnimationFrame(raf);
       ctx?.revert();
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- deps is intentionally spread for dynamic dependencies
   }, [scopeRef, enabled, ...deps]);
 }

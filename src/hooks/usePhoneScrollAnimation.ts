@@ -95,7 +95,7 @@ export function usePhoneScrollAnimation(scopeRef: React.RefObject<HTMLElement | 
           const sectionFixed = document.querySelector("#section2")?.classList.contains("is-fixed");
           const anchorBelowViewport = anchorRect.top > (typeof window !== "undefined" ? window.innerHeight : 0);
           if (!sectionFixed && anchorBelowViewport) {
-            const targetTop = (window.innerHeight - anchor.offsetHeight) / 2;
+            const targetTop = (window.innerHeight - anchorRect.height) / 2;
             const containerLeft = (window.innerWidth - Math.min(window.innerWidth - 32, 1280)) / 2 + 16;
             return { x: containerLeft - pc.left, y: targetTop - pc.top };
           }
