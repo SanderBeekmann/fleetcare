@@ -134,7 +134,7 @@ export function AnimatedMobileMenu({
           whileHover={{ scale: 1.1, rotate: 90 }}
           whileTap={{ scale: 0.9 }}
           onClick={onClose}
-          className="absolute right-12 top-6 rounded-lg bg-neutral-100 p-2 text-neutral-900 transition-colors hover:bg-neutral-200"
+          className="absolute right-12 top-6 flex min-h-[44px] min-w-[44px] items-center justify-center rounded-lg bg-neutral-100 p-2 text-neutral-900 transition-colors hover:bg-neutral-200"
           aria-label="Menu sluiten"
         >
           <X size={24} />

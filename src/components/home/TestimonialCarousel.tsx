@@ -108,7 +108,7 @@ export function TestimonialCarousel() {
               <button
               type="button"
               onClick={() => setMobileIndex((i) => (i === 0 ? testimonials.length - 1 : i - 1))}
-              className="btn-secondary-glass group -mr-px flex h-10 w-10 items-center justify-center rounded-none border"
+              className="btn-secondary-glass group -mr-px flex min-h-[44px] min-w-[44px] items-center justify-center rounded-none border"
               aria-label="Vorige testimonial"
             >
               <ChevronLeftIcon
@@ -120,7 +120,7 @@ export function TestimonialCarousel() {
             <button
               type="button"
               onClick={() => setMobileIndex((i) => (i === testimonials.length - 1 ? 0 : i + 1))}
-              className="btn-secondary-glass group flex h-10 w-10 items-center justify-center rounded-none border"
+              className="btn-secondary-glass group flex min-h-[44px] min-w-[44px] items-center justify-center rounded-none border"
               aria-label="Volgende testimonial"
             >
               <ChevronRightIcon

@@ -216,7 +216,7 @@ export function Header() {
 
             <button
               type="button"
-              className="rounded p-2 text-black hover:bg-neutral-100"
+              className="-m-2 flex min-h-[44px] min-w-[44px] items-center justify-center rounded p-2 text-black hover:bg-neutral-100"
               onClick={() => setMobileOpen((o) => !o)}
               aria-expanded={mobileOpen}
               aria-label={mobileOpen ? "Menu sluiten" : "Menu openen"}

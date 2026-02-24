@@ -41,7 +41,7 @@ export function PlansOverview() {
     <section id="plannen" className="py-section bg-brand">
       <Container>
         <h2
-          className="text-3xl font-bold text-white md:text-4xl"
+          className="text-3xl font-bold text-white sm:text-[33px] md:text-4xl"
           data-letter-stagger
         >
           Kies het plan dat bij
@@ -62,9 +62,9 @@ export function PlansOverview() {
             aria-hidden
           >
             {plans.map((plan) => (
-              <div
-                key={plan.name}
-                className="min-h-[320px] rounded-lg bg-white shadow-plan-card transition-shadow duration-300"
+<div
+            key={plan.name}
+            className="min-h-[280px] rounded-lg bg-white shadow-plan-card transition-shadow duration-300 md:min-h-[320px]"
               />
             ))}
           </div>
@@ -75,7 +75,7 @@ export function PlansOverview() {
           >
             {plans.map((plan) => (
               <li key={plan.name} className="flex">
-                <Card className="plan-card shadow-none relative flex min-h-[320px] flex-1 flex-col">
+                <Card className="plan-card shadow-none relative flex min-h-[280px] flex-1 flex-col md:min-h-[320px]">
                 {plan.badge && (
                   <div className="absolute right-4 top-4">
                     <Badge>{plan.badge}</Badge>
@@ -84,7 +84,7 @@ export function PlansOverview() {
                 <h3 className="text-xl font-weight-semibold text-brand">
                   {plan.name}
                 </h3>
-                <p className="mt-2 text-2xl font-bold text-neutral-900">
+                <p className="mt-2 text-xl font-bold text-neutral-900 sm:text-2xl">
                   {plan.price}
                 </p>
                 <p className="text-sm text-neutral-500">{plan.period}</p>

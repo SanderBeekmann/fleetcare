@@ -22,7 +22,7 @@ export function OverPageHero() {
             Over ons
           </p>
           <h1
-            className="mt-4 text-3xl font-bold tracking-tight text-brand md:text-4xl lg:text-5xl"
+            className="mt-4 text-3xl font-bold tracking-tight text-brand sm:text-[34px] md:text-4xl lg:text-5xl"
             data-letter-stagger
             data-delay="0.05"
             data-reveal-no-reverse

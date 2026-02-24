@@ -25,7 +25,7 @@ export function ContactPageContent() {
         <Container className="flex flex-1 flex-col">
           <div className="mx-auto flex max-w-2xl flex-1 flex-col text-center">
             <h1
-              className="text-3xl font-bold text-brand md:text-4xl lg:text-5xl"
+              className="text-3xl font-bold text-brand sm:text-[34px] md:text-4xl lg:text-5xl"
               data-letter-stagger
             >
               Contact
@@ -37,7 +37,7 @@ export function ContactPageContent() {
             >
               Heeft u een vraag of wilt u een demo? Laat uw gegevens achter en wij nemen zo snel mogelijk contact met u op.
             </p>
-            <div className="relative mt-auto flex justify-center gap-8 border-b border-neutral-200 pt-10">
+            <div className="relative mt-auto flex justify-center gap-4 border-b border-neutral-200 pt-10 sm:gap-8">
               {TABS.map(({ id, label }) => {
                 const isActive = activeTab === id;
                 return (
@@ -70,7 +70,7 @@ export function ContactPageContent() {
             <div>
               {activeTab === "vraag" && (
                 <div className="contact-tab-content">
-                  <h2 className="text-2xl font-bold text-brand md:text-3xl">Neem contact op</h2>
+                  <h2 className="text-xl font-bold text-brand sm:text-2xl md:text-3xl">Neem contact op</h2>
                   <div className="mt-8">
                     <ContactForm variant="default" />
                   </div>
@@ -78,7 +78,7 @@ export function ContactPageContent() {
               )}
               {activeTab === "demo" && (
                 <div className="contact-tab-content">
-                  <h2 className="text-2xl font-bold text-brand md:text-3xl">Demo aanvragen</h2>
+                  <h2 className="text-xl font-bold text-brand sm:text-2xl md:text-3xl">Demo aanvragen</h2>
                   <p className="mt-4 max-w-lg text-neutral-600">
                     Plan een vrijblijvende demo in en ontdek hoe FleetCare Connect uw wagenparkbeheer kan verbeteren.
                   </p>

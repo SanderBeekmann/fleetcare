@@ -62,7 +62,7 @@ export function FaqSection() {
                 <button
                   type="button"
                   onClick={() => setOpenIndex(isOpen ? null : i)}
-                  className="group flex w-full items-center justify-between gap-4 py-5 text-left transition-colors"
+                  className="group flex min-h-[44px] w-full items-center justify-between gap-4 py-5 text-left transition-colors"
                   aria-expanded={isOpen}
                   aria-controls={`faq-answer-${i}`}
                   id={`faq-question-${i}`}
@@ -88,7 +88,7 @@ export function FaqSection() {
                   style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
                 >
                   <div className="min-h-0 overflow-hidden">
-                    <p className="pb-5 pr-12 text-base leading-relaxed text-neutral-600">
+                    <p className="pb-5 pr-6 text-base leading-relaxed text-neutral-600 sm:pr-12">
                       {faq.answer}
                     </p>
                   </div>

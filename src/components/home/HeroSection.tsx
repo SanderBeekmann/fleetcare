@@ -31,15 +31,15 @@ export function HeroSection() {
           {/* Links: content linksuitgelijnd in linker grid; op 2xl omhoog (gecentreerd) */}
           <div className="max-w-2xl xl:max-w-4xl 2xl:max-w-5xl 2xl:justify-self-start" data-hero-stagger>
             <div className="max-w-2xl xl:max-w-4xl 2xl:max-w-5xl">
-              <h1 className="text-[26px] font-bold leading-tight text-brand md:font-semibold md:text-3xl lg:text-[32px] xl:text-[44px] 2xl:text-6xl" data-reveal="fade-up" data-reveal-no-reverse>
+              <h1 className="text-[26px] font-bold leading-tight text-brand sm:text-[28px] md:font-semibold md:text-3xl lg:text-[32px] xl:text-[44px] 2xl:text-6xl" data-reveal="fade-up" data-reveal-no-reverse>
                 Uw vloot,<br />
                 <span className="mt-2 block whitespace-nowrap">altijd en overal verbonden</span>
               </h1>
-              <p className="mt-2 text-base font-bold text-brand md:text-lg lg:text-base xl:text-[22px] 2xl:text-[32px]" data-reveal="fade-up" data-reveal-no-reverse>
+              <p className="mt-2 text-base font-bold text-brand sm:text-[17px] md:text-lg lg:text-base xl:text-[22px] 2xl:text-[32px]" data-reveal="fade-up" data-reveal-no-reverse>
                 LEV aftersales service & planning management
               </p>
             </div>
-            <p className="mt-4 max-w-[584px] text-base leading-relaxed text-neutral-700">
+            <p className="mt-4 max-w-full text-base leading-relaxed text-neutral-700 sm:max-w-[584px]">
               In 1 minuut uw aanvraag doen voor service, onderhoud en reparatie binnen ons
               landelijke netwerk van gecertificeerde service partners.<br />
               Dit alles in de FCC-App, met realtime status en transparante afhandeling.

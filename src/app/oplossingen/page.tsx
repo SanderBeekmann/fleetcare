@@ -24,7 +24,7 @@ export default function OplossingenPage() {
         <div className="flex flex-1 flex-col justify-center">
           <Container>
             <h1
-              className="text-3xl font-bold text-brand md:text-4xl lg:text-5xl"
+              className="text-3xl font-bold text-brand sm:text-[34px] md:text-4xl lg:text-5xl"
               data-letter-stagger
             >
               Oplossingen
@@ -75,7 +75,7 @@ export default function OplossingenPage() {
             data-reveal="fade-up"
           >
             <div>
-              <h2 className="text-4xl font-bold text-neutral-900 md:text-5xl">
+              <h2 className="text-3xl font-bold text-neutral-900 sm:text-4xl md:text-5xl">
                 Eerlijke prijzen
               </h2>
             </div>

@@ -55,7 +55,7 @@ function StepCard({
 }) {
   const Icon = step.icon;
   return (
-    <div className="method-card relative flex gap-8 pb-20 last:pb-0 md:gap-16">
+    <div className="method-card relative flex gap-6 pb-20 last:pb-0 md:gap-16">
       {/* Icon & vertical line — lijn gecentreerd tussen de iconen */}
       <div className="flex w-14 flex-shrink-0 flex-col items-center">
         <div className="z-10 flex h-14 w-14 items-center justify-center">
@@ -82,7 +82,7 @@ function StepCard({
           </span>
           <div className="h-px w-12 bg-brand/20" aria-hidden />
         </div>
-        <h3 className="mb-4 text-2xl font-light uppercase tracking-tight text-brand md:text-3xl">
+        <h3 className="mb-4 text-xl font-light uppercase tracking-tight text-brand sm:text-2xl md:text-3xl">
           {step.title}
         </h3>
         <p className="max-w-xl text-sm font-light leading-relaxed text-neutral-600">
@@ -184,7 +184,7 @@ export function MethodSection() {
               </h4>
               <h2
                 id="method-heading"
-                className="font-heading text-5xl font-light leading-[1.1] tracking-tighter text-brand md:text-6xl"
+                className="font-heading text-4xl font-light leading-[1.1] tracking-tighter text-brand sm:text-5xl md:text-6xl"
                 data-reveal="fade-up"
               >
                 Hoe het <br />

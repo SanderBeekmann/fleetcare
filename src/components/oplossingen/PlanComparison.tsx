@@ -54,7 +54,7 @@ export function PlanComparison() {
                 </p>
 
                 <div className={plan.id === "standaard" ? "mt-10" : "mt-4"}>
-                  <span className="block text-3xl font-bold text-neutral-900">
+                  <span className="block text-2xl font-bold text-neutral-900 sm:text-3xl">
                     {plan.price}
                   </span>
                   {plan.priceSub && (
