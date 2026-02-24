@@ -49,6 +49,8 @@ export function Header() {
     const header = headerRef.current;
     if (!header) return;
 
+    const isDesktop = () => window.matchMedia("(min-width: 768px)").matches;
+
     const applyState = (visible: boolean) => {
       if (visible) {
         if (lastHideStateRef.current !== "visible") {
@@ -79,6 +81,7 @@ export function Header() {
         start: "top top",
         end: "bottom bottom",
         onUpdate(self) {
+          if (!isDesktop()) return;
           const scrollY = self.scroll();
           const direction = self.direction;
 
@@ -98,6 +101,10 @@ export function Header() {
     // Fallback: scroll listener voor wanneer ScrollTrigger niet vuurt (bijv. fixed hero-layout)
     let prevScrollY = typeof window !== "undefined" ? window.scrollY : 0;
     const onScroll = () => {
+      if (!isDesktop()) {
+        applyState(true);
+        return;
+      }
       const scrollY = window.scrollY;
       if (scrollY < SCROLL_TOP_THRESHOLD) {
         applyState(true);
@@ -110,8 +117,14 @@ export function Header() {
     };
     window.addEventListener("scroll", onScroll, { passive: true });
 
+    const onResize = () => {
+      if (!isDesktop()) applyState(true);
+    };
+    window.addEventListener("resize", onResize);
+
     return () => {
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
       ctx.revert();
     };
   }, []);

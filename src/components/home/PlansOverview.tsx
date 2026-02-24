@@ -46,7 +46,7 @@ export function PlansOverview() {
         >
           Kies het plan dat bij
           <br />
-          uw organisatie past
+          {" "}uw organisatie past
         </h2>
         <p
           className="mt-3 max-w-2xl text-white/90"
