@@ -22,9 +22,14 @@ export function WhatWeDoSection() {
               data-reveal="fade-up"
               data-delay="0.08"
             >
-              FleetCare Connect brengt uw wagenpark bij elkaar. Realtime tracking, 
-              onderhoudsplanning en overzicht in één platform. Of u nu een handvol 
-              voertuigen heeft of een grote vloot, wij maken het beheer eenvoudig.
+              FleetCare Connect ontzorgt u in het koppelen van uw specifiek LEV aan de best passende servicepartner bij u in de buurt, door heel Nederland.
+            </p>
+            <p
+              className="mt-4 max-w-2xl text-lg text-neutral-600"
+              data-reveal="fade-up"
+              data-delay="0.08"
+            >
+              Behoefte, voertuig informatie, matching met service partner en (primaire) diagnose voor de best match staan bij FleetCare Connect centraal. Dit alles om uw operatie zo efficiënt mogelijk te laten verlopen. Wij hebben een oplossing voor iedere vloot grootte.
             </p>
           </div>
           {/* Rechtergrid: leeg of toekomstige content */}

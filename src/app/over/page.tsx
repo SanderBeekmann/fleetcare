@@ -21,19 +21,19 @@ const values = [
   {
     title: "Eenvoud",
     description:
-      "Één platform voor tracking, onderhoud en rapportages. Geen versnipperde systemen meer.",
+      "Één platform voor onderhoud, reparatie en real time tracking. Geen complexe handelingen, alles centraal.",
     icon: "zap",
   },
   {
     title: "Inzicht",
     description:
-      "Realtime data over uw wagenpark. Altijd weten waar uw voertuigen zijn en wat de status is.",
+      "Realtime data over uw LEV-vloot. Altijd weten welke zorg uw voertuigen nodig hebben, met service status en overzicht.",
     icon: "eye",
   },
   {
     title: "Betrouwbaarheid",
     description:
-      "Stabiele techniek, duidelijke afspraken en support wanneer u ons nodig heeft.",
+      "Transparante communicatie over behoeften, status en administratieve verwachtingen van alle betrokkenen.",
     icon: "shield",
   },
 ];

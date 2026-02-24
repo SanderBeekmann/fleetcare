@@ -4,7 +4,6 @@ import { useRef } from "react";
 import { Button } from "@/components/ui/Button";
 import { Image } from "@/components/ui/Image";
 import { AuroraBackground } from "@/components/ui/AuroraBackground";
-import { getStoreLink } from "@/lib/storeLinks";
 import { usePhoneScrollAnimation } from "@/hooks/usePhoneScrollAnimation";
 import { useHeroStaggerAnimation } from "@/hooks/useHeroStaggerAnimation";
 
@@ -12,7 +11,6 @@ import interfaceImage from "@/assets/interface.png";
 
 export function HeroSection() {
   const heroScopeRef = useRef<HTMLDivElement>(null);
-  const storeLink = getStoreLink();
 
   usePhoneScrollAnimation(heroScopeRef);
   useHeroStaggerAnimation(heroScopeRef);
@@ -25,42 +23,31 @@ export function HeroSection() {
         <section className="relative h-screen w-screen max-w-none overflow-hidden z-20">
       {/* Layer 3: Content — full width, clamp padding voor alle schermgroottes */}
       <div
-        className="relative z-10 mx-auto flex min-h-screen w-full max-w-none flex-col justify-end pb-20 pt-[min(55vh,420px)] md:pt-24 md:pb-24 lg:pb-16 xl:pb-12 2xl:justify-center"
+        className="relative z-10 mx-auto flex min-h-screen w-full max-w-none flex-col justify-end pb-20 pt-24 sm:pt-32 md:pt-24 md:pb-24 lg:justify-center lg:pb-16 xl:pt-12 xl:pb-12 2xl:justify-center 2xl:pt-16"
         style={{ paddingLeft: "clamp(24px, 4vw, 120px)", paddingRight: "clamp(24px, 4vw, 120px)" }}
       >
         {/* 2 gelijke onzichtbare gridkolommen: links content, rechts ruimte voor phone */}
-        <div className="grid items-end gap-12 lg:grid-cols-2 lg:gap-16 2xl:grid-cols-2 2xl:items-center 2xl:gap-16">
+        <div className="grid items-end gap-12 lg:grid-cols-2 lg:items-center lg:gap-16 2xl:grid-cols-2 2xl:items-center 2xl:gap-16">
           {/* Links: content linksuitgelijnd in linker grid; op 2xl omhoog (gecentreerd) */}
-          <div className="max-w-xl 2xl:max-w-2xl 2xl:justify-self-start" data-hero-stagger>
-            <p className="mb-3 text-sm font-medium uppercase tracking-wider text-neutral-600">
-              Uw wagenpark in één oogopslag
-            </p>
-            <div className="max-w-lg 2xl:max-w-xl">
-              <h1 className="text-2xl font-semibold leading-[1.25] text-brand md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl" data-reveal="fade-up" data-reveal-no-reverse>
-                Fleetmanagement Van De Toekomst.
+          <div className="max-w-2xl xl:max-w-4xl 2xl:max-w-5xl 2xl:justify-self-start" data-hero-stagger>
+            <div className="max-w-2xl xl:max-w-4xl 2xl:max-w-5xl">
+              <h1 className="text-[26px] font-bold leading-tight text-brand md:font-semibold md:text-3xl lg:text-[32px] xl:text-[44px] 2xl:text-6xl" data-reveal="fade-up" data-reveal-no-reverse>
+                Uw vloot,<br />
+                <span className="mt-2 block whitespace-nowrap">altijd en overal verbonden</span>
               </h1>
+              <p className="mt-2 text-lg font-medium text-brand md:text-xl lg:text-xl xl:text-[26px] 2xl:text-4xl" data-reveal="fade-up" data-reveal-no-reverse>
+                LEV aftersales service & planning management
+              </p>
             </div>
-            <p className="mt-4 max-w-lg text-base leading-relaxed text-neutral-700">
-              Doe in 1 minuut een aanvraag, volg realtime de status en profiteer
-              van ons landelijk netwerk aan gecertificeerde servicepartners. Alles in de FCC-app.
+            <p className="mt-4 max-w-[584px] text-base leading-relaxed text-neutral-700">
+              In 1 minuut uw aanvraag doen voor service, onderhoud en reparatie binnen ons
+              landelijke netwerk van gecertificeerde service partners.<br />
+              Dit alles in de FCC-App, met realtime status en transparante afhandeling.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              {storeLink.disabled ? (
-                <Button variant="primary" disabled className="group/btn relative overflow-hidden">
-                  <span className="block transition-opacity duration-200 group-hover/btn:opacity-0">
-                    {storeLink.label}
-                  </span>
-                  {storeLink.hoverLabel && (
-                    <span className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-200 group-hover/btn:opacity-100">
-                      {storeLink.hoverLabel}
-                    </span>
-                  )}
-                </Button>
-              ) : (
-                <Button variant="primary" href={storeLink.href}>
-                  {storeLink.label}
-                </Button>
-              )}
+              <Button variant="primary" href="/contact">
+                Contact
+              </Button>
               <Button variant="secondary" href="/oplossingen">
                 Bekijk oplossingen
               </Button>
@@ -82,7 +69,7 @@ export function HeroSection() {
         aria-hidden
       >
         <div className="hidden lg:block" aria-hidden />
-        <div className="phoneWrap relative flex w-full items-end justify-center lg:items-center lg:justify-center">
+        <div className="phoneWrap relative flex w-full items-end justify-center lg:translate-x-8 lg:items-center lg:justify-center xl:translate-x-8 2xl:translate-x-0">
           {/* Glasmorphism card: animeert naar rechterbovenhoek iPhone bij scroll */}
           <div
             className="phoneCard absolute bottom-6 right-4 z-20 rounded-lg border border-brand bg-brand px-6 py-3 shadow-xl backdrop-blur-md md:bottom-8 md:right-6 lg:left-[calc(25vw+60px)] lg:top-[calc(50vh+100px)] lg:bottom-auto lg:right-auto 2xl:top-[calc(50vh-12px)]"

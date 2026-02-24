@@ -6,6 +6,7 @@ import { useState, useLayoutEffect, useRef, useEffect } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { AnimatedMobileMenu } from "@/components/ui/AnimatedMobileMenu";
 import { getStoreLink } from "@/lib/storeLinks";
 import { registerGSAP, gsap, ScrollTrigger } from "@/lib/gsap/gsapClient";
 
@@ -27,17 +28,20 @@ export function Header() {
   const lastHideStateRef = useRef<"visible" | "hidden">("visible");
   const mobileOpenRef = useRef(mobileOpen);
   mobileOpenRef.current = mobileOpen;
-  const mobileNavRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!mobileOpen) return;
-    const handleClickOutside = (e: MouseEvent) => {
-      if (mobileNavRef.current && !mobileNavRef.current.contains(e.target as Node)) {
-        setMobileOpen(false);
-      }
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileOpen(false);
     };
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
+    document.addEventListener("keydown", handleEscape);
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", handleEscape);
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
+    };
   }, [mobileOpen]);
 
   useLayoutEffect(() => {
@@ -199,106 +203,41 @@ export function Header() {
         </div>
       </div>
 
-      {/* Mobile: container-based layout, ongewijzigd */}
-      <div ref={mobileNavRef} className="md:hidden">
-      <Container>
-        <div className="flex h-16 items-center justify-between">
-          <Link
-            href="/"
-            className="font-heading text-lg font-semibold text-black md:hidden"
-          >
-            FleetCare Connect
-          </Link>
+      {/* Mobile: hamburger + animated menu (rechts) */}
+      <div className="md:hidden">
+        <Container>
+          <div className="flex h-16 items-center justify-between">
+            <Link
+              href="/"
+              className="font-heading text-lg font-semibold text-black"
+            >
+              FleetCare Connect
+            </Link>
 
-          <nav className="hidden md:flex md:h-full md:items-center md:justify-center md:flex-1 md:gap-8">
-            {navLinks.map(({ href, label }) => (
-              <Link
-                key={href}
-                href={href}
-                className={`group relative flex md:h-full md:items-center text-xs font-medium uppercase tracking-[0.15em] ${linkClass(href)}`}
-              >
-                {label}
-                <span
-                  className="absolute bottom-0 left-0 h-0.5 w-full origin-left scale-x-0 bg-brand transition-transform duration-200 ease-out group-hover:scale-x-100"
-                  aria-hidden
-                />
-              </Link>
-            ))}
-          </nav>
-
-          <button
-            type="button"
-            className="md:hidden rounded p-2 text-black hover:bg-neutral-100"
-            onClick={() => setMobileOpen((o) => !o)}
-            aria-expanded={mobileOpen}
-            aria-label={mobileOpen ? "Menu sluiten" : "Menu openen"}
-          >
-            {mobileOpen ? (
-              <XMarkIcon className="h-6 w-6" />
-            ) : (
-              <Bars3Icon className="h-6 w-6" />
-            )}
-          </button>
-        </div>
-
-        {mobileOpen && (
-          <nav
-            className="border-t border-neutral-200 py-4 md:hidden"
-          >
-            <ul className="flex flex-col gap-2">
-              {navLinks.map(({ href, label }) => (
-                <li key={href}>
-                  <Link
-                    href={href}
-                    className={`block py-2 ${linkClass(href)}`}
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    {label}
-                  </Link>
-                </li>
-              ))}
-              <li>
-                {storeLink.disabled ? (
-                  <div className="flex">
-                    <Button
-                      variant="primary"
-                      href="/contact"
-                      className="-mr-px flex-1 rounded-l-md rounded-r-none focus:ring-0 focus:ring-offset-0"
-                      onClick={() => setMobileOpen(false)}
-                    >
-                      Contact
-                    </Button>
-                    <Button
-                      variant="secondary"
-                      disabled
-                      className="group/btn relative flex-1 overflow-hidden rounded-r-md rounded-l-none focus:ring-0 focus:ring-offset-0"
-                    >
-                      <span className="block truncate transition-opacity duration-200 group-hover/btn:opacity-0">
-                        {storeLink.label}
-                      </span>
-                      {storeLink.hoverLabel && (
-                        <span className="absolute inset-0 flex items-center justify-center truncate opacity-0 transition-opacity duration-200 group-hover/btn:opacity-100">
-                          {storeLink.hoverLabel}
-                        </span>
-                      )}
-                    </Button>
-                  </div>
-                ) : (
-                  <Button
-                    variant="secondary"
-                    className="w-full"
-                    href={storeLink.href}
-                    onClick={() => setMobileOpen(false)}
-                  >
-                    {storeLink.label}
-                  </Button>
-                )}
-              </li>
-            </ul>
-          </nav>
-        )}
-      </Container>
+            <button
+              type="button"
+              className="rounded p-2 text-black hover:bg-neutral-100"
+              onClick={() => setMobileOpen((o) => !o)}
+              aria-expanded={mobileOpen}
+              aria-label={mobileOpen ? "Menu sluiten" : "Menu openen"}
+            >
+              {mobileOpen ? (
+                <XMarkIcon className="h-6 w-6" />
+              ) : (
+                <Bars3Icon className="h-6 w-6" />
+              )}
+            </button>
+          </div>
+        </Container>
       </div>
+
+      <AnimatedMobileMenu
+        isOpen={mobileOpen}
+        onClose={() => setMobileOpen(false)}
+        navLinks={navLinks}
+        storeLink={storeLink}
+        linkClass={linkClass}
+      />
     </header>
   );
 }

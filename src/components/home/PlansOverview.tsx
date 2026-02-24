@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
@@ -9,7 +8,7 @@ const plans = [
     name: "Standaard",
     price: "€1,49",
     period: "per voertuig per maand",
-    min: "24 maanden",
+    min: "12 maanden",
     cta: "Bekijk details",
     href: "/oplossingen#standaard",
     badge: null,
@@ -23,7 +22,7 @@ const plans = [
     cta: "Bekijk details",
     href: "/oplossingen#smart",
     badge: "Populair",
-    included: ["App", "Webportaal", "Realtime tracking", "Chat 24/7"],
+    included: ["App", "Realtime tracking", "Webportaal", "Chat 24/7"],
   },
   {
     name: "Enterprise",
@@ -33,7 +32,7 @@ const plans = [
     cta: "Neem contact op",
     href: "/contact",
     badge: null,
-    included: ["App", "Webportaal", "Realtime tracking", "Chat 24/7", "White label", "Persoonlijk contact"],
+    included: ["App", "Realtime tracking", "Webportaal", "Chat 24/7", "White label", "Persoonlijk contact"],
   },
 ];
 
@@ -45,23 +44,38 @@ export function PlansOverview() {
           className="text-3xl font-bold text-white md:text-4xl"
           data-letter-stagger
         >
-          Kies een plan dat bij u past
+          Kies het plan dat bij
+          <br />
+          uw organisatie past
         </h2>
         <p
           className="mt-3 max-w-2xl text-white/90"
           data-reveal="fade-up"
           data-delay="0.05"
         >
-          Van eenvoudig tracken tot volledig maatwerk. Transparante prijzen, geen verrassingen.
+          Van eenvoudige matching en ontzorgen van plannen, tot maatwerk voor grotere operaties.
         </p>
-        <ul
-          className="mt-10 grid gap-6 md:grid-cols-3 md:items-stretch"
-          data-stagger="children"
-          data-stagger-delay="0.5"
-        >
-          {plans.map((plan) => (
-            <li key={plan.name} className="flex">
-              <Card className="shadow-plan-card relative flex min-h-[320px] flex-1 flex-col transition-shadow duration-300">
+        <div className="plans-cards-wrapper relative mt-10 bg-brand">
+          {/* Schaduwlaag achter alle cards — schaduw valt altijd onder, nooit over andere cards */}
+          <div
+            className="plan-shadow-layer absolute inset-0 hidden grid grid-cols-1 gap-6 bg-brand md:grid-cols-3 md:items-stretch"
+            aria-hidden
+          >
+            {plans.map((plan) => (
+              <div
+                key={plan.name}
+                className="min-h-[320px] rounded-lg bg-white shadow-plan-card transition-shadow duration-300"
+              />
+            ))}
+          </div>
+          <ul
+            className="relative z-10 grid gap-6 md:grid-cols-3 md:items-stretch"
+            data-stagger="children"
+            data-stagger-delay="0.5"
+          >
+            {plans.map((plan) => (
+              <li key={plan.name} className="flex">
+                <Card className="plan-card shadow-none relative flex min-h-[320px] flex-1 flex-col">
                 {plan.badge && (
                   <div className="absolute right-4 top-4">
                     <Badge>{plan.badge}</Badge>
@@ -98,7 +112,8 @@ export function PlansOverview() {
               </Card>
             </li>
           ))}
-        </ul>
+          </ul>
+        </div>
       </Container>
     </section>
   );

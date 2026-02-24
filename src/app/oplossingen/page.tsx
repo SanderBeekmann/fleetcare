@@ -34,7 +34,7 @@ export default function OplossingenPage() {
               data-reveal="fade-up"
               data-delay="0.05"
             >
-              Wij bieden een oplossing voor elke LEV vloot. Van een complete oplossing voor minimale downtime, tot service alleen wanneer u het nodig heeft. Voor iedere behoefte, heeft FleetCare Connect een oplossing.
+              Wij ontzorgen ieder type klant, ongeacht uw vloot grootte. Van eenvoudige matching en ontzorgen van plannen, tot maatwerk voor grotere operaties. FleetCare Connect heeft voor iedere individuele behoefte een oplossing.
             </p>
             <div className="mt-8" data-reveal="fade-up" data-delay="0.1">
               <Button variant="secondary" href="#eerlijke-prijzen">

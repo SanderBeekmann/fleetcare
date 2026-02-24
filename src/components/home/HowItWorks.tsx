@@ -8,13 +8,13 @@ const steps = [
   },
   {
     step: 2,
-    title: "Account en installatie",
-    text: "Wij zetten uw account in en begeleiden de koppeling met uw voertuigen.",
+    title: "Direct aan de slag",
+    text: "Log in op de app, en wij regelen uw aftersales-werkzaamheden.",
   },
   {
     step: 3,
-    title: "Direct aan de slag",
-    text: "Log in op de app of het portaal en begin met beheren en monitoren.",
+    title: "Wordt volledig ontzorgd",
+    text: "Volledige ontzorging door onze specialisten en het slimme algoritme van de app",
   },
 ];
 
@@ -33,7 +33,7 @@ export function HowItWorks() {
           data-reveal="fade-up"
           data-delay="0.05"
         >
-          In drie stappen naar een beter beheerd wagenpark.
+          In drie stappen naar een slim georganiseerd aftersales systeem. Wij combineren data met intuïtieve technologie.
         </p>
         <ol
           className="mt-10 grid gap-8 md:grid-cols-3"

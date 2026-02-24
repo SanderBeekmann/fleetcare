@@ -123,6 +123,29 @@
   }
 }
 
+/* Custom scrollbar — merkkleur, passend bij FleetCare Connect */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-brand) var(--color-neutral-200);
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-track {
+  background: var(--color-neutral-200);
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--color-brand);
+  border-radius: var(--radius-full);
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-hover);
+}
+*::-webkit-scrollbar-corner {
+  background: var(--color-neutral-200);
+}
+
 /* Hero: subtiele grain texture (geen extra dependency) */
 @layer utilities {
   /* Override globale heading font-weight: plankaarten en andere titels die dikker moeten */
@@ -271,7 +294,7 @@
   animation: contact-tab-fade 0.3s ease-out;
 }
 
-/* Plancards: luxe multi-layer schaduwen voor diepte */
+/* Plancards: schaduw valt onder de cards (alleen naar beneden) */
 .shadow-plan-card {
   box-shadow:
     0 1px 2px rgba(0, 0, 0, 0.04),
@@ -279,7 +302,7 @@
     0 12px 24px rgba(0, 0, 0, 0.08),
     0 24px 48px -12px rgba(0, 0, 0, 0.12),
     0 0 0 1px rgba(0, 0, 0, 0.03),
-    0 0 80px -20px rgba(var(--color-brand-rgb), 0.08);
+    0 20px 40px -10px rgba(var(--color-brand-rgb), 0.08);
 }
 .shadow-plan-card:hover {
   box-shadow:
@@ -288,5 +311,18 @@
     0 20px 40px rgba(0, 0, 0, 0.1),
     0 32px 64px -16px rgba(0, 0, 0, 0.14),
     0 0 0 1px rgba(0, 0, 0, 0.04),
-    0 0 100px -16px rgba(var(--color-brand-rgb), 0.12);
+    0 24px 48px -8px rgba(var(--color-brand-rgb), 0.12);
+}
+
+/* Plan cards: hover op card → schaduwlaag krijgt hover (via :has) */
+.plans-cards-wrapper:has(li:nth-child(1):hover) .plan-shadow-layer > div:nth-child(1),
+.plans-cards-wrapper:has(li:nth-child(2):hover) .plan-shadow-layer > div:nth-child(2),
+.plans-cards-wrapper:has(li:nth-child(3):hover) .plan-shadow-layer > div:nth-child(3) {
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 8px 16px rgba(0, 0, 0, 0.08),
+    0 20px 40px rgba(0, 0, 0, 0.1),
+    0 32px 64px -16px rgba(0, 0, 0, 0.14),
+    0 0 0 1px rgba(0, 0, 0, 0.04),
+    0 24px 48px -8px rgba(var(--color-brand-rgb), 0.12);
 }

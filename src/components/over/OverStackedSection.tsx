@@ -18,7 +18,7 @@ export function OverStackedSection() {
       <div
         ref={sectionRef}
         data-stacked-section
-        className={`stacked-fixed-section flex min-h-screen flex-col justify-center bg-white ${isFixed ? "is-fixed" : ""}`}
+        className={`stacked-fixed-section flex min-h-screen flex-col justify-center border-t border-brand bg-white ${isFixed ? "is-fixed" : ""}`}
         style={isFixed && slotHeight != null ? { height: `${slotHeight}px` } : undefined}
         {...(isFixed ? { "data-stacked-fixed": "true" } : {})}
       >
@@ -46,20 +46,19 @@ export function OverStackedSection() {
                 data-reveal="fade-up"
                 data-delay="0.05"
               >
-                Aan de hand van resultaten van een van onze onderzoeksstages ging
-                er een belletje rinkelen. Uit onderzoek bleek dat aftersales in
-                de Light Electric Vehicle-branche te wensen overliet. Hiervoor is
-                FleetCare Connect de juiste oplossing.
+                Aan de hand van de resultaten van een onderzoeksstage, ging er een belletje
+                rinkelen rondom aftersales organisatie. Uit onderzoek bleek dat de aftersales
+                voor de Light Electric vehicle-branche te wensen overliet. Op basis hiervan
+                is FleetCare Connect opgezet om de elektrificering in Nederland écht te kunnen helpen.
               </p>
               <p
                 className="mt-6 text-base leading-relaxed text-neutral-600"
                 data-reveal="fade-up"
                 data-delay="0.1"
               >
-                Door ons centrale platform willen wij LEV-gebruikers en
-                servicepartners bij elkaar brengen om downtime zo veel mogelijk te
-                reduceren en aftersales-afhandelingen zo snel mogelijk te laten
-                verlopen, zonder complexe procedures.
+                Door ons centrale platform willen wij LEV-fleetowners en servicepartners
+                samenbrengen om in iedere operatie downtime te minimaliseren. Dit, zonder
+                complexe processen en eindeloze handmatige administratieve taken.
               </p>
             </div>
           </div>

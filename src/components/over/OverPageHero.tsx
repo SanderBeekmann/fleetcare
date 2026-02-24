@@ -27,7 +27,9 @@ export function OverPageHero() {
             data-delay="0.05"
             data-reveal-no-reverse
           >
-            Het verhaal achter FleetCare Connect
+            Het verhaal achter
+            <br />
+            FleetCare Connect
           </h1>
           <p
             className="mt-6 max-w-2xl text-lg leading-relaxed text-neutral-900"
@@ -35,8 +37,9 @@ export function OverPageHero() {
             data-delay="0.1"
             data-reveal-no-reverse
           >
-            Van onderzoeksresultaten in de LEV-branche tot één centraal platform
-            dat aftersales sneller en eenvoudiger maakt.
+            Van eigen onderzoek naar de LEV branche, tot een nationaal gecentraliseerd
+            aftersales platform om aftersales efficiënter en eenvoudiger aan te kunnen bieden
+            voor Light Electric Vehicles.
           </p>
           <div className="mt-10" data-reveal="fade-up" data-delay="0.15" data-reveal-no-reverse>
             <Button variant="primary" href="/oplossingen">

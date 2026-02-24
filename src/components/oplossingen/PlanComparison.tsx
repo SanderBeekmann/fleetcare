@@ -1,10 +1,17 @@
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
-import { InformationCircleIcon } from "@heroicons/react/24/outline";
+import { InfoTooltip } from "@/components/ui/InfoTooltip";
 import { plans, featureLabels, featureTooltips, type Plan } from "@/data/plans";
 
-const featureKeys = Object.keys(featureLabels) as (keyof Plan["features"])[];
+const featureOrder: (keyof Plan["features"])[] = [
+  "app",
+  "realtimeTracking",
+  "webPortal",
+  "chat24_7",
+  "whiteLabel",
+  "personalContact",
+];
 
 function getCTAText(plan: Plan): string {
   if (plan.id === "enterprise") return "Neem contact op";
@@ -14,10 +21,10 @@ function getCTAText(plan: Plan): string {
 export function PlanComparison() {
   return (
     <Container>
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 overflow-visible sm:grid-cols-2 lg:grid-cols-3">
         {plans.map((plan) => {
           const isHighlighted = plan.id === "smart";
-          const enabledFeatures = featureKeys.filter(
+          const enabledFeatures = featureOrder.filter(
             (key) => plan.features[key] === true
           );
 
@@ -25,7 +32,7 @@ export function PlanComparison() {
             <article
               key={plan.id}
               id={plan.id}
-              className={`relative flex flex-col border border-neutral-200 p-6 pb-16 shadow-sm transition-shadow hover:shadow-md ${isHighlighted ? "bg-[color-mix(in_srgb,var(--color-brand)_10%,white)]" : "bg-white"}`}
+              className={`relative flex flex-col overflow-visible border border-neutral-200 p-6 pb-16 shadow-sm transition-shadow hover:shadow-md ${isHighlighted ? "bg-[color-mix(in_srgb,var(--color-brand)_10%,white)]" : "bg-white"}`}
             >
               {plan.badge && (
                 <div className="absolute right-4 top-4">
@@ -46,7 +53,7 @@ export function PlanComparison() {
                   {plan.description}
                 </p>
 
-                <div className="mt-4">
+                <div className={plan.id === "standaard" ? "mt-10" : "mt-4"}>
                   <span className="block text-3xl font-bold text-neutral-900">
                     {plan.price}
                   </span>
@@ -70,9 +77,15 @@ export function PlanComparison() {
                 </Button>
 
                 <div className="mt-6 overflow-visible border-t border-neutral-100 pt-6">
-                  <p className="font-semibold text-neutral-900">
-                    Alles in {plan.name} +
-                  </p>
+                  {plan.id !== "standaard" && (
+                    <p className="font-semibold text-neutral-900">
+                      {plan.id === "smart"
+                        ? "Alles in Standaard +"
+                        : plan.id === "enterprise"
+                          ? "Alles in Smart +"
+                          : `Alles in ${plan.name} +`}
+                    </p>
+                  )}
                   <ul className="mt-4 space-y-4">
                     {enabledFeatures.map((key) => (
                       <li
@@ -83,16 +96,7 @@ export function PlanComparison() {
                           ✓
                         </span>
                         <span className="min-w-0 flex-1">{featureLabels[key]}</span>
-                        <span
-                          className="group relative flex shrink-0 cursor-help text-neutral-400 transition-colors hover:text-brand"
-                          aria-label={featureTooltips[key]}
-                        >
-                          <InformationCircleIcon className="h-4 w-4" />
-                          <span className="pointer-events-none absolute bottom-full left-1/2 z-50 mb-1.5 -translate-x-1/2 whitespace-nowrap rounded bg-neutral-900 px-2.5 py-1.5 text-xs font-normal text-white opacity-0 shadow-lg transition-opacity duration-150 group-hover:opacity-100">
-                            {featureTooltips[key]}
-                            <span className="absolute left-1/2 top-full h-0 w-0 -translate-x-1/2 border-4 border-transparent border-t-neutral-900" />
-                          </span>
-                        </span>
+                        <InfoTooltip text={featureTooltips[key]} />
                       </li>
                     ))}
                   </ul>

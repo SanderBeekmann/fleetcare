@@ -42,7 +42,8 @@ function splitToLetters(el: HTMLElement): HTMLSpanElement[] {
     }
 
     const wordWrapper = document.createElement("span");
-    wordWrapper.style.display = "inline";
+    wordWrapper.style.display = "inline-block";
+    wordWrapper.style.whiteSpace = "nowrap";
 
     for (const char of word) {
       const span = document.createElement("span");

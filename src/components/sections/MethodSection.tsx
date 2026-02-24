@@ -32,17 +32,17 @@ const steps: Step[] = [
   },
   {
     number: 2,
-    title: "Account en installatie",
+    title: "Direct aan de slag",
     description:
-      "Wij zetten uw account in en begeleiden de koppeling met uw voertuigen. Volledige technische ontzorging door onze specialisten.",
-    icon: Settings,
+      "Log in op de app, en wij regelen uw aftersales-werkzaamheden.",
+    icon: Rocket,
   },
   {
     number: 3,
-    title: "Direct aan de slag",
+    title: "Wordt volledig ontzorgd",
     description:
-      "Log in op het portaal en begin direct met monitoren. Real-time inzichten die leiden tot directe kostenbesparing en efficiëntie.",
-    icon: Rocket,
+      "Volledige ontzorging door onze specialisten en het slimme algoritme van de app",
+    icon: Settings,
   },
 ];
 

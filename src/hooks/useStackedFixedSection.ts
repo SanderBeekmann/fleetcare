@@ -77,13 +77,11 @@ export function useStackedFixedSection() {
     };
   }, [onScroll, onResize]);
 
-  // ScrollTrigger.refresh na toggle (layout veranderd)
+  // ScrollTrigger.refresh na toggle — UIT: veroorzaakt card-sprong bij eerste scroll
+  // Alleen refresh bij resize (onResize)
   useEffect(() => {
-    if (prevFixedRef.current !== isFixed) {
-      prevFixedRef.current = isFixed;
-      refreshScrollTrigger();
-    }
-  }, [isFixed, refreshScrollTrigger]);
+    prevFixedRef.current = isFixed;
+  }, [isFixed]);
 
   return { slotRef, sectionRef, isFixed, slotHeight };
 }
