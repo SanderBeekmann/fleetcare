@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
-import { motion, AnimatePresence, useMotionValue } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, type Variants } from "framer-motion";
 import { X, Home, Info, Briefcase, Users, Mail } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -50,7 +50,7 @@ export function AnimatedMobileMenu({
     dragX.set(0);
   };
 
-  const menuVariants = {
+  const menuVariants: Variants = {
     closed: {
       x: "100%",
       transition: {
@@ -71,14 +71,14 @@ export function AnimatedMobileMenu({
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     closed: { x: 50, opacity: 0 },
     open: (i: number) => ({
       x: 0,
       opacity: 1,
       transition: {
         delay: 0.1 + i * 0.08,
-        type: "spring",
+        type: "spring" as const,
         stiffness: 250,
         damping: 25,
       },
