@@ -35,7 +35,7 @@ export function HeroSection() {
                 Uw vloot,<br />
                 <span className="mt-2 block whitespace-nowrap">altijd en overal verbonden</span>
               </h1>
-              <p className="mt-2 text-lg font-medium text-brand md:text-xl lg:text-xl xl:text-[26px] 2xl:text-4xl" data-reveal="fade-up" data-reveal-no-reverse>
+              <p className="mt-2 text-base font-bold text-brand md:text-lg lg:text-base xl:text-[22px] 2xl:text-[32px]" data-reveal="fade-up" data-reveal-no-reverse>
                 LEV aftersales service & planning management
               </p>
             </div>
