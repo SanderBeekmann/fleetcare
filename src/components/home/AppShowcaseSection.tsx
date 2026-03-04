@@ -27,9 +27,17 @@ const featuresRight = [
 
 const allFeatures = [...featuresLeft, ...featuresRight];
 
-function FeatureItem({ title, description }: { title: string; description: string }) {
+function FeatureItem({
+  title,
+  description,
+  className,
+}: {
+  title: string;
+  description: string;
+  className?: string;
+}) {
   return (
-    <li>
+    <li className={className}>
       <h3 className="text-lg font-semibold text-brand">{title}</h3>
       <p className="mt-2 text-sm font-light leading-relaxed text-neutral-600">{description}</p>
     </li>
@@ -38,7 +46,7 @@ function FeatureItem({ title, description }: { title: string; description: strin
 
 export function AppShowcaseSection() {
   return (
-    <section className="relative z-[3] -mt-24 -mb-24 bg-white overflow-hidden md:-mt-32 md:-mb-32">
+    <section className="relative z-[3] -mb-24 -mt-24 overflow-hidden bg-white md:-mb-32 md:-mt-32">
       <ContainerScroll
         titleComponent={
           <>
@@ -82,8 +90,8 @@ export function AppShowcaseSection() {
           {/* Rechts */}
           <div className="pointer-events-auto w-56 2xl:w-64" data-stagger="children">
             <ul className="flex flex-col gap-16">
-              {featuresRight.map((f) => (
-                <FeatureItem key={f.title} {...f} />
+              {featuresRight.map((f, i) => (
+                <FeatureItem key={f.title} {...f} className={i === 1 ? "mt-12" : undefined} />
               ))}
             </ul>
           </div>

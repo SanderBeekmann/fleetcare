@@ -18,20 +18,30 @@ function getCTAText(plan: Plan): string {
   return `Ga voor ${plan.name}`;
 }
 
-export function PlanComparison() {
+type PlanComparisonProps = { recommended?: string };
+
+export function PlanComparison({ recommended }: PlanComparisonProps) {
   return (
     <Container>
       <div className="grid gap-6 overflow-visible sm:grid-cols-2 lg:grid-cols-3">
         {plans.map((plan) => {
           const isHighlighted = plan.id === "smart";
+          const isRecommended = recommended === plan.id;
           const enabledFeatures = featureOrder.filter((key) => plan.features[key] === true);
 
           return (
             <article
               key={plan.id}
               id={plan.id}
-              className={`relative flex flex-col overflow-visible border border-neutral-200 p-6 pb-16 shadow-sm transition-shadow hover:shadow-md ${isHighlighted ? "bg-[color-mix(in_srgb,var(--color-brand)_10%,white)]" : "bg-white"}`}
+              className={`relative flex flex-col overflow-visible border p-6 pb-16 shadow-sm transition-shadow hover:shadow-md ${isRecommended ? "ring-2 ring-brand border-brand" : "border-neutral-200"} ${isHighlighted ? "bg-[color-mix(in_srgb,var(--color-brand)_10%,white)]" : "bg-white"}`}
             >
+              {isRecommended && (
+                <div className="absolute -top-3 left-4">
+                  <span className="inline-block bg-brand px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white">
+                    Aanbevolen voor u
+                  </span>
+                </div>
+              )}
               {plan.badge && (
                 <div className="absolute right-4 top-4">
                   <Badge>{plan.badge}</Badge>

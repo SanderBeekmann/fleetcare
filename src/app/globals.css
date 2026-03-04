@@ -65,16 +65,14 @@
   0%,
   100% {
     transform: translateY(0);
-    opacity: 0.6;
   }
   50% {
-    transform: translateY(6px);
-    opacity: 1;
+    transform: translateY(4px);
   }
 }
 
 .scroll-hint-bounce {
-  animation: scroll-hint-bounce 2s ease-in-out infinite;
+  animation: scroll-hint-bounce 2.4s cubic-bezier(0.37, 0, 0.63, 1) infinite;
 }
 
 /* Aurora bewegende achtergrond (merkkleur) */
@@ -224,6 +222,7 @@
 .btn-primary-animate {
   position: relative;
   overflow: hidden;
+  isolation: isolate;
   border: 1px solid var(--color-brand);
   color: white;
   transition:
@@ -238,8 +237,8 @@
   z-index: -2;
 }
 
-/* CTA "Klaar om te starten": Contact opnemen — eigen opmaak, witte achtergrond bij hover */
-.cta-klaar-om-te-starten .btn-cta-contact.btn-primary-animate::after {
+/* CTA "Klaar om te starten": witte achtergrond bij hover (100% opacity) */
+.cta-klaar-om-te-starten .btn-primary-animate::after {
   background: white;
 }
 .btn-primary-animate::before {
@@ -340,6 +339,47 @@
   background: rgba(255, 255, 255, 1);
 }
 
+/* Funnel stap-animatie */
+@keyframes step-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes step-slide-in-reverse {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.animate-step-forward {
+  animation: step-slide-in 0.3s ease-out;
+}
+.animate-step-back {
+  animation: step-slide-in-reverse 0.3s ease-out;
+}
+
+/* Funnel collapse/expand via CSS grid */
+.funnel-collapse {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.5s ease-in-out;
+}
+.funnel-collapse.is-open {
+  grid-template-rows: 1fr;
+}
+.funnel-collapse > .funnel-inner {
+  overflow: hidden;
+}
+
 /* Contact page: vloeiende tab-overgang */
 @keyframes contact-tab-fade {
   from {
@@ -363,6 +403,16 @@
     0 0 0 1px rgba(0, 0, 0, 0.03),
     0 20px 40px -10px rgba(var(--color-brand-rgb), 0.08);
 }
+/* Bento card: stroke draw-in animation vanuit één hoek */
+.border-draw-rect {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 0.6s ease-out;
+}
+.group:hover > .border-draw-svg .border-draw-rect {
+  stroke-dashoffset: 0;
+}
+
 .shadow-plan-card:hover {
   box-shadow:
     0 1px 2px rgba(0, 0, 0, 0.04),

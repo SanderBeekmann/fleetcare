@@ -42,10 +42,12 @@ export default function OverPage() {
   return (
     <>
       <OverPageHero />
-      <OverStackedSection />
-      <WatIsFleetCareSection />
 
-      <div className="stacked-content-above relative z-[3]">
+      <div className="relative z-[2]">
+        <OverStackedSection />
+
+        <WatIsFleetCareSection />
+
         {/* Waarom FleetCare Connect — brand-achtergrond, drie waarden met iconen */}
         <section className="bg-brand py-16 md:py-24">
           <Container>
@@ -72,9 +74,25 @@ export default function OverPage() {
               {values.map((item) => (
                 <li
                   key={item.title}
-                  className="group flex flex-col bg-white p-8 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl lg:p-10"
+                  className="group relative flex flex-col bg-white p-8 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl lg:p-10"
                   data-reveal="fade-up"
                 >
+                  <svg
+                    className="border-draw-svg pointer-events-none absolute inset-0 h-full w-full"
+                    aria-hidden
+                  >
+                    <rect
+                      x="0"
+                      y="0"
+                      width="100%"
+                      height="100%"
+                      fill="none"
+                      stroke="var(--color-brand)"
+                      strokeWidth="2"
+                      pathLength={1}
+                      className="border-draw-rect"
+                    />
+                  </svg>
                   <span
                     className="bg-brand/10 flex h-12 w-12 items-center justify-center text-brand transition-colors duration-300 group-hover:bg-brand group-hover:text-white"
                     aria-hidden

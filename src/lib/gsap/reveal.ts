@@ -13,12 +13,20 @@ const REVEAL_TOGGLE = "play none none reverse";
 /** Geen reverse: animatie speelt eenmaal en blijft zichtbaar (bv. vaste hero bij scroll terug omhoog). */
 const REVEAL_TOGGLE_NO_REVERSE = "play none none none";
 
-export type RevealType = "fade-up" | "fade-down" | "fade" | "fade-up-small";
+export type RevealType =
+  | "fade-up"
+  | "fade-down"
+  | "fade"
+  | "fade-up-small"
+  | "fade-left"
+  | "fade-right";
 
 const revealFrom: Record<RevealType, gsap.TweenVars> = {
   "fade-up": { opacity: 0, y: 28 },
   "fade-down": { opacity: 0, y: -28 },
   "fade-up-small": { opacity: 0, y: 16 },
+  "fade-left": { opacity: 0, x: -60 },
+  "fade-right": { opacity: 0, x: 60 },
   fade: { opacity: 0 },
 };
 
@@ -42,6 +50,7 @@ export function revealElement(
   const delay = opts?.delay ?? 0;
   gsap.fromTo(el, from, {
     opacity: 1,
+    x: 0,
     y: 0,
     duration: REVEAL_DURATION,
     delay,
@@ -71,6 +80,7 @@ export function createRevealAnimations(scope: HTMLElement | null): void {
 
     gsap.fromTo(el, from, {
       opacity: 1,
+      x: 0,
       y: 0,
       duration: REVEAL_DURATION,
       delay,

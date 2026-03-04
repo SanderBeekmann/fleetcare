@@ -5,6 +5,7 @@ import {
   StatsSection,
   KlantenPreview,
   AppShowcaseSection,
+  PlanFunnel,
 } from "@/components/home";
 import { MethodSection } from "@/components/sections/MethodSection";
 import { ContactSection } from "@/components/sections/ContactSection";
@@ -33,7 +34,7 @@ export default function HomePage() {
         <MethodSection />
         <AppShowcaseSection />
         <StatsSection />
-        <CtaBlock />
+        <PlanFunnel />
         <KlantenPreview />
         <ContactSection variant="onDark" />
       </div>

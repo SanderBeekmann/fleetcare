@@ -75,17 +75,22 @@ export function useStackedFixedSection() {
   }, [check, refreshScrollTrigger]);
 
   useEffect(() => {
-    check();
-  }, [check]);
+    // On mobile the hook is inert — skip listeners to avoid unnecessary work
+    // and prevent ScrollTrigger.refresh() firing on address-bar resize.
+    if (!isDesktop()) {
+      setIsFixed(false);
+      setSlotHeight(null);
+      return;
+    }
 
-  useEffect(() => {
+    check();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onResize);
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
     };
-  }, [onScroll, onResize]);
+  }, [check, onScroll, onResize, isDesktop]);
 
   // ScrollTrigger.refresh na toggle — UIT: veroorzaakt card-sprong bij eerste scroll
   // Alleen refresh bij resize (onResize)

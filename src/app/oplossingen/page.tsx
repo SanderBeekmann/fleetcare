@@ -1,9 +1,11 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { PlanComparison } from "@/components/oplossingen/PlanComparison";
 import { FaqSection } from "@/components/oplossingen/FaqSection";
 import { CtaBlock } from "@/components/oplossingen/CtaBlock";
+import { ScrollToRecommended } from "@/components/oplossingen/ScrollToRecommended";
 
 export const metadata: Metadata = {
   title: "Oplossingen",
@@ -17,7 +19,10 @@ export const metadata: Metadata = {
   alternates: { canonical: "/oplossingen" },
 };
 
-export default function OplossingenPage() {
+type PageProps = { searchParams: { aanbevolen?: string } };
+
+export default function OplossingenPage({ searchParams }: PageProps) {
+  const recommended = searchParams.aanbevolen;
   return (
     <>
       <section className="relative flex min-h-[calc(100vh-64px)] flex-col bg-white py-16 md:py-20">
@@ -38,7 +43,10 @@ export default function OplossingenPage() {
               ontzorgen van plannen, tot maatwerk voor grotere operaties. FleetCare Connect heeft
               voor iedere individuele behoefte een oplossing.
             </p>
-            <div className="mt-8" data-reveal="fade-up" data-delay="0.1">
+            <div className="mt-8 flex flex-wrap gap-4" data-reveal="fade-up" data-delay="0.1">
+              <Button variant="primary" href="/#plan-test">
+                Test uw voorkeur
+              </Button>
               <Button variant="secondary" href="#eerlijke-prijzen">
                 Bekijk prijzen
               </Button>
@@ -47,24 +55,39 @@ export default function OplossingenPage() {
         </div>
         <a
           href="#eerlijke-prijzen"
-          className="scroll-hint-bounce absolute bottom-8 left-1/2 flex w-fit -translate-x-1/2 flex-col items-center gap-1 text-neutral-500 transition-colors hover:text-brand"
+          className="group absolute bottom-10 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-neutral-400 transition-colors hover:text-brand"
           aria-label="Scroll naar beneden"
         >
-          <span className="text-xs font-medium uppercase tracking-widest text-inherit">Scroll</span>
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="h-6 w-6"
-            aria-hidden
-          >
-            <path d="M12 5v14M6 12l6 6 6-6" />
-          </svg>
+          <span className="text-[10px] font-semibold uppercase tracking-[0.2em]">Scroll</span>
+          <span className="scroll-hint-bounce flex flex-col items-center -space-y-1.5">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="opacity-40"
+              aria-hidden
+            >
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden
+            >
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </span>
         </a>
       </section>
 
@@ -85,7 +108,10 @@ export default function OplossingenPage() {
             </p>
           </div>
         </Container>
-        <PlanComparison />
+        <PlanComparison recommended={recommended} />
+        <Suspense>
+          <ScrollToRecommended />
+        </Suspense>
       </section>
 
       <FaqSection />
