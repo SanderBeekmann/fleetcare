@@ -34,7 +34,9 @@ export default function OplossingenPage() {
               data-reveal="fade-up"
               data-delay="0.05"
             >
-              Wij ontzorgen ieder type klant, ongeacht uw vloot grootte. Van eenvoudige matching en ontzorgen van plannen, tot maatwerk voor grotere operaties. FleetCare Connect heeft voor iedere individuele behoefte een oplossing.
+              Wij ontzorgen ieder type klant, ongeacht uw vloot grootte. Van eenvoudige matching en
+              ontzorgen van plannen, tot maatwerk voor grotere operaties. FleetCare Connect heeft
+              voor iedere individuele behoefte een oplossing.
             </p>
             <div className="mt-8" data-reveal="fade-up" data-delay="0.1">
               <Button variant="secondary" href="#eerlijke-prijzen">
@@ -48,9 +50,7 @@ export default function OplossingenPage() {
           className="scroll-hint-bounce absolute bottom-8 left-1/2 flex w-fit -translate-x-1/2 flex-col items-center gap-1 text-neutral-500 transition-colors hover:text-brand"
           aria-label="Scroll naar beneden"
         >
-          <span className="text-xs font-medium uppercase tracking-widest text-inherit">
-            Scroll
-          </span>
+          <span className="text-xs font-medium uppercase tracking-widest text-inherit">Scroll</span>
           <svg
             width="24"
             height="24"
@@ -80,9 +80,8 @@ export default function OplossingenPage() {
               </h2>
             </div>
             <p className="max-w-2xl text-base text-neutral-600 lg:text-lg">
-              Kies het plan dat past bij uw wagenpark. Van eenvoudig tracken tot
-              volledig maatwerk. Klein- en grootbedrijven doen meer met
-              FleetCare Connect.
+              Kies het plan dat past bij uw wagenpark. Van eenvoudig tracken tot volledig maatwerk.
+              Klein- en grootbedrijven doen meer met FleetCare Connect.
             </p>
           </div>
         </Container>

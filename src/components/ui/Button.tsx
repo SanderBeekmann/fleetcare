@@ -23,10 +23,8 @@ type ButtonAsLink = BaseProps &
 type ButtonProps = ButtonAsButton | ButtonAsLink;
 
 const variantStyles: Record<Variant, string> = {
-  primary:
-    "btn-primary-animate border-transparent",
-  secondary:
-    "btn-secondary-glass",
+  primary: "btn-primary-animate border-transparent",
+  secondary: "btn-secondary-glass",
 };
 
 const baseStyles =

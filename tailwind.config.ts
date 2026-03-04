@@ -29,19 +29,19 @@ const config: Config = {
         },
       },
       spacing: {
-        "grid": "var(--spacing-grid)",
-        "section": "var(--spacing-section)",
+        grid: "var(--spacing-grid)",
+        section: "var(--spacing-section)",
       },
       borderRadius: {
-        "sm": "var(--radius-sm)",
-        "md": "var(--radius-md)",
-        "lg": "var(--radius-lg)",
-        "full": "var(--radius-full)",
+        sm: "var(--radius-sm)",
+        md: "var(--radius-md)",
+        lg: "var(--radius-lg)",
+        full: "var(--radius-full)",
       },
       boxShadow: {
-        "sm": "var(--shadow-sm)",
-        "md": "var(--shadow-md)",
-        "lg": "var(--shadow-lg)",
+        sm: "var(--shadow-sm)",
+        md: "var(--shadow-md)",
+        lg: "var(--shadow-lg)",
       },
       maxWidth: {
         "container-sm": "var(--container-sm)",

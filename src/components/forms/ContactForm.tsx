@@ -44,8 +44,12 @@ export function ContactForm({ variant = "default" }: ContactFormProps) {
 
   if (submitStatus === "success") {
     return (
-      <div className={`mx-auto max-w-md rounded-lg p-6 text-center ${isOnDark ? "border border-white/30 bg-white/10 text-white" : "border border-green-200 bg-green-50"}`}>
-        <p className={isOnDark ? "font-medium text-white" : "font-medium text-green-800"}>Bedankt voor uw bericht.</p>
+      <div
+        className={`mx-auto max-w-md rounded-lg p-6 text-center ${isOnDark ? "border border-white/30 bg-white/10 text-white" : "border border-green-200 bg-green-50"}`}
+      >
+        <p className={isOnDark ? "font-medium text-white" : "font-medium text-green-800"}>
+          Bedankt voor uw bericht.
+        </p>
         <p className={`mt-1 text-sm ${isOnDark ? "text-white/90" : "text-green-700"}`}>
           We nemen zo snel mogelijk contact met u op.
         </p>
@@ -54,11 +58,7 @@ export function ContactForm({ variant = "default" }: ContactFormProps) {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="max-w-lg space-y-4"
-      data-contact-form
-    >
+    <form onSubmit={handleSubmit(onSubmit)} className="max-w-lg space-y-4" data-contact-form>
       <div>
         <label htmlFor="name" className={`mb-1 block text-sm font-medium ${labelClass}`}>
           Naam *
@@ -140,7 +140,12 @@ export function ContactForm({ variant = "default" }: ContactFormProps) {
         </p>
       )}
 
-      <Button type="submit" variant="primary" disabled={isSubmitting} className="contact-form-submit">
+      <Button
+        type="submit"
+        variant="primary"
+        disabled={isSubmitting}
+        className="contact-form-submit"
+      >
         {isSubmitting ? "Versturen…" : "Verstuur"}
       </Button>
     </form>

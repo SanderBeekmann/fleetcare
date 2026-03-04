@@ -16,9 +16,13 @@ export function useCounter<T extends HTMLElement>(
   const ref = useRef<T>(null);
   const prefersReducedMotion = usePrefersReducedMotion();
 
-  useGsapContext(ref, () => {
-    if (ref.current) animateCounter(ref.current, to, duration);
-  }, { enabled: !prefersReducedMotion });
+  useGsapContext(
+    ref,
+    () => {
+      if (ref.current) animateCounter(ref.current, to, duration);
+    },
+    { enabled: !prefersReducedMotion }
+  );
 
   useEffect(() => {
     if (prefersReducedMotion && ref.current) {

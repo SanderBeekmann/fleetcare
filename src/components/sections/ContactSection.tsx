@@ -35,7 +35,7 @@ export function ContactSection({ variant = "default", id }: ContactSectionProps)
   return (
     <section id={id} className={sectionClass}>
       <Container>
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 lg:items-start">
+        <div className="grid gap-12 lg:grid-cols-2 lg:items-start lg:gap-16">
           <div>
             <h2
               className={`text-2xl font-bold md:text-3xl ${isOnDark ? "text-white" : "text-brand"}`}
@@ -48,7 +48,9 @@ export function ContactSection({ variant = "default", id }: ContactSectionProps)
             </div>
           </div>
           <div>
-            <h3 className={`text-base font-bold uppercase tracking-wider ${isOnDark ? "text-white" : "text-brand"}`}>
+            <h3
+              className={`text-base font-bold uppercase tracking-wider ${isOnDark ? "text-white" : "text-brand"}`}
+            >
               Contactgegevens
             </h3>
             <ul className="mt-4 space-y-4">

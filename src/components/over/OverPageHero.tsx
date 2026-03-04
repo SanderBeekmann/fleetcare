@@ -11,7 +11,7 @@ export function OverPageHero() {
     <>
       <section
         id="over-hero"
-        className="fixed inset-0 z-[1] flex min-h-screen flex-col justify-center bg-white py-20 md:py-24"
+        className="relative z-[1] flex min-h-screen flex-col justify-center bg-white py-20 md:fixed md:inset-0 md:py-24"
       >
         <Container>
           <p
@@ -37,9 +37,9 @@ export function OverPageHero() {
             data-delay="0.1"
             data-reveal-no-reverse
           >
-            Van eigen onderzoek naar de LEV branche, tot een nationaal gecentraliseerd
-            aftersales platform om aftersales efficiënter en eenvoudiger aan te kunnen bieden
-            voor Light Electric Vehicles.
+            Van eigen onderzoek naar de LEV branche, tot een nationaal gecentraliseerd aftersales
+            platform om aftersales efficiënter en eenvoudiger aan te kunnen bieden voor Light
+            Electric Vehicles.
           </p>
           <div className="mt-10" data-reveal="fade-up" data-delay="0.15" data-reveal-no-reverse>
             <Button variant="primary" href="/oplossingen">
@@ -48,8 +48,8 @@ export function OverPageHero() {
           </div>
         </Container>
       </section>
-      {/* Spacer: bij scroll schuift Ons verhaal over de hero */}
-      <div className="h-screen w-full" aria-hidden />
+      {/* Spacer: bij scroll schuift Ons verhaal over de hero; alleen op desktop */}
+      <div className="hidden h-screen w-full md:block" aria-hidden />
     </>
   );
 }

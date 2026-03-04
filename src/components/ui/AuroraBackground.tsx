@@ -23,10 +23,7 @@ export function AuroraBackground({
     : "";
 
   return (
-    <div
-      className={cn("absolute inset-0 overflow-hidden", className)}
-      {...props}
-    >
+    <div className={cn("absolute inset-0 overflow-hidden", className)} {...props}>
       <div
         className={cn(
           "aurora-layer aurora-layer-base pointer-events-none absolute -inset-3 opacity-65 will-change-transform",

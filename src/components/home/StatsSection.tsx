@@ -8,16 +8,12 @@ const stats = [
 
 export function StatsSection() {
   return (
-    <section className="py-section bg-white">
+    <section className="relative z-[4] bg-white py-section">
       <Container>
         <h2 className="sr-only">Onze cijfers</h2>
         <ul className="grid gap-10 sm:grid-cols-3">
           {stats.map((stat) => (
-            <li
-              key={stat.label}
-              className="text-center"
-              data-reveal="fade-up"
-            >
+            <li key={stat.label} className="text-center" data-reveal="fade-up">
               <p className="font-heading text-4xl font-bold text-brand md:text-5xl">
                 <span data-counter={String(stat.value)}>0</span>
                 {stat.suffix}

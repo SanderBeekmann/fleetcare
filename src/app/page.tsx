@@ -4,6 +4,7 @@ import {
   PlansOverview,
   StatsSection,
   KlantenPreview,
+  AppShowcaseSection,
 } from "@/components/home";
 import { MethodSection } from "@/components/sections/MethodSection";
 import { ContactSection } from "@/components/sections/ContactSection";
@@ -30,6 +31,7 @@ export default function HomePage() {
       <div className="stacked-content-above relative z-[3]">
         <PlansOverview />
         <MethodSection />
+        <AppShowcaseSection />
         <StatsSection />
         <CtaBlock />
         <KlantenPreview />

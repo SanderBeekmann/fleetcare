@@ -33,9 +33,7 @@ export function Footer() {
           data-stagger-delay="0.06"
         >
           <div>
-            <p className="text-lg font-semibold text-neutral-900">
-              FleetCare Connect
-            </p>
+            <p className="text-lg font-semibold text-neutral-900">FleetCare Connect</p>
             <p className="mt-2 text-sm text-neutral-600">
               Uw partner in fleetmanagement. Eenvoudig, inzichtelijk, betrouwbaar.
             </p>
@@ -64,8 +62,7 @@ export function Footer() {
         >
           <div className="flex flex-col items-center gap-1 text-center sm:items-start sm:text-left">
             <p className="text-sm text-neutral-500">
-              © {new Date().getFullYear()} FleetCare Connect. Alle rechten voorbehouden.
-              {" "}
+              © {new Date().getFullYear()} FleetCare Connect. Alle rechten voorbehouden.{" "}
               <Link href="/privacy" className="text-neutral-500 hover:text-brand">
                 Privacy & Cookies
               </Link>
@@ -76,7 +73,7 @@ export function Footer() {
                 href="https://blitzworx.nl"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-neutral-500 hover:text-brand transition-colors"
+                className="text-neutral-500 transition-colors hover:text-brand"
               >
                 BLITZWORX
               </a>

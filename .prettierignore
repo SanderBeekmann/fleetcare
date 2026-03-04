@@ -1,0 +1,9 @@
+.claude/
+.next/
+node_modules/
+dist/
+build/
+out/
+coverage/
+.cache/
+package-lock.json

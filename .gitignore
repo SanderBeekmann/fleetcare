@@ -1,3 +1,6 @@
+# claude code
+/.claude/
+
 # dependencies
 /node_modules
 /.pnp
@@ -13,6 +16,10 @@
 
 # production
 /build
+/dist
+
+# lint/format cache
+/.cache/
 
 # misc
 .DS_Store

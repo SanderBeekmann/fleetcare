@@ -16,17 +16,10 @@ export function sectionReveal(
   const y = opts?.y ?? 24;
   const duration = opts?.duration ?? DEFAULT_DURATION;
   const ease = opts?.ease ?? DEFAULT_EASE;
-  gsap.fromTo(
-    element,
-    { opacity: 0, y },
-    { opacity: 1, y: 0, duration, ease }
-  );
+  gsap.fromTo(element, { opacity: 0, y }, { opacity: 1, y: 0, duration, ease });
 }
 
-export function fadeIn(
-  element: HTMLElement,
-  opts?: { duration?: number; delay?: number }
-) {
+export function fadeIn(element: HTMLElement, opts?: { duration?: number; delay?: number }) {
   const duration = opts?.duration ?? DEFAULT_DURATION;
   const delay = opts?.delay ?? 0;
   gsap.fromTo(element, { opacity: 0 }, { opacity: 1, duration, delay });

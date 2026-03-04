@@ -24,7 +24,10 @@ export function InfoTooltip({ text, zIndex = 40 }: InfoTooltipProps) {
     const vw = window.innerWidth;
     const vh = window.innerHeight;
     const centerX = rect.left + rect.width / 2;
-    const leftClamped = Math.max(tooltipMaxWidth / 2 + margin, Math.min(vw - tooltipMaxWidth / 2 - margin, centerX));
+    const leftClamped = Math.max(
+      tooltipMaxWidth / 2 + margin,
+      Math.min(vw - tooltipMaxWidth / 2 - margin, centerX)
+    );
     const top = rect.top - tooltipHeight - margin;
     const topClamped = Math.max(margin, Math.min(vh - tooltipHeight - margin, top));
     setPosition({
@@ -34,8 +37,7 @@ export function InfoTooltip({ text, zIndex = 40 }: InfoTooltipProps) {
   }, []);
 
   useLayoutEffect(() => {
-    if (!isVisible || !triggerRef.current || typeof document === "undefined")
-      return;
+    if (!isVisible || !triggerRef.current || typeof document === "undefined") return;
     updatePosition();
     window.addEventListener("scroll", updatePosition, true);
     window.addEventListener("resize", updatePosition);
@@ -49,7 +51,7 @@ export function InfoTooltip({ text, zIndex = 40 }: InfoTooltipProps) {
     <>
       <span
         ref={triggerRef}
-        className="flex shrink-0 cursor-help items-center justify-center text-neutral-400 transition-colors hover:text-brand min-h-[44px] min-w-[44px] md:min-h-0 md:min-w-0 md:p-0 p-2"
+        className="flex min-h-[44px] min-w-[44px] shrink-0 cursor-help items-center justify-center p-2 text-neutral-400 transition-colors hover:text-brand md:min-h-0 md:min-w-0 md:p-0"
         aria-label={text}
         onMouseEnter={() => setIsVisible(true)}
         onMouseLeave={() => setIsVisible(false)}

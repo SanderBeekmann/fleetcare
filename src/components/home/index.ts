@@ -5,3 +5,4 @@ export { PlansOverview } from "./PlansOverview";
 export { HowItWorks } from "./HowItWorks";
 export { StatsSection } from "./StatsSection";
 export { KlantenPreview } from "./KlantenPreview";
+export { AppShowcaseSection } from "./AppShowcaseSection";

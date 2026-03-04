@@ -19,10 +19,7 @@ export default function KlantenPage() {
     <main className="py-section">
       <Container>
         <div className="mx-auto max-w-3xl text-center">
-          <h1
-            className="text-3xl font-bold text-brand md:text-4xl lg:text-5xl"
-            data-letter-stagger
-          >
+          <h1 className="text-3xl font-bold text-brand md:text-4xl lg:text-5xl" data-letter-stagger>
             Uw succesverhaal hier?
           </h1>
           <p
@@ -30,19 +27,13 @@ export default function KlantenPage() {
             data-reveal="fade-up"
             data-delay="0.05"
           >
-            Word partner van FleetCare Connect en deel uw ervaring met ons platform.
-            Laat zien hoe u samen met ons aftersales voor Light Electric Vehicles
-            eenvoudiger en betrouwbaarder maakt. Uw verhaal inspireert anderen en
-            helpt het netwerk te groeien.
+            Word partner van FleetCare Connect en deel uw ervaring met ons platform. Laat zien hoe u
+            samen met ons aftersales voor Light Electric Vehicles eenvoudiger en betrouwbaarder
+            maakt. Uw verhaal inspireert anderen en helpt het netwerk te groeien.
           </p>
-          <p
-            className="mt-4 text-base text-neutral-600"
-            data-reveal="fade-up"
-            data-delay="0.08"
-          >
-            Bent u servicepartner of LEV-gebruiker en wilt u uw succesverhaal
-            delen op deze pagina? Neem contact op. Wij plaatsen graag uw
-            ervaring.
+          <p className="mt-4 text-base text-neutral-600" data-reveal="fade-up" data-delay="0.08">
+            Bent u servicepartner of LEV-gebruiker en wilt u uw succesverhaal delen op deze pagina?
+            Neem contact op. Wij plaatsen graag uw ervaring.
           </p>
           <div
             className="mt-10 flex flex-wrap justify-center gap-4"

@@ -29,10 +29,20 @@ export function useStackedFixedSection() {
     safeScrollTriggerRefresh();
   }, []);
 
+  const isDesktop = useCallback(() => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia("(min-width: 768px)").matches;
+  }, []);
+
   const check = useCallback(() => {
     const slot = slotRef.current;
     const section = sectionRef.current;
     if (!slot || !section) return;
+    if (!isDesktop()) {
+      setIsFixed(false);
+      setSlotHeight(null);
+      return;
+    }
 
     const top = slot.getBoundingClientRect().top;
     // Hysteresis: voorkomt flikkeren bij de drempel (5px buffer)
@@ -48,7 +58,7 @@ export function useStackedFixedSection() {
       setIsFixed(false);
       setSlotHeight(null);
     }
-  }, []);
+  }, [isDesktop]);
 
   const onScroll = useCallback(() => {
     if (tickingRef.current) return;

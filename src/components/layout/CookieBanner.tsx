@@ -57,18 +57,10 @@ export function CookieBanner() {
             </Link>
           </p>
           <div className="flex shrink-0 gap-3">
-            <Button
-              variant="secondary"
-              className="text-sm"
-              onClick={handleDecline}
-            >
+            <Button variant="secondary" className="text-sm" onClick={handleDecline}>
               Alleen noodzakelijk
             </Button>
-            <Button
-              variant="primary"
-              className="text-sm"
-              onClick={handleAccept}
-            >
+            <Button variant="primary" className="text-sm" onClick={handleAccept}>
               Alles accepteren
             </Button>
           </div>

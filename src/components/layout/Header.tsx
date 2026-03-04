@@ -52,6 +52,15 @@ export function Header() {
     const isDesktop = () => window.matchMedia("(min-width: 768px)").matches;
 
     const applyState = (visible: boolean) => {
+      // Mobiel: navbar altijd zichtbaar — nooit verbergen
+      if (!isDesktop()) {
+        if (lastHideStateRef.current !== "visible") {
+          lastHideStateRef.current = "visible";
+          gsap.set(header, { y: 0, overwrite: true });
+        }
+        return;
+      }
+
       if (visible) {
         if (lastHideStateRef.current !== "visible") {
           lastHideStateRef.current = "visible";
@@ -194,10 +203,18 @@ export function Header() {
         >
           {storeLink.disabled ? (
             <div className="flex items-stretch">
-              <Button variant="primary" href="/contact" className="-mr-px flex h-9 items-center rounded-l-md rounded-r-none px-3 text-xs focus:ring-0 focus:ring-offset-0">
+              <Button
+                variant="primary"
+                href="/contact"
+                className="-mr-px flex h-9 items-center rounded-l-md rounded-r-none px-3 text-xs focus:ring-0 focus:ring-offset-0"
+              >
                 Contact
               </Button>
-              <Button variant="secondary" disabled className="group/btn relative flex h-9 min-w-0 items-center justify-center overflow-hidden rounded-r-md rounded-l-none px-3 text-xs focus:ring-0 focus:ring-offset-0">
+              <Button
+                variant="secondary"
+                disabled
+                className="group/btn relative flex h-9 min-w-0 items-center justify-center overflow-hidden rounded-l-none rounded-r-md px-3 text-xs focus:ring-0 focus:ring-offset-0"
+              >
                 <span className="block truncate transition-opacity duration-200 group-hover/btn:opacity-0">
                   {storeLink.label}
                 </span>
@@ -220,10 +237,7 @@ export function Header() {
       <div className="md:hidden">
         <Container>
           <div className="flex h-16 items-center justify-between">
-            <Link
-              href="/"
-              className="font-heading text-lg font-semibold text-black"
-            >
+            <Link href="/" className="font-heading text-lg font-semibold text-black">
               FleetCare Connect
             </Link>
 
@@ -234,11 +248,7 @@ export function Header() {
               aria-expanded={mobileOpen}
               aria-label={mobileOpen ? "Menu sluiten" : "Menu openen"}
             >
-              {mobileOpen ? (
-                <XMarkIcon className="h-6 w-6" />
-              ) : (
-                <Bars3Icon className="h-6 w-6" />
-              )}
+              {mobileOpen ? <XMarkIcon className="h-6 w-6" /> : <Bars3Icon className="h-6 w-6" />}
             </button>
           </div>
         </Container>

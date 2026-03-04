@@ -34,7 +34,7 @@ const DURATION = 36;
 
 function TestimonialCard({ item }: { item: (typeof testimonials)[0] }) {
   return (
-    <Card className="relative flex h-full w-[280px] min-h-[240px] shrink-0 flex-col overflow-hidden border-0 border-l-4 border-l-brand px-8 pt-3 pb-10 transition-all duration-300 ease-out hover:-translate-y-1 sm:min-h-[260px] sm:w-[320px] sm:px-10 sm:pt-4 sm:pb-12 [box-shadow:16px_20px_40px_-12px_rgba(0,0,0,0.22),10px_10px_24px_-8px_rgba(0,0,0,0.14)] hover:[box-shadow:20px_24px_48px_-12px_rgba(0,0,0,0.25),14px_12px_28px_-8px_rgba(0,0,0,0.16)]">
+    <Card className="relative flex h-full min-h-[240px] w-[280px] shrink-0 flex-col overflow-hidden border-0 border-l-4 border-l-brand px-8 pb-10 pt-3 transition-all duration-300 ease-out [box-shadow:16px_20px_40px_-12px_rgba(0,0,0,0.22),10px_10px_24px_-8px_rgba(0,0,0,0.14)] hover:-translate-y-1 hover:[box-shadow:20px_24px_48px_-12px_rgba(0,0,0,0.25),14px_12px_28px_-8px_rgba(0,0,0,0.16)] sm:min-h-[260px] sm:w-[320px] sm:px-10 sm:pb-12 sm:pt-4">
       <div className="mb-3 flex h-10 shrink-0 items-center sm:mb-4 sm:h-12" aria-hidden>
         <div className="flex h-8 w-16 items-center justify-center rounded bg-neutral-200 text-xs font-semibold text-neutral-900 sm:h-10 sm:w-20">
           {item.logo}
@@ -106,31 +106,31 @@ export function TestimonialCarousel() {
           <div className="ml-6 flex items-center gap-4">
             <div className="flex">
               <button
-              type="button"
-              onClick={() => setMobileIndex((i) => (i === 0 ? testimonials.length - 1 : i - 1))}
-              className="btn-secondary-glass group -mr-px flex min-h-[44px] min-w-[44px] items-center justify-center rounded-none border"
-              aria-label="Vorige testimonial"
-            >
-              <ChevronLeftIcon
-                className={`h-5 w-5 transition-colors group-hover:text-white ${
-                  mobileIndex === 0 ? "text-neutral-400" : "text-brand"
-                }`}
-              />
-            </button>
-            <button
-              type="button"
-              onClick={() => setMobileIndex((i) => (i === testimonials.length - 1 ? 0 : i + 1))}
-              className="btn-secondary-glass group flex min-h-[44px] min-w-[44px] items-center justify-center rounded-none border"
-              aria-label="Volgende testimonial"
-            >
-              <ChevronRightIcon
-                className={`h-5 w-5 transition-colors group-hover:text-white ${
-                  mobileIndex === testimonials.length - 1 ? "text-neutral-400" : "text-brand"
-                }`}
-              />
-            </button>
+                type="button"
+                onClick={() => setMobileIndex((i) => (i === 0 ? testimonials.length - 1 : i - 1))}
+                className="btn-secondary-glass group -mr-px flex min-h-[44px] min-w-[44px] items-center justify-center rounded-none border"
+                aria-label="Vorige testimonial"
+              >
+                <ChevronLeftIcon
+                  className={`h-5 w-5 transition-colors group-hover:text-white ${
+                    mobileIndex === 0 ? "text-neutral-400" : "text-brand"
+                  }`}
+                />
+              </button>
+              <button
+                type="button"
+                onClick={() => setMobileIndex((i) => (i === testimonials.length - 1 ? 0 : i + 1))}
+                className="btn-secondary-glass group flex min-h-[44px] min-w-[44px] items-center justify-center rounded-none border"
+                aria-label="Volgende testimonial"
+              >
+                <ChevronRightIcon
+                  className={`h-5 w-5 transition-colors group-hover:text-white ${
+                    mobileIndex === testimonials.length - 1 ? "text-neutral-400" : "text-brand"
+                  }`}
+                />
+              </button>
             </div>
-            <span className="tabular-nums text-sm text-neutral-500">
+            <span className="text-sm tabular-nums text-neutral-500">
               {mobileIndex + 1} / {testimonials.length}
             </span>
           </div>
@@ -139,7 +139,7 @@ export function TestimonialCarousel() {
 
       {/* Desktop: carousel met pivot */}
       <div
-        className="relative hidden w-[100vw] max-w-none overflow-hidden pt-4 pb-20 sm:pt-8 sm:pb-24 md:block"
+        className="relative hidden w-[100vw] max-w-none overflow-hidden pb-20 pt-4 sm:pb-24 sm:pt-8 md:block"
         style={{ marginLeft: "calc(50% - 50vw)", perspective: "800px" }}
       >
         <div

@@ -20,25 +20,16 @@ const steps = [
 
 export function HowItWorks() {
   return (
-    <section className="py-section bg-neutral-100">
+    <section className="bg-neutral-100 py-section">
       <Container>
-        <h2
-          className="text-3xl font-bold text-brand md:text-4xl"
-          data-letter-stagger
-        >
+        <h2 className="text-3xl font-bold text-brand md:text-4xl" data-letter-stagger>
           Hoe het werkt
         </h2>
-        <p
-          className="mt-3 max-w-2xl text-neutral-600"
-          data-reveal="fade-up"
-          data-delay="0.05"
-        >
-          In drie stappen naar een slim georganiseerd aftersales systeem. Wij combineren data met intuïtieve technologie.
+        <p className="mt-3 max-w-2xl text-neutral-600" data-reveal="fade-up" data-delay="0.05">
+          In drie stappen naar een slim georganiseerd aftersales systeem. Wij combineren data met
+          intuïtieve technologie.
         </p>
-        <ol
-          className="mt-10 grid gap-8 md:grid-cols-3"
-          data-stagger="children"
-        >
+        <ol className="mt-10 grid gap-8 md:grid-cols-3" data-stagger="children">
           {steps.map((item) => (
             <li key={item.step} className="relative">
               <div
@@ -47,9 +38,7 @@ export function HowItWorks() {
               >
                 {item.step}
               </div>
-              <h3 className="mt-4 text-xl font-semibold text-brand">
-                {item.title}
-              </h3>
+              <h3 className="mt-4 text-xl font-semibold text-brand">{item.title}</h3>
               <p className="mt-2 text-neutral-600">{item.text}</p>
             </li>
           ))}

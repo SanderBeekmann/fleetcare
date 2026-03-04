@@ -22,7 +22,13 @@
   --color-neutral-700: #334155;
   --color-neutral-800: #1e293b;
   --color-neutral-900: #0f172a;
-  --gradient-hero: linear-gradient(135deg, #ffffff 0%, rgba(var(--color-brand-rgb), 0.06) 30%, rgba(var(--color-brand-rgb), 0.14) 60%, rgba(var(--color-brand-rgb), 0.24) 100%);
+  --gradient-hero: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    rgba(var(--color-brand-rgb), 0.06) 30%,
+    rgba(var(--color-brand-rgb), 0.14) 60%,
+    rgba(var(--color-brand-rgb), 0.24) 100%
+  );
   --spacing-grid: 8px;
   --spacing-section: 80px;
   --radius-sm: 0;
@@ -56,7 +62,8 @@
 
 /* Scroll-hint pijltje: subtiele bounce omlaag */
 @keyframes scroll-hint-bounce {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
     opacity: 0.6;
   }
@@ -73,29 +80,52 @@
 /* Aurora bewegende achtergrond (merkkleur) */
 @keyframes aurora {
   from {
-    background-position: 50% 50%, 50% 50%;
+    background-position:
+      50% 50%,
+      50% 50%;
   }
   to {
-    background-position: 350% 50%, 350% 50%;
+    background-position:
+      350% 50%,
+      350% 50%;
   }
 }
 
 .aurora-layer {
   background-image:
-    repeating-linear-gradient(100deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 7%, transparent 10%, transparent 12%, rgba(255, 255, 255, 0.8) 16%),
-    repeating-linear-gradient(100deg, rgba(var(--color-brand-rgb), 0.5) 10%, rgba(var(--color-brand-rgb), 0.5) 15%, rgba(var(--color-brand-rgb), 0.5) 20%, rgba(var(--color-brand-rgb), 0.5) 25%, rgba(var(--color-brand-rgb), 0.5) 30%);
+    repeating-linear-gradient(
+      100deg,
+      rgba(255, 255, 255, 0.9) 0%,
+      rgba(255, 255, 255, 0.7) 7%,
+      transparent 10%,
+      transparent 12%,
+      rgba(255, 255, 255, 0.8) 16%
+    ),
+    repeating-linear-gradient(
+      100deg,
+      rgba(var(--color-brand-rgb), 0.5) 10%,
+      rgba(var(--color-brand-rgb), 0.5) 15%,
+      rgba(var(--color-brand-rgb), 0.5) 20%,
+      rgba(var(--color-brand-rgb), 0.5) 25%,
+      rgba(var(--color-brand-rgb), 0.5) 30%
+    );
   filter: blur(12px);
 }
 
 .aurora-layer-base {
-  background-size: 300% 200%, 200% 100%;
-  background-position: 50% 50%, 50% 50%;
+  background-size:
+    300% 200%,
+    200% 100%;
+  background-position:
+    50% 50%,
+    50% 50%;
 }
 
 .aurora-layer-animate {
   background-size: 200% 100%;
-  background-position: 50% 50%, 50% 50%;
-  background-attachment: fixed;
+  background-position:
+    50% 50%,
+    50% 50%;
   animation: aurora 60s linear infinite;
 }
 
@@ -104,7 +134,7 @@
     @apply scroll-smooth;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
   body {
     @apply bg-neutral-50 text-neutral-900 antialiased;
@@ -116,7 +146,12 @@
     margin: 0;
     padding: 0;
   }
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-heading);
     font-weight: 500 !important;
     text-transform: uppercase;
@@ -160,13 +195,29 @@
 
 /* iPhone 16 Pro mockup: frame-sheen, schaduw, scherm-reflectie */
 .iphone-frame-sheen {
-  background: linear-gradient(135deg, #1e293b 0%, #0f172a 40%, #1e293b 50%, #0f172a 60%, #020617 100%);
+  background: linear-gradient(
+    135deg,
+    #1e293b 0%,
+    #0f172a 40%,
+    #1e293b 50%,
+    #0f172a 60%,
+    #020617 100%
+  );
 }
 .iphone-floating {
-  box-shadow: 0 6px 12px rgba(0,0,0,0.18), 0 16px 32px rgba(0,0,0,0.22), 0 24px 48px -12px rgba(0,0,0,0.28);
+  box-shadow:
+    0 6px 12px rgba(0, 0, 0, 0.18),
+    0 16px 32px rgba(0, 0, 0, 0.22),
+    0 24px 48px -12px rgba(0, 0, 0, 0.28);
 }
 .screen-glass-overlay {
-  background: linear-gradient(105deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 20%, transparent 40%, transparent 100%);
+  background: linear-gradient(
+    105deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0.05) 20%,
+    transparent 40%,
+    transparent 100%
+  );
 }
 
 /* Primary CTA: omgekeerde animatie van secondary — blauwe laag krimpt (height 100% → 0) */
@@ -175,7 +226,9 @@
   overflow: hidden;
   border: 1px solid var(--color-brand);
   color: white;
-  transition: color 0.3s ease, border-color 0.3s ease;
+  transition:
+    color 0.3s ease,
+    border-color 0.3s ease;
 }
 .btn-primary-animate::after {
   content: "";
@@ -261,14 +314,16 @@
   z-index: 2;
 }
 
-.stacked-fixed-section.is-fixed {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: 100vh;
-  z-index: 2;
+@media (min-width: 768px) {
+  .stacked-fixed-section.is-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 2;
+  }
 }
 
 .stacked-fixed-slot {
@@ -287,8 +342,12 @@
 
 /* Contact page: vloeiende tab-overgang */
 @keyframes contact-tab-fade {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 .contact-tab-content {
   animation: contact-tab-fade 0.3s ease-out;

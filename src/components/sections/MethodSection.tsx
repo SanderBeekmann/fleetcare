@@ -2,13 +2,7 @@
 
 import { useRef } from "react";
 import Link from "next/link";
-import {
-  LayoutGrid,
-  Settings,
-  Rocket,
-  ArrowRight,
-  type LucideIcon,
-} from "lucide-react";
+import { LayoutGrid, Settings, Rocket, ArrowRight, type LucideIcon } from "lucide-react";
 import { useGsapContext } from "@/hooks/useGsapContext";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { registerGSAP, gsap, ScrollTrigger } from "@/lib/gsap/gsapClient";
@@ -33,26 +27,18 @@ const steps: Step[] = [
   {
     number: 2,
     title: "Direct aan de slag",
-    description:
-      "Log in op de app, en wij regelen uw aftersales-werkzaamheden.",
+    description: "Log in op de app, en wij regelen uw aftersales-werkzaamheden.",
     icon: Rocket,
   },
   {
     number: 3,
     title: "Wordt volledig ontzorgd",
-    description:
-      "Volledige ontzorging door onze specialisten en het slimme algoritme van de app",
+    description: "Volledige ontzorging door onze specialisten en het slimme algoritme van de app",
     icon: Settings,
   },
 ];
 
-function StepCard({
-  step,
-  isLast,
-}: {
-  step: Step;
-  isLast: boolean;
-}) {
+function StepCard({ step, isLast }: { step: Step; isLast: boolean }) {
   const Icon = step.icon;
   return (
     <div className="method-card relative flex gap-6 pb-20 last:pb-0 md:gap-16">
@@ -80,7 +66,7 @@ function StepCard({
           <span className="text-sm font-bold uppercase tracking-[0.3em] text-brand">
             {String(step.number).padStart(2, "0")}
           </span>
-          <div className="h-px w-12 bg-brand/20" aria-hidden />
+          <div className="bg-brand/20 h-px w-12" aria-hidden />
         </div>
         <h3 className="mb-4 text-xl font-light uppercase tracking-tight text-brand sm:text-2xl md:text-3xl">
           {step.title}
@@ -168,7 +154,7 @@ export function MethodSection() {
     <section
       id="method"
       ref={sectionRef}
-      className="relative z-[3] py-24 bg-white md:py-32"
+      className="relative z-[3] bg-white py-24 md:py-32"
       aria-labelledby="method-heading"
     >
       <Container>
@@ -191,8 +177,8 @@ export function MethodSection() {
                 <span className="font-bold">werkt.</span>
               </h2>
               <p className="mb-12 max-w-md text-sm font-light leading-relaxed text-neutral-600">
-                In drie stappen naar een beter beheerd wagenpark. Wij combineren
-                data met intuïtieve technologie.
+                In drie stappen naar een beter beheerd wagenpark. Wij combineren data met intuïtieve
+                technologie.
               </p>
               <Button
                 variant="primary"
@@ -205,14 +191,10 @@ export function MethodSection() {
           </div>
 
           {/* Right: steps */}
-          <div className="lg:col-span-7 pt-8 lg:pt-0">
+          <div className="pt-8 lg:col-span-7 lg:pt-0">
             <div className="relative">
               {steps.map((step, index) => (
-                <StepCard
-                  key={step.number}
-                  step={step}
-                  isLast={index === steps.length - 1}
-                />
+                <StepCard key={step.number} step={step} isLast={index === steps.length - 1} />
               ))}
             </div>
           </div>

@@ -24,9 +24,7 @@ export function PlanComparison() {
       <div className="grid gap-6 overflow-visible sm:grid-cols-2 lg:grid-cols-3">
         {plans.map((plan) => {
           const isHighlighted = plan.id === "smart";
-          const enabledFeatures = featureOrder.filter(
-            (key) => plan.features[key] === true
-          );
+          const enabledFeatures = featureOrder.filter((key) => plan.features[key] === true);
 
           return (
             <article
@@ -46,12 +44,8 @@ export function PlanComparison() {
                 data-stagger-delay="0.14"
                 data-stagger-duration="0.6"
               >
-                <h3 className="text-2xl font-weight-semibold text-neutral-900">
-                  {plan.name}
-                </h3>
-                <p className="mt-2 text-base text-neutral-600">
-                  {plan.description}
-                </p>
+                <h3 className="font-weight-semibold text-2xl text-neutral-900">{plan.name}</h3>
+                <p className="mt-2 text-base text-neutral-600">{plan.description}</p>
 
                 <div className={plan.id === "standaard" ? "mt-10" : "mt-4"}>
                   <span className="block text-2xl font-bold text-neutral-900 sm:text-3xl">
@@ -66,11 +60,7 @@ export function PlanComparison() {
 
                 <Button
                   variant={isHighlighted ? "primary" : "secondary"}
-                  href={
-                    plan.id === "enterprise"
-                      ? "/contact"
-                      : `/oplossingen#${plan.id}`
-                  }
+                  href={plan.id === "enterprise" ? "/contact" : `/oplossingen#${plan.id}`}
                   className="mt-6 w-full"
                 >
                   {getCTAText(plan)}
@@ -88,10 +78,7 @@ export function PlanComparison() {
                   )}
                   <ul className="mt-4 space-y-4">
                     {enabledFeatures.map((key) => (
-                      <li
-                        key={key}
-                        className="flex items-center gap-2 text-base text-neutral-700"
-                      >
+                      <li key={key} className="flex items-center gap-2 text-base text-neutral-700">
                         <span className="shrink-0 text-brand" aria-hidden>
                           ✓
                         </span>

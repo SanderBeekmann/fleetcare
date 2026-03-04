@@ -22,7 +22,8 @@ export const plans: Plan[] = [
   {
     id: "standaard",
     name: "Standaard",
-    description: "Maak effectief gebruik van de essentiële functies van FleetCare Connect. Profiteer van ons servicepartner netwerk, door middel van de app en het algoritme.",
+    description:
+      "Maak effectief gebruik van de essentiële functies van FleetCare Connect. Profiteer van ons servicepartner netwerk, door middel van de app en het algoritme.",
     price: "€1,49",
     priceSub: "per voertuig per maand",
     minPeriod: "12 maanden",
@@ -38,7 +39,8 @@ export const plans: Plan[] = [
   {
     id: "smart",
     name: "Smart",
-    description: "Optimaliseer het gebruik van FleetCare Connect door aanvullende functies zoals toegang tot het web-portaal, wat zorgt voor nóg meer overzicht in uw aftersales operatie.",
+    description:
+      "Optimaliseer het gebruik van FleetCare Connect door aanvullende functies zoals toegang tot het web-portaal, wat zorgt voor nóg meer overzicht in uw aftersales operatie.",
     badge: "Meest gekozen",
     price: "€2,99",
     priceSub: "per voertuig per maand",
@@ -55,7 +57,8 @@ export const plans: Plan[] = [
   {
     id: "enterprise",
     name: "Enterprise",
-    description: "Een White label met naadloze integratie met uw eigen bedrijfssystemen, voor optimale aansluiting op uw organisatie. Op maat gemaakt voor de grootte van uw vloot.",
+    description:
+      "Een White label met naadloze integratie met uw eigen bedrijfssystemen, voor optimale aansluiting op uw organisatie. Op maat gemaakt voor de grootte van uw vloot.",
     price: "Op maat",
     priceSub: "service op maat",
     minPeriod: "3 maanden",

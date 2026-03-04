@@ -5,19 +5,12 @@ import { TestimonialCarousel } from "./TestimonialCarousel";
 
 export function KlantenPreview() {
   return (
-    <section className="py-24 bg-neutral-100 md:py-32">
+    <section className="bg-neutral-100 py-24 md:py-32">
       <Container>
-        <h2
-          className="text-3xl font-bold text-brand md:text-4xl"
-          data-letter-stagger
-        >
+        <h2 className="text-3xl font-bold text-brand md:text-4xl" data-letter-stagger>
           Wat klanten zeggen
         </h2>
-        <p
-          className="mt-3 max-w-2xl text-neutral-600"
-          data-reveal="fade-up"
-          data-delay="0.05"
-        >
+        <p className="mt-3 max-w-2xl text-neutral-600" data-reveal="fade-up" data-delay="0.05">
           Ontdek hoe andere ondernemers FleetCare Connect inzetten.
         </p>
         <div className="mt-10" data-reveal="fade-up" data-delay="0.1">

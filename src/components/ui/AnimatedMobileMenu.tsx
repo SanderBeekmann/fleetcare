@@ -123,7 +123,7 @@ export function AnimatedMobileMenu({
         dragElastic={0.2}
         onDragEnd={handleDragEnd}
         style={{ x: dragX }}
-        className="fixed top-0 right-0 z-[9999] h-full min-h-screen w-80 bg-white shadow-2xl md:hidden"
+        className="fixed right-0 top-0 z-[9999] h-full min-h-screen w-80 bg-white shadow-2xl md:hidden"
         aria-label="Navigatiemenu"
       >
         {/* Close Button */}
@@ -170,7 +170,7 @@ export function AnimatedMobileMenu({
                   <Link
                     href={item.href}
                     onClick={onClose}
-                    className={`flex items-center gap-4 rounded-lg p-4 transition-all hover:bg-neutral-100 group ${linkClass(item.href)}`}
+                    className={`group flex items-center gap-4 rounded-lg p-4 transition-all hover:bg-neutral-100 ${linkClass(item.href)}`}
                   >
                     <motion.div
                       whileHover={{ scale: 1.15, rotate: 8 }}
@@ -202,7 +202,7 @@ export function AnimatedMobileMenu({
                   Contact
                 </Link>
                 <span
-                  className="flex flex-1 items-center justify-center rounded-r-md rounded-l-none border border-neutral-200 bg-white px-4 py-3 text-center text-sm text-neutral-600"
+                  className="flex flex-1 items-center justify-center rounded-l-none rounded-r-md border border-neutral-200 bg-white px-4 py-3 text-center text-sm text-neutral-600"
                   title={storeLink.hoverLabel}
                 >
                   {storeLink.label}

@@ -13,7 +13,11 @@ const TABS = [
 const contactDetails = [
   { label: "E-mail", value: "info@fleetcareconnect.nl", href: "mailto:info@fleetcareconnect.nl" },
   { label: "Telefoon", value: "+31 (0)20 123 4567", href: "tel:+31201234567" },
-  { label: "Adres", value: "Amsterdam, Nederland", href: "https://maps.google.com/?q=Amsterdam+Nederland" },
+  {
+    label: "Adres",
+    value: "Amsterdam, Nederland",
+    href: "https://maps.google.com/?q=Amsterdam+Nederland",
+  },
 ];
 
 export function ContactPageContent() {
@@ -30,12 +34,9 @@ export function ContactPageContent() {
             >
               Contact
             </h1>
-            <p
-              className="mt-4 text-lg text-neutral-600"
-              data-reveal="fade-up"
-              data-delay="0.05"
-            >
-              Heeft u een vraag of wilt u een demo? Laat uw gegevens achter en wij nemen zo snel mogelijk contact met u op.
+            <p className="mt-4 text-lg text-neutral-600" data-reveal="fade-up" data-delay="0.05">
+              Heeft u een vraag of wilt u een demo? Laat uw gegevens achter en wij nemen zo snel
+              mogelijk contact met u op.
             </p>
             <div className="relative mt-auto flex justify-center gap-4 border-b border-neutral-200 pt-10 sm:gap-8">
               {TABS.map(({ id, label }) => {
@@ -66,11 +67,13 @@ export function ContactPageContent() {
 
       <section className="border-t border-neutral-200 bg-white py-section">
         <Container>
-          <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 lg:items-start">
+          <div className="grid gap-12 lg:grid-cols-2 lg:items-start lg:gap-16">
             <div>
               {activeTab === "vraag" && (
                 <div className="contact-tab-content">
-                  <h2 className="text-xl font-bold text-brand sm:text-2xl md:text-3xl">Neem contact op</h2>
+                  <h2 className="text-xl font-bold text-brand sm:text-2xl md:text-3xl">
+                    Neem contact op
+                  </h2>
                   <div className="mt-8">
                     <ContactForm variant="default" />
                   </div>
@@ -78,9 +81,12 @@ export function ContactPageContent() {
               )}
               {activeTab === "demo" && (
                 <div className="contact-tab-content">
-                  <h2 className="text-xl font-bold text-brand sm:text-2xl md:text-3xl">Demo aanvragen</h2>
+                  <h2 className="text-xl font-bold text-brand sm:text-2xl md:text-3xl">
+                    Demo aanvragen
+                  </h2>
                   <p className="mt-4 max-w-lg text-neutral-600">
-                    Plan een vrijblijvende demo in en ontdek hoe FleetCare Connect uw wagenparkbeheer kan verbeteren.
+                    Plan een vrijblijvende demo in en ontdek hoe FleetCare Connect uw
+                    wagenparkbeheer kan verbeteren.
                   </p>
                   <div className="mt-8">
                     <ContactForm variant="default" />
@@ -105,7 +111,10 @@ export function ContactPageContent() {
                           className="group relative inline-block cursor-pointer pb-0.5 text-neutral-900"
                         >
                           {value}
-                          <span className="absolute bottom-0 left-0 h-0.5 w-full origin-left scale-x-0 bg-brand transition-transform duration-200 ease-out group-hover:scale-x-100" aria-hidden />
+                          <span
+                            className="absolute bottom-0 left-0 h-0.5 w-full origin-left scale-x-0 bg-brand transition-transform duration-200 ease-out group-hover:scale-x-100"
+                            aria-hidden
+                          />
                         </Link>
                       </li>
                     ))}

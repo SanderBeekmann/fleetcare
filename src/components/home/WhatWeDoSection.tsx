@@ -9,7 +9,7 @@ export function WhatWeDoSection() {
       <Container>
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Linkergrid: tekst met gestaggerde reveal-animatie — data-card-anchor voor mobiele scroll-animatie */}
-          <div className="flex flex-col justify-center pt-24 sm:pt-32 lg:pt-0" data-card-anchor>
+          <div className="flex flex-col justify-center py-24 sm:py-32 lg:py-0" data-card-anchor>
             <h2
               className="text-3xl font-bold text-brand sm:text-[33px] md:text-4xl"
               data-letter-stagger
@@ -22,14 +22,18 @@ export function WhatWeDoSection() {
               data-reveal="fade-up"
               data-delay="0.08"
             >
-              FleetCare Connect ontzorgt u in het koppelen van uw specifiek LEV aan de best passende servicepartner bij u in de buurt, door heel Nederland.
+              FleetCare Connect ontzorgt u in het koppelen van uw specifiek LEV aan de best passende
+              servicepartner bij u in de buurt, door heel Nederland.
             </p>
             <p
               className="mt-4 max-w-2xl text-lg text-neutral-600"
               data-reveal="fade-up"
               data-delay="0.08"
             >
-              Behoefte, voertuig informatie, matching met service partner en (primaire) diagnose voor de best match staan bij FleetCare Connect centraal. Dit alles om uw operatie zo efficiënt mogelijk te laten verlopen. Wij hebben een oplossing voor iedere vloot grootte.
+              Behoefte, voertuig informatie, matching met service partner en (primaire) diagnose
+              voor de best match staan bij FleetCare Connect centraal. Dit alles om uw operatie zo
+              efficiënt mogelijk te laten verlopen. Wij hebben een oplossing voor iedere vloot
+              grootte.
             </p>
           </div>
           {/* Rechtergrid: leeg of toekomstige content */}
