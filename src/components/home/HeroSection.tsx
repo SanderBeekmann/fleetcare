@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { Button } from "@/components/ui/Button";
 import { Image } from "@/components/ui/Image";
-import { AuroraBackground } from "@/components/ui/AuroraBackground";
+import { ShaderBackground } from "@/components/ui/ShaderBackground";
 import { usePhoneScrollAnimation } from "@/hooks/usePhoneScrollAnimation";
 import { useHeroStaggerAnimation } from "@/hooks/useHeroStaggerAnimation";
 
@@ -19,7 +19,7 @@ export function HeroSection() {
     <div ref={heroScopeRef} className="relative -mt-16">
       <div id="hero" className="relative isolate z-[1] min-h-screen md:fixed md:inset-0">
         {/* 1. Aurora bewegende achtergrond (achter) */}
-        <AuroraBackground showRadialGradient={true} />
+        <ShaderBackground />
         <section className="relative z-20 min-h-screen w-full max-w-none overflow-x-hidden overflow-y-visible md:h-screen md:w-screen md:overflow-hidden">
           {/* Layer 3: Content — full width, clamp padding voor alle schermgroottes */}
           <div

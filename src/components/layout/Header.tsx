@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useLayoutEffect, useRef, useEffect } from "react";
+import { useState, useLayoutEffect, useRef, useEffect, useCallback } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { AnimatedMobileMenu } from "@/components/ui/AnimatedMobileMenu";
 import { getStoreLink } from "@/lib/storeLinks";
-import { registerGSAP, gsap, ScrollTrigger } from "@/lib/gsap/gsapClient";
+import { gsap } from "gsap";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -19,16 +19,22 @@ const navLinks = [
 
 const SCROLL_TOP_THRESHOLD = 24;
 
+const OPAQUE_CLASS = "border-neutral-200 bg-white shadow-sm backdrop-blur";
+const TRANSPARENT_CLASS = "border-transparent bg-transparent shadow-none backdrop-blur-none";
+
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [navOpaque, setNavOpaque] = useState(false);
   const pathname = usePathname();
   const storeLink = getStoreLink();
   const headerRef = useRef<HTMLElement>(null);
   const lastHideStateRef = useRef<"visible" | "hidden">("visible");
   const mobileOpenRef = useRef(mobileOpen);
+  const prevScrollYRef = useRef(0);
+  const tickingRef = useRef(false);
+  const navOpaqueRef = useRef(false);
   mobileOpenRef.current = mobileOpen;
 
+  // Escape-key + body overflow lock voor mobiel menu
   useEffect(() => {
     if (!mobileOpen) return;
     const handleEscape = (e: KeyboardEvent) => {
@@ -44,134 +50,135 @@ export function Header() {
     };
   }, [mobileOpen]);
 
-  useLayoutEffect(() => {
-    registerGSAP();
+  /** Directe DOM toggle voor opaque/transparant — geen React re-render */
+  const applyOpaque = useCallback((opaque: boolean) => {
+    if (navOpaqueRef.current === opaque) return;
+    navOpaqueRef.current = opaque;
     const header = headerRef.current;
     if (!header) return;
 
-    const isDesktop = () => window.matchMedia("(min-width: 768px)").matches;
+    if (opaque) {
+      TRANSPARENT_CLASS.split(" ").forEach((c) => header.classList.remove(c));
+      OPAQUE_CLASS.split(" ").forEach((c) => header.classList.add(c));
+    } else {
+      OPAQUE_CLASS.split(" ").forEach((c) => header.classList.remove(c));
+      TRANSPARENT_CLASS.split(" ").forEach((c) => header.classList.add(c));
+    }
+  }, []);
 
-    const applyState = (visible: boolean) => {
-      // Mobiel: navbar altijd zichtbaar — nooit verbergen
-      if (!isDesktop()) {
-        if (lastHideStateRef.current !== "visible") {
-          lastHideStateRef.current = "visible";
-          gsap.set(header, { y: 0, overwrite: true });
-        }
-        return;
+  /** GSAP show/hide — alleen desktop, met dedup via lastHideStateRef */
+  const applyVisibility = useCallback((visible: boolean) => {
+    const header = headerRef.current;
+    if (!header) return;
+    const isDesktop = window.matchMedia("(min-width: 768px)").matches;
+
+    // Mobiel: navbar altijd zichtbaar — nooit verbergen
+    if (!isDesktop) {
+      if (lastHideStateRef.current !== "visible") {
+        lastHideStateRef.current = "visible";
+        gsap.set(header, { y: 0, overwrite: true });
       }
+      return;
+    }
 
-      if (visible) {
-        if (lastHideStateRef.current !== "visible") {
-          lastHideStateRef.current = "visible";
-          gsap.to(header, {
-            y: 0,
-            duration: 0.25,
-            ease: "power2.out",
-            overwrite: true,
-          });
-        }
-      } else {
-        if (lastHideStateRef.current !== "hidden") {
-          lastHideStateRef.current = "hidden";
-          gsap.to(header, {
-            y: -header.offsetHeight,
-            duration: 0.25,
-            ease: "power2.inOut",
-            overwrite: true,
-          });
-        }
-      }
-    };
-
-    const ctx = gsap.context(() => {
-      ScrollTrigger.create({
-        trigger: document.documentElement,
-        start: "top top",
-        end: "bottom bottom",
-        onUpdate(self) {
-          if (!isDesktop()) return;
-          const scrollY = self.scroll();
-          const direction = self.direction;
-
-          if (scrollY < SCROLL_TOP_THRESHOLD) {
-            applyState(true);
-            return;
-          }
-          if (direction === 1 && !mobileOpenRef.current) applyState(false);
-          else if (direction === -1) applyState(true);
-        },
+    if (visible && lastHideStateRef.current !== "visible") {
+      lastHideStateRef.current = "visible";
+      gsap.to(header, { y: 0, duration: 0.25, ease: "power2.out", overwrite: true });
+    } else if (!visible && lastHideStateRef.current !== "hidden") {
+      lastHideStateRef.current = "hidden";
+      gsap.to(header, {
+        y: -header.offsetHeight,
+        duration: 0.25,
+        ease: "power2.inOut",
+        overwrite: true,
       });
+    }
+  }, []);
 
-      gsap.set(header, { y: 0 });
-      ScrollTrigger.refresh();
-    }, header);
+  // Eén geconsolideerde scroll listener met rAF-throttle
+  useLayoutEffect(() => {
+    const header = headerRef.current;
+    if (!header) return;
+    gsap.set(header, { y: 0 });
+    prevScrollYRef.current = window.scrollY;
 
-    // Fallback: scroll listener voor wanneer ScrollTrigger niet vuurt (bijv. fixed hero-layout)
-    let prevScrollY = typeof window !== "undefined" ? window.scrollY : 0;
-    const onScroll = () => {
-      if (!isDesktop()) {
-        applyState(true);
-        return;
-      }
+    const onTick = () => {
+      tickingRef.current = false;
       const scrollY = window.scrollY;
+      const direction = scrollY > prevScrollYRef.current ? 1 : -1;
+
+      // Hide/show logica
       if (scrollY < SCROLL_TOP_THRESHOLD) {
-        applyState(true);
-      } else {
-        const direction = scrollY > prevScrollY ? 1 : -1;
-        if (direction === 1 && !mobileOpenRef.current) applyState(false);
-        else applyState(true);
+        applyVisibility(true);
+      } else if (direction === 1 && !mobileOpenRef.current) {
+        applyVisibility(false);
+      } else if (direction === -1) {
+        applyVisibility(true);
       }
-      prevScrollY = scrollY;
+
+      // Opaque logica — alleen voor homepage (andere pages altijd opaque)
+      if (pathname === "/") {
+        const watWeDoen = document.getElementById("wat-we-doen");
+        if (watWeDoen) {
+          applyOpaque(watWeDoen.getBoundingClientRect().top <= 0);
+        } else {
+          applyOpaque(scrollY > 20);
+        }
+      }
+
+      prevScrollYRef.current = scrollY;
     };
+
+    const onScroll = () => {
+      if (tickingRef.current) return;
+      tickingRef.current = true;
+      requestAnimationFrame(onTick);
+    };
+
     window.addEventListener("scroll", onScroll, { passive: true });
 
     const onResize = () => {
-      if (!isDesktop()) applyState(true);
+      if (!window.matchMedia("(min-width: 768px)").matches) {
+        applyVisibility(true);
+      }
     };
     window.addEventListener("resize", onResize);
 
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
-      ctx.revert();
     };
-  }, []);
+  }, [pathname, applyVisibility, applyOpaque]);
 
+  // Initiële opaque-state per route (direct bij mount/route change)
   useLayoutEffect(() => {
-    if (pathname !== "/" && pathname !== "/oplossingen") {
-      setNavOpaque(true);
-      return;
-    }
-    if (pathname === "/oplossingen") {
-      setNavOpaque(true);
-      return;
-    }
-    const watWeDoen = document.getElementById("wat-we-doen");
-    const update = () => {
-      if (!watWeDoen) {
-        setNavOpaque(window.scrollY > 20);
-        return;
+    if (pathname !== "/") {
+      applyOpaque(true);
+    } else {
+      // Homepage: check huidige scroll positie
+      const watWeDoen = document.getElementById("wat-we-doen");
+      if (watWeDoen) {
+        applyOpaque(watWeDoen.getBoundingClientRect().top <= 0);
+      } else {
+        applyOpaque(window.scrollY > 20);
       }
-      const top = watWeDoen.getBoundingClientRect().top;
-      setNavOpaque(top <= 0);
-    };
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    return () => window.removeEventListener("scroll", update);
-  }, [pathname]);
+    }
+  }, [pathname, applyOpaque]);
 
   const linkClass = (href: string) => {
     const isActive = href === "/" ? pathname === "/" : pathname.startsWith(href);
     return `${isActive ? "font-semibold text-brand" : "text-neutral-600 hover:text-brand"}`;
   };
 
-  const headerClass = navOpaque
-    ? "sticky top-0 z-50 border-b border-neutral-200 bg-white shadow-sm backdrop-blur transition-[background-color,border-color,box-shadow] duration-300"
-    : "sticky top-0 z-50 border-b border-transparent bg-transparent shadow-none backdrop-blur-none transition-[background-color,border-color,box-shadow] duration-300";
+  // Initiële class — wordt daarna via DOM bijgewerkt
+  const initialOpaque = pathname !== "/";
+  const opaqueStyles = initialOpaque ? OPAQUE_CLASS : TRANSPARENT_CLASS;
 
   return (
-    <header ref={headerRef} className={`${headerClass} w-full`}>
+    <header
+      ref={headerRef}
+      className={`sticky top-0 z-50 border-b transition-[background-color,border-color,box-shadow] duration-300 ${opaqueStyles} w-full`}
+    >
       {/* Desktop: logo links, nav midden, CTA's rechts */}
       <div className="hidden md:flex md:h-16 md:w-full md:items-center">
         <div

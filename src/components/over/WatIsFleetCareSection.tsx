@@ -1,11 +1,24 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useMotionTemplate, useScroll, useTransform } from "framer-motion";
 import { Clock, Puzzle, Activity, MapPin, Smartphone } from "lucide-react";
 import Image from "next/image";
 
 const SCROLL_HEIGHT = 1800;
+
+/** Mobiel-detectie: 768px breakpoint, consistent met rest van de site */
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mql = window.matchMedia("(max-width: 767px)");
+    setIsMobile(mql.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mql.addEventListener("change", handler);
+    return () => mql.removeEventListener("change", handler);
+  }, []);
+  return isMobile;
+}
 
 const features = [
   {
@@ -48,6 +61,7 @@ export function WatIsFleetCareSection() {
 /* ── Parallax Hero: center image sticky, parallax images scrollen erover ── */
 
 function ParallaxHero() {
+  const isMobile = useIsMobile();
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -59,6 +73,61 @@ function ParallaxHero() {
   const inset = useTransform(scrollYProgress, [0, 0.5], [30, 0]);
   const clipPath = useMotionTemplate`inset(${inset}% ${inset}% ${inset}% ${inset}%)`;
 
+  /* ── Mobiel: eenvoudige image-grid zonder parallax/sticky/clipPath ── */
+  if (isMobile) {
+    return (
+      <div className="bg-neutral-50 px-4 py-12">
+        <div className="mx-auto max-w-5xl">
+          <div className="overflow-hidden">
+            <Image
+              src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop"
+              alt="FleetCare Connect platform"
+              className="h-auto w-full"
+              width={1200}
+              height={800}
+              unoptimized
+            />
+          </div>
+          <div className="mt-6 grid grid-cols-2 gap-3">
+            <Image
+              src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?q=80&w=800&auto=format&fit=crop"
+              alt="Elektrisch voertuig opladen"
+              className="h-auto w-full"
+              width={800}
+              height={533}
+              unoptimized
+            />
+            <Image
+              src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop"
+              alt="Dashboard met data analytics"
+              className="h-auto w-full"
+              width={800}
+              height={533}
+              unoptimized
+            />
+            <Image
+              src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=800&auto=format&fit=crop"
+              alt="Monteur werkt aan voertuig"
+              className="h-auto w-full"
+              width={800}
+              height={533}
+              unoptimized
+            />
+            <Image
+              src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?q=80&w=800&auto=format&fit=crop"
+              alt="Mobiele app interface"
+              className="h-auto w-full"
+              width={800}
+              height={533}
+              unoptimized
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  /* ── Desktop: parallax met sticky + clip-path reveal ── */
   return (
     <div
       ref={containerRef}
@@ -68,7 +137,10 @@ function ParallaxHero() {
       {/* Center image: sticky, wrapper knipt de afbeelding af */}
       <div className="sticky top-0 flex h-screen items-center justify-center bg-neutral-50">
         {/* Clip-venster onthult steeds meer van de afbeelding */}
-        <motion.div className="max-h-[50vh] max-w-3xl" style={{ clipPath }}>
+        <motion.div
+          className="max-h-[50vh] max-w-3xl"
+          style={{ clipPath, willChange: "clip-path" }}
+        >
           <Image
             src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop"
             alt="FleetCare Connect platform"
@@ -143,7 +215,7 @@ function ParallaxImg({
   const opacity = useTransform(scrollYProgress, [0.75, 1], [1, 0]);
   const scale = useTransform(scrollYProgress, [0.75, 1], [1, 0.85]);
   const y = useTransform(scrollYProgress, [0, 1], [start, end]);
-  const transform = useMotionTemplate`translateY(${y}px) scale(${scale})`;
+  const transform = useMotionTemplate`translate3d(0,${y}px,0) scale(${scale})`;
 
   return (
     <motion.img
@@ -151,7 +223,7 @@ function ParallaxImg({
       alt={alt}
       className={className}
       ref={ref}
-      style={{ transform, opacity }}
+      style={{ transform, opacity, willChange: "transform, opacity" }}
     />
   );
 }
@@ -160,7 +232,7 @@ function ParallaxImg({
 
 function FeatureList() {
   return (
-    <section className="relative z-10 -mt-[240px] bg-neutral-50 px-4 py-16 md:py-24">
+    <section className="relative z-10 -mt-0 bg-neutral-50 px-4 py-16 md:-mt-[240px] md:py-24">
       <div className="mx-auto max-w-5xl">
         <motion.p
           initial={{ y: 48, opacity: 0 }}
