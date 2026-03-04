@@ -187,11 +187,7 @@ export function ShaderBackground({ className }: ShaderBackgroundProps) {
   return (
     <canvas
       ref={canvasRef}
-      className={cn("absolute inset-0 h-full w-full", className)}
-      style={{
-        maskImage: "linear-gradient(to left, black 0%, black 25%, transparent 75%)",
-        WebkitMaskImage: "linear-gradient(to left, black 0%, black 25%, transparent 75%)",
-      }}
+      className={cn("shader-canvas absolute left-0 right-0 h-full w-full", className)}
       aria-hidden
     />
   );

@@ -403,6 +403,42 @@
     0 0 0 1px rgba(0, 0, 0, 0.03),
     0 20px 40px -10px rgba(var(--color-brand-rgb), 0.08);
 }
+/* Shader canvas: responsive mask — kleiner desktop fade bij 50%, groot desktop bij 75%, mobiel geen mask */
+.shader-canvas {
+  top: 0;
+  bottom: 0;
+  mask-image:
+    linear-gradient(to left, black 0%, black 25%, transparent 50%),
+    linear-gradient(to top, black 0%, black 28%, transparent 40%, transparent 75%, black 90%);
+  -webkit-mask-image:
+    linear-gradient(to left, black 0%, black 25%, transparent 50%),
+    linear-gradient(to top, black 0%, black 28%, transparent 40%, transparent 75%, black 90%);
+  mask-composite: add;
+  -webkit-mask-composite: source-over;
+}
+@media (min-width: 1536px) {
+  .shader-canvas {
+    top: 0;
+    bottom: 0;
+    mask-image:
+      linear-gradient(to left, black 0%, black 25%, transparent 75%),
+      linear-gradient(to top, black 0%, black 28%, transparent 40%);
+    -webkit-mask-image:
+      linear-gradient(to left, black 0%, black 25%, transparent 75%),
+      linear-gradient(to top, black 0%, black 28%, transparent 40%);
+    mask-composite: add;
+    -webkit-mask-composite: source-over;
+  }
+}
+@media (max-width: 1023px) {
+  .shader-canvas {
+    top: -25%;
+    bottom: 35%;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+}
+
 /* Bento card: stroke draw-in animation vanuit één hoek */
 .border-draw-rect {
   stroke-dasharray: 1;
