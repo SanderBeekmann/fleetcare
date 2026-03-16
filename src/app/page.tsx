@@ -50,9 +50,9 @@ export default function HomePage() {
       <StackedFixedSection2 />
       <div className="stacked-content-above relative z-[3]">
         <PlansOverview />
-        <WhyFCCSection />
-        <MethodSection />
         <AppShowcaseSection />
+        <MethodSection />
+        <WhyFCCSection />
         <StatsSection />
         <PlanFunnel />
         <KlantenPreview />

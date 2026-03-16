@@ -48,19 +48,23 @@ export function revealElement(
   const type = (opts?.type ?? "fade-up") as RevealType;
   const from = revealFrom[type] ?? revealFrom["fade-up"];
   const delay = opts?.delay ?? 0;
-  gsap.fromTo(el, from, {
-    opacity: 1,
-    x: 0,
-    y: 0,
-    duration: REVEAL_DURATION,
-    delay,
-    ease: REVEAL_EASE,
-    scrollTrigger: {
-      trigger: el,
-      start: REVEAL_START,
-      toggleActions: REVEAL_TOGGLE,
-    },
-  });
+  gsap.fromTo(
+    el,
+    { ...from, immediateRender: false },
+    {
+      opacity: 1,
+      x: 0,
+      y: 0,
+      duration: REVEAL_DURATION,
+      delay,
+      ease: REVEAL_EASE,
+      scrollTrigger: {
+        trigger: el,
+        start: REVEAL_START,
+        toggleActions: REVEAL_TOGGLE,
+      },
+    }
+  );
 }
 
 /**
@@ -78,18 +82,22 @@ export function createRevealAnimations(scope: HTMLElement | null): void {
     const noReverse = el.hasAttribute("data-reveal-no-reverse");
     const toggleActions = noReverse ? REVEAL_TOGGLE_NO_REVERSE : REVEAL_TOGGLE;
 
-    gsap.fromTo(el, from, {
-      opacity: 1,
-      x: 0,
-      y: 0,
-      duration: REVEAL_DURATION,
-      delay,
-      ease: REVEAL_EASE,
-      scrollTrigger: {
-        trigger: el,
-        start: REVEAL_START,
-        toggleActions,
-      },
-    });
+    gsap.fromTo(
+      el,
+      { ...from, immediateRender: false },
+      {
+        opacity: 1,
+        x: 0,
+        y: 0,
+        duration: REVEAL_DURATION,
+        delay,
+        ease: REVEAL_EASE,
+        scrollTrigger: {
+          trigger: el,
+          start: REVEAL_START,
+          toggleActions,
+        },
+      }
+    );
   });
 }

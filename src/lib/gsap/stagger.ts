@@ -10,7 +10,7 @@ const STAGGER_DELAY = 0.08;
 const STAGGER_Y = 16;
 const STAGGER_EASE = "power2.out";
 const STAGGER_START = "top 85%";
-const STAGGER_TOGGLE = "play none none reverse";
+const STAGGER_TOGGLE = "play none play reverse";
 
 /**
  * Animeer directe kinderen van container met stagger.
@@ -35,7 +35,7 @@ export function staggerChildren(
 
   gsap.fromTo(
     children,
-    { opacity: 0, y },
+    { opacity: 0, y, immediateRender: false },
     {
       opacity: 1,
       y: 0,

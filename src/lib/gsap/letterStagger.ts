@@ -83,17 +83,21 @@ export function createLetterStaggerAnimations(scope: HTMLElement | null): void {
     const delay = parseFloat(el.dataset.delay ?? "0") || 0;
     const toggleActions = noReverse ? TOGGLE_NO_REVERSE : TOGGLE;
 
-    gsap.fromTo(letters, FROM, {
-      opacity: 1,
-      duration: DURATION,
-      delay,
-      stagger: STAGGER,
-      ease: EASE,
-      scrollTrigger: {
-        trigger: el,
-        start: START,
-        toggleActions,
-      },
-    });
+    gsap.fromTo(
+      letters,
+      { ...FROM, immediateRender: false },
+      {
+        opacity: 1,
+        duration: DURATION,
+        delay,
+        stagger: STAGGER,
+        ease: EASE,
+        scrollTrigger: {
+          trigger: el,
+          start: START,
+          toggleActions,
+        },
+      }
+    );
   });
 }

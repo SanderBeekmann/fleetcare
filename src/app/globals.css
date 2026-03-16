@@ -137,10 +137,15 @@
 
 @layer base {
   html {
-    @apply scroll-smooth;
     margin: 0;
     padding: 0;
     overflow-x: clip;
+  }
+  /* scroll-smooth alleen op desktop — voorkomt sticky-jitter door momentum-scroll op mobiel */
+  @media (min-width: 768px) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
   body {
     @apply bg-neutral-50 text-neutral-900 antialiased;

@@ -192,7 +192,7 @@ export function Header() {
   return (
     <header
       ref={headerRef}
-      className={`sticky top-0 z-50 border-b transition-[background-color,border-color,box-shadow] duration-300 ${opaqueStyles} w-full`}
+      className={`sticky top-0 z-50 border-b md:transition-[background-color,border-color,box-shadow] md:duration-300 ${opaqueStyles} w-full`}
     >
       {/* Desktop: logo links, nav midden, CTA's rechts */}
       <div className="hidden md:flex md:h-16 md:w-full md:items-center">
