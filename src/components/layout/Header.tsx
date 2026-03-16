@@ -66,20 +66,10 @@ export function Header() {
     }
   }, []);
 
-  /** GSAP show/hide — alleen desktop, met dedup via lastHideStateRef */
+  /** GSAP show/hide — wordt alleen aangeroepen op desktop (mobiel skipt in scroll listener) */
   const applyVisibility = useCallback((visible: boolean) => {
     const header = headerRef.current;
     if (!header) return;
-    const isDesktop = window.matchMedia("(min-width: 768px)").matches;
-
-    // Mobiel: navbar altijd zichtbaar — nooit verbergen
-    if (!isDesktop) {
-      if (lastHideStateRef.current !== "visible") {
-        lastHideStateRef.current = "visible";
-        gsap.set(header, { y: 0, overwrite: true });
-      }
-      return;
-    }
 
     if (visible && lastHideStateRef.current !== "visible") {
       lastHideStateRef.current = "visible";
@@ -99,12 +89,35 @@ export function Header() {
   useLayoutEffect(() => {
     const header = headerRef.current;
     if (!header) return;
-    gsap.set(header, { y: 0 });
+
+    const isDesktop = () => window.matchMedia("(min-width: 768px)").matches;
+
+    // Alleen GSAP transform instellen op desktop — voorkomt sticky + transform conflict op mobiel
+    if (isDesktop()) {
+      gsap.set(header, { y: 0 });
+    }
+
     prevScrollYRef.current = window.scrollY;
 
     const onTick = () => {
       tickingRef.current = false;
       const scrollY = window.scrollY;
+
+      // Mobiel: geen hide/show logica — navbar altijd zichtbaar via pure CSS sticky
+      if (!isDesktop()) {
+        // Opaque logica nog wel nodig voor homepage
+        if (pathname === "/") {
+          const watWeDoen = document.getElementById("wat-we-doen");
+          if (watWeDoen) {
+            applyOpaque(watWeDoen.getBoundingClientRect().top <= 0);
+          } else {
+            applyOpaque(scrollY > 20);
+          }
+        }
+        prevScrollYRef.current = scrollY;
+        return;
+      }
+
       const direction = scrollY > prevScrollYRef.current ? 1 : -1;
 
       // Hide/show logica
@@ -138,8 +151,10 @@ export function Header() {
     window.addEventListener("scroll", onScroll, { passive: true });
 
     const onResize = () => {
-      if (!window.matchMedia("(min-width: 768px)").matches) {
-        applyVisibility(true);
+      if (!isDesktop()) {
+        // Verwijder GSAP transform volledig zodat sticky puur via CSS werkt
+        gsap.set(header, { clearProps: "y" });
+        lastHideStateRef.current = "visible";
       }
     };
     window.addEventListener("resize", onResize);

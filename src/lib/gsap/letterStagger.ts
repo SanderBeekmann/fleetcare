@@ -12,7 +12,7 @@ const STAGGER = 0.03;
 const EASE = "power2.out";
 const FROM = { opacity: 0 };
 const START = "top 90%";
-const TOGGLE = "play none none reverse";
+const TOGGLE = "play none play reverse";
 const TOGGLE_NO_REVERSE = "play none none none";
 
 /**

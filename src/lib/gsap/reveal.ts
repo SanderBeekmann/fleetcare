@@ -9,7 +9,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 const REVEAL_DURATION = 0.6;
 const REVEAL_EASE = "power2.out";
 const REVEAL_START = "top 95%";
-const REVEAL_TOGGLE = "play none none reverse";
+const REVEAL_TOGGLE = "play none play reverse";
 /** Geen reverse: animatie speelt eenmaal en blijft zichtbaar (bv. vaste hero bij scroll terug omhoog). */
 const REVEAL_TOGGLE_NO_REVERSE = "play none none none";
 
