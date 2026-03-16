@@ -4,6 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import { motion, useMotionTemplate, useScroll, useTransform } from "framer-motion";
 import { Clock, Puzzle, Activity, MapPin, Smartphone } from "lucide-react";
 import Image from "next/image";
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 const SCROLL_HEIGHT = 1800;
 
@@ -62,6 +63,7 @@ export function WatIsFleetCareSection() {
 
 function ParallaxHero() {
   const isMobile = useIsMobile();
+  const prefersReducedMotion = usePrefersReducedMotion();
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -70,7 +72,7 @@ function ParallaxHero() {
   });
 
   // Clip krimpt van 30% inset naar 0% — onthult meer van de afbeelding
-  const inset = useTransform(scrollYProgress, [0, 0.5], [30, 0]);
+  const inset = useTransform(scrollYProgress, [0, 0.5], prefersReducedMotion ? [0, 0] : [30, 0]);
   const clipPath = useMotionTemplate`inset(${inset}% ${inset}% ${inset}% ${inset}%)`;
 
   /* ── Mobiel: eenvoudige image-grid zonder parallax/sticky/clipPath ── */
@@ -89,14 +91,22 @@ function ParallaxHero() {
             />
           </div>
           <div className="mt-6 grid grid-cols-2 gap-3">
-            <Image
-              src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?q=80&w=800&auto=format&fit=crop"
-              alt="Elektrisch voertuig opladen"
-              className="h-auto w-full"
-              width={800}
-              height={533}
-              unoptimized
-            />
+            <div className="flex h-full flex-col justify-between border border-neutral-200 bg-white p-4">
+              <div>
+                <div className="mb-2 flex items-center gap-2">
+                  <div className="h-2 w-2 rounded-full bg-brand" />
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-brand">
+                    Operationeel
+                  </p>
+                </div>
+                <p className="text-sm font-semibold leading-snug text-neutral-900">
+                  Volledig wagenpark&shy;beheer
+                </p>
+              </div>
+              <p className="mt-2 text-xs leading-relaxed text-neutral-500">
+                Van laadstatus tot onderhouds&shy;planning, alles in één overzicht.
+              </p>
+            </div>
             <Image
               src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop"
               alt="Dashboard met data analytics"
@@ -105,14 +115,17 @@ function ParallaxHero() {
               height={533}
               unoptimized
             />
-            <Image
-              src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=800&auto=format&fit=crop"
-              alt="Monteur werkt aan voertuig"
-              className="h-auto w-full"
-              width={800}
-              height={533}
-              unoptimized
-            />
+            <div className="bg-brand p-4 text-white">
+              <p className="text-xs font-medium uppercase tracking-widest text-white/70">
+                Ons netwerk
+              </p>
+              <p className="mt-2 text-sm font-semibold leading-snug">
+                Gecertificeerde servicepartners door heel Nederland
+              </p>
+              <p className="mt-1 text-xs leading-relaxed text-white/80">
+                Onderhoud, reparatie en pechhulp - altijd bij u in de buurt.
+              </p>
+            </div>
             <Image
               src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?q=80&w=800&auto=format&fit=crop"
               alt="Mobiele app interface"
@@ -155,13 +168,7 @@ function ParallaxHero() {
       {/* Parallax images: scrollen over de sticky center image */}
       <div className="relative z-10 -mt-[100vh]">
         <div className="mx-auto max-w-5xl px-4 pt-[60vh]">
-          <ParallaxImg
-            src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?q=80&w=2672&auto=format&fit=crop"
-            alt="Elektrisch voertuig opladen"
-            start={-100}
-            end={100}
-            className="w-1/3"
-          />
+          <ParallaxCard start={-100} end={100} className="w-1/3" variant="charging" />
           <ParallaxImg
             src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2670&auto=format&fit=crop"
             alt="Dashboard met data analytics"
@@ -169,13 +176,7 @@ function ParallaxHero() {
             end={-120}
             className="mx-auto w-2/3"
           />
-          <ParallaxImg
-            src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=2670&auto=format&fit=crop"
-            alt="Monteur werkt aan voertuig"
-            start={-100}
-            end={100}
-            className="ml-auto w-1/3"
-          />
+          <ParallaxCard start={-100} end={100} className="ml-auto w-1/3" />
           <ParallaxImg
             src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?q=80&w=2670&auto=format&fit=crop"
             alt="Mobiele app interface"
@@ -206,15 +207,16 @@ function ParallaxImg({
   end: number;
 }) {
   const ref = useRef<HTMLImageElement>(null);
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: [`${start}px end`, `end ${end * -1}px`],
   });
 
-  const opacity = useTransform(scrollYProgress, [0.75, 1], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0.75, 1], [1, 0.85]);
-  const y = useTransform(scrollYProgress, [0, 1], [start, end]);
+  const opacity = useTransform(scrollYProgress, [0.75, 1], prefersReducedMotion ? [1, 1] : [1, 0]);
+  const scale = useTransform(scrollYProgress, [0.75, 1], prefersReducedMotion ? [1, 1] : [1, 0.85]);
+  const y = useTransform(scrollYProgress, [0, 1], prefersReducedMotion ? [0, 0] : [start, end]);
   const transform = useMotionTemplate`translate3d(0,${y}px,0) scale(${scale})`;
 
   return (
@@ -223,37 +225,114 @@ function ParallaxImg({
       alt={alt}
       className={className}
       ref={ref}
-      style={{ transform, opacity, willChange: "transform, opacity" }}
+      style={{
+        transform,
+        opacity,
+        willChange: prefersReducedMotion ? "auto" : "transform, opacity",
+      }}
     />
+  );
+}
+
+function ParallaxCard({
+  className,
+  start,
+  end,
+  variant = "network",
+}: {
+  className?: string;
+  start: number;
+  end: number;
+  variant?: "network" | "charging";
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = usePrefersReducedMotion();
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: [`${start}px end`, `end ${end * -1}px`],
+  });
+
+  const opacity = useTransform(scrollYProgress, [0.75, 1], prefersReducedMotion ? [1, 1] : [1, 0]);
+  const scale = useTransform(scrollYProgress, [0.75, 1], prefersReducedMotion ? [1, 1] : [1, 0.85]);
+  const y = useTransform(scrollYProgress, [0, 1], prefersReducedMotion ? [0, 0] : [start, end]);
+  const transform = useMotionTemplate`translate3d(0,${y}px,0) scale(${scale})`;
+
+  return (
+    <motion.div
+      ref={ref}
+      className={className}
+      style={{
+        transform,
+        opacity,
+        willChange: prefersReducedMotion ? "auto" : "transform, opacity",
+      }}
+    >
+      {variant === "network" ? (
+        <div className="bg-brand p-6 text-white">
+          <p className="text-xs font-medium uppercase tracking-widest text-white/70">Ons netwerk</p>
+          <p className="mt-3 text-lg font-semibold leading-snug">
+            Gecertificeerde servicepartners door heel Nederland
+          </p>
+          <p className="mt-2 text-sm leading-relaxed text-white/80">
+            Onderhoud, reparatie en pechhulp - altijd bij u in de buurt.
+          </p>
+        </div>
+      ) : (
+        <div className="flex flex-col justify-between border border-neutral-200 bg-white p-6">
+          <div>
+            <div className="mb-3 flex items-center gap-2">
+              <div className="h-2 w-2 rounded-full bg-brand" />
+              <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-brand">
+                Operationeel
+              </p>
+            </div>
+            <p className="text-lg font-semibold leading-snug text-neutral-900">
+              Volledig wagenpark&shy;beheer
+            </p>
+          </div>
+          <p className="mt-3 text-sm leading-relaxed text-neutral-500">
+            Van laadstatus tot onderhouds&shy;planning, alles in één overzicht.
+          </p>
+        </div>
+      )}
+    </motion.div>
   );
 }
 
 /* ── Feature list ── */
 
 function FeatureList() {
+  const prefersReducedMotion = usePrefersReducedMotion();
+  const initial = prefersReducedMotion ? { opacity: 1 } : { y: 48, opacity: 0 };
+  const whileInView = prefersReducedMotion ? { opacity: 1 } : { y: 0, opacity: 1 };
+  const transition = prefersReducedMotion
+    ? { duration: 0 }
+    : { ease: "easeInOut" as const, duration: 0.75 };
+
   return (
     <section className="relative z-10 -mt-0 bg-neutral-50 px-4 py-16 md:-mt-[240px] md:py-24">
       <div className="mx-auto max-w-5xl">
         <motion.p
-          initial={{ y: 48, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{ ease: "easeInOut", duration: 0.75 }}
+          initial={initial}
+          whileInView={whileInView}
+          transition={transition}
           className="mb-4 text-xs font-medium uppercase tracking-widest text-brand"
         >
           Het platform
         </motion.p>
         <motion.h2
-          initial={{ y: 48, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{ ease: "easeInOut", duration: 0.75 }}
+          initial={initial}
+          whileInView={whileInView}
+          transition={transition}
           className="mb-6 text-3xl font-bold text-brand md:text-4xl"
         >
           Wat is FleetCare Connect
         </motion.h2>
         <motion.p
-          initial={{ y: 48, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          transition={{ ease: "easeInOut", duration: 0.75 }}
+          initial={initial}
+          whileInView={whileInView}
+          transition={transition}
           className="mb-12 max-w-2xl text-base leading-relaxed text-neutral-600 md:text-lg"
         >
           FleetCare Connect (FCC) is hét centrale aftersalesplatform voor Light Electric Vehicles
@@ -266,9 +345,9 @@ function FeatureList() {
           return (
             <motion.div
               key={feature.title}
-              initial={{ y: 48, opacity: 0 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              transition={{ ease: "easeInOut", duration: 0.75 }}
+              initial={initial}
+              whileInView={whileInView}
+              transition={transition}
               className="mb-9 flex items-center justify-between border-b border-neutral-200 px-3 pb-9"
             >
               <div className="flex items-center gap-4">

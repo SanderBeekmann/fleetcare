@@ -33,12 +33,20 @@ export function usePhoneScrollAnimation(scopeRef: React.RefObject<HTMLElement | 
     if (!scopeRef.current) return;
 
     const isDesktop = () =>
-      typeof window !== "undefined" && window.matchMedia("(min-width: 768px)").matches;
+      typeof window !== "undefined" && window.matchMedia("(min-width: 1024px)").matches;
     if (!isDesktop()) return;
 
     registerGSAP();
 
     let cancelled = false;
+    // Cache eindpositie na 5% scroll — voorkomt sprong door layout-wijziging tijdens animatie
+    let cachedEnd: { x: number; y: number } | null = null;
+    const onResize = () => {
+      cachedEnd = null;
+    };
+    window.addEventListener("resize", onResize);
+    resizeCleanupRef.current = () => window.removeEventListener("resize", onResize);
+
     const runSetup = () => {
       if (cancelled || !scopeRef.current) return;
       if (!isDesktop()) return;
@@ -62,14 +70,6 @@ export function usePhoneScrollAnimation(scopeRef: React.RefObject<HTMLElement | 
             invalidateOnRefresh: true,
           },
         });
-
-        // Cache eindpositie na 5% scroll — voorkomt sprong door layout-wijziging tijdens animatie
-        let cachedEnd: { x: number; y: number } | null = null;
-        const onResize = () => {
-          cachedEnd = null;
-        };
-        window.addEventListener("resize", onResize);
-        resizeCleanupRef.current = () => window.removeEventListener("resize", onResize);
 
         // phoneWrap: subtiel naar rechts, licht omhoog, kleine pivot aan einde
         // Op mobiel: extra 32px rechts, 12px omhoog zodat mockup niet over "Wat we doen" valt

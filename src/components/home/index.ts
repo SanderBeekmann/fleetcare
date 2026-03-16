@@ -7,3 +7,4 @@ export { StatsSection } from "./StatsSection";
 export { KlantenPreview } from "./KlantenPreview";
 export { AppShowcaseSection } from "./AppShowcaseSection";
 export { PlanFunnel } from "./PlanFunnel";
+export { WhyFCCSection } from "./WhyFCCSection";

@@ -38,6 +38,7 @@ export function setCookieConsent(consent: Partial<CookieConsent>): void {
       timestamp: new Date().toISOString(),
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+    window.dispatchEvent(new Event("cookie-consent-change"));
   } catch {
     // localStorage not available
   }

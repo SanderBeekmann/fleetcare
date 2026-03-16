@@ -20,7 +20,7 @@ const FS = `
   const float axisWidth       = 0.05;
   const float majorLineWidth  = 0.025;
   const float minorLineWidth  = 0.0125;
-  const float scale           = 5.0;
+  const float scale           = 9.0;
 
   // Brand colour #074789 in normalised RGB
   const vec4 lineColor = vec4(0.027, 0.278, 0.537, 1.0);
@@ -84,8 +84,26 @@ const FS = `
       lines += (line + circle) * lineColor * rand;
     }
 
-    // Background: neutral-50 (#f8fafc)
-    vec4  bg           = vec4(0.973, 0.980, 0.988, 1.0);
+    // Clean white background with very subtle blue gradient
+    vec3 pureWhite  = vec3(1.0, 1.0, 1.0);
+    vec3 softBlue   = vec3(0.94, 0.96, 0.99);            // #f0f5fc
+    vec3 deeperBlue = vec3(0.91, 0.94, 0.97);            // #e8f0f8
+
+    // Diagonal sweep: white → barely-there blue
+    float diag = uv.x * 0.45 + (1.0 - uv.y) * 0.55;
+    vec3 baseGrad = mix(pureWhite, softBlue, smoothstep(0.1, 1.0, diag));
+
+    // Soft radial glow bottom-right
+    vec2 glowCenter = vec2(0.75, 0.25);
+    float glowDist = length((uv - glowCenter) * vec2(1.0, 1.3));
+    float glow = 1.0 - smoothstep(0.0, 0.7, glowDist);
+    baseGrad = mix(baseGrad, deeperBlue, glow * 0.3);
+
+    // Top: pure white
+    float topClean = smoothstep(0.4, 1.0, uv.y);
+    baseGrad = mix(baseGrad, pureWhite, topClean * 0.7);
+
+    vec4  bg           = vec4(baseGrad, 1.0);
     float lineStrength = clamp(length(lines.rgb) * 0.8, 0.0, 1.0);
 
     gl_FragColor   = mix(bg, lineColor, lineStrength);

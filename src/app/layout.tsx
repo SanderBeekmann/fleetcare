@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
-import { Analytics } from "@vercel/analytics/react";
+
 import "./globals.css";
 
 const headingFont = Montserrat({
@@ -37,15 +37,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="nl" className={headingFont.variable}>
-      <body>
+    <html lang="nl" className={headingFont.variable} suppressHydrationWarning>
+      <body suppressHydrationWarning>
         <Header />
         <GsapProvider>
           <main>{children}</main>
           <Footer />
         </GsapProvider>
         <CookieBanner />
-        <Analytics />
       </body>
     </html>
   );

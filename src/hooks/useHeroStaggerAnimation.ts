@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect } from "react";
 import { registerGSAP, gsap } from "@/lib/gsap/gsapClient";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
@@ -18,29 +18,36 @@ export function useHeroStaggerAnimation(scopeRef: React.RefObject<HTMLElement | 
 
   useLayoutEffect(() => {
     if (prefersReducedMotion || typeof window === "undefined") return;
-    const scope = scopeRef.current;
-    if (!scope) return;
-
-    const container = scope.querySelector<HTMLElement>("[data-hero-stagger]");
-    if (!container) return;
+    if (!scopeRef.current) return;
 
     registerGSAP();
 
-    const children = Array.from(container.children) as HTMLElement[];
-    if (children.length === 0) return;
+    let ctx: ReturnType<typeof gsap.context> | null = null;
 
-    const ctx = gsap.context(() => {
-      gsap.set(children, { opacity: 0, y: FROM_Y });
+    const raf = requestAnimationFrame(() => {
+      const scope = scopeRef.current;
+      if (!scope) return;
+      const container = scope.querySelector<HTMLElement>("[data-hero-stagger]");
+      if (!container) return;
+      const children = Array.from(container.children) as HTMLElement[];
+      if (children.length === 0) return;
 
-      gsap.to(children, {
-        opacity: 1,
-        y: 0,
-        duration: DURATION,
-        stagger: STAGGER_DELAY,
-        ease: EASE,
-      });
-    }, scope);
+      ctx = gsap.context(() => {
+        gsap.set(children, { opacity: 0, y: FROM_Y });
 
-    return () => ctx.revert();
+        gsap.to(children, {
+          opacity: 1,
+          y: 0,
+          duration: DURATION,
+          stagger: STAGGER_DELAY,
+          ease: EASE,
+        });
+      }, scope);
+    });
+
+    return () => {
+      cancelAnimationFrame(raf);
+      ctx?.revert();
+    };
   }, [scopeRef, prefersReducedMotion]);
 }

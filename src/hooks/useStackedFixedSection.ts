@@ -31,7 +31,7 @@ export function useStackedFixedSection() {
 
   const isDesktop = useCallback(() => {
     if (typeof window === "undefined") return false;
-    return window.matchMedia("(min-width: 768px)").matches;
+    return window.matchMedia("(min-width: 1024px)").matches;
   }, []);
 
   const check = useCallback(() => {

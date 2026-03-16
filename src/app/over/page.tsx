@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/Button";
 import { OverPageHero } from "@/components/over/OverPageHero";
 import { OverStackedSection } from "@/components/over/OverStackedSection";
 import { WatIsFleetCareSection } from "@/components/over/WatIsFleetCareSection";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title: "Over ons",
@@ -41,6 +42,12 @@ const values = [
 export default function OverPage() {
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Over ons", href: "/over" },
+        ]}
+      />
       <OverPageHero />
 
       <div className="relative z-[2]">

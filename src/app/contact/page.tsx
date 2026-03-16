@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ContactPageContent } from "@/components/contact/ContactPageContent";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -12,5 +13,15 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  return <ContactPageContent />;
+  return (
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Contact", href: "/contact" },
+        ]}
+      />
+      <ContactPageContent />
+    </>
+  );
 }

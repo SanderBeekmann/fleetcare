@@ -6,6 +6,7 @@ import Link from "next/link";
 import { motion, AnimatePresence, useMotionValue, type Variants } from "framer-motion";
 import { X, Home, Info, Briefcase, Users, Mail } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 type NavLink = { href: string; label: string };
 type StoreLink = {
@@ -39,6 +40,7 @@ export function AnimatedMobileMenu({
   linkClass,
 }: AnimatedMobileMenuProps) {
   const [mounted, setMounted] = useState(false);
+  const prefersReducedMotion = usePrefersReducedMotion();
   useEffect(() => setMounted(true), []);
 
   const dragX = useMotionValue(0);
@@ -50,49 +52,42 @@ export function AnimatedMobileMenu({
     dragX.set(0);
   };
 
+  const instantTransition = { duration: 0 };
+
   const menuVariants: Variants = {
     closed: {
       x: "100%",
-      transition: {
-        type: "spring",
-        stiffness: 200,
-        damping: 30,
-        mass: 0.8,
-      },
+      transition: prefersReducedMotion
+        ? instantTransition
+        : { type: "spring", stiffness: 200, damping: 30, mass: 0.8 },
     },
     open: {
       x: 0,
-      transition: {
-        type: "spring",
-        stiffness: 200,
-        damping: 30,
-        mass: 0.8,
-      },
+      transition: prefersReducedMotion
+        ? instantTransition
+        : { type: "spring", stiffness: 200, damping: 30, mass: 0.8 },
     },
   };
 
   const itemVariants: Variants = {
-    closed: { x: 50, opacity: 0 },
+    closed: { x: 0, opacity: prefersReducedMotion ? 1 : 0 },
     open: (i: number) => ({
       x: 0,
       opacity: 1,
-      transition: {
-        delay: 0.1 + i * 0.08,
-        type: "spring" as const,
-        stiffness: 250,
-        damping: 25,
-      },
+      transition: prefersReducedMotion
+        ? instantTransition
+        : { delay: 0.1 + i * 0.08, type: "spring" as const, stiffness: 250, damping: 25 },
     }),
   };
 
   const overlayVariants = {
     closed: {
       opacity: 0,
-      transition: { duration: 0.3 },
+      transition: prefersReducedMotion ? instantTransition : { duration: 0.3 },
     },
     open: {
       opacity: 1,
-      transition: { duration: 0.4 },
+      transition: prefersReducedMotion ? instantTransition : { duration: 0.4 },
     },
   };
 
@@ -128,11 +123,11 @@ export function AnimatedMobileMenu({
       >
         {/* Close Button */}
         <motion.button
-          initial={{ opacity: 0, scale: 0.8 }}
+          initial={prefersReducedMotion ? undefined : { opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.2 }}
-          whileHover={{ scale: 1.1, rotate: 90 }}
-          whileTap={{ scale: 0.9 }}
+          transition={prefersReducedMotion ? instantTransition : { delay: 0.2 }}
+          whileHover={prefersReducedMotion ? undefined : { scale: 1.1, rotate: 90 }}
+          whileTap={prefersReducedMotion ? undefined : { scale: 0.9 }}
           onClick={onClose}
           className="absolute right-12 top-6 flex min-h-[44px] min-w-[44px] items-center justify-center rounded-lg bg-neutral-100 p-2 text-neutral-900 transition-colors hover:bg-neutral-200"
           aria-label="Menu sluiten"
@@ -142,16 +137,24 @@ export function AnimatedMobileMenu({
 
         <div className="p-8 pt-20">
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={prefersReducedMotion ? undefined : { opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15, type: "spring", stiffness: 200 }}
+            transition={
+              prefersReducedMotion
+                ? instantTransition
+                : { delay: 0.15, type: "spring", stiffness: 200 }
+            }
             className="mb-12"
           >
             <h2 className="text-3xl font-bold text-brand">Navigatie</h2>
             <motion.div
-              initial={{ width: 0 }}
+              initial={prefersReducedMotion ? undefined : { width: 0 }}
               animate={{ width: 80 }}
-              transition={{ delay: 0.3, duration: 0.6, ease: "easeOut" }}
+              transition={
+                prefersReducedMotion
+                  ? instantTransition
+                  : { delay: 0.3, duration: 0.6, ease: "easeOut" }
+              }
               className="mt-2 h-1 rounded bg-brand"
             />
           </motion.div>
@@ -173,8 +176,8 @@ export function AnimatedMobileMenu({
                     className={`group flex items-center gap-4 rounded-lg p-4 transition-all hover:bg-neutral-100 ${linkClass(item.href)}`}
                   >
                     <motion.div
-                      whileHover={{ scale: 1.15, rotate: 8 }}
-                      whileTap={{ scale: 0.95 }}
+                      whileHover={prefersReducedMotion ? undefined : { scale: 1.15, rotate: 8 }}
+                      whileTap={prefersReducedMotion ? undefined : { scale: 0.95 }}
                       className="rounded-lg bg-neutral-200 p-2 transition-colors duration-300 group-hover:bg-brand group-hover:text-white"
                     >
                       <Icon size={24} />
@@ -187,9 +190,9 @@ export function AnimatedMobileMenu({
           </ul>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={prefersReducedMotion ? undefined : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7, duration: 0.5 }}
+            transition={prefersReducedMotion ? instantTransition : { delay: 0.7, duration: 0.5 }}
             className="mt-12 rounded-lg bg-neutral-100 p-4"
           >
             {storeLink.disabled ? (
@@ -220,9 +223,9 @@ export function AnimatedMobileMenu({
           </motion.div>
 
           <motion.p
-            initial={{ opacity: 0 }}
+            initial={prefersReducedMotion ? undefined : { opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.9 }}
+            transition={prefersReducedMotion ? instantTransition : { delay: 0.9 }}
             className="mt-4 text-center text-xs text-neutral-500"
           >
             Sleep naar rechts om te sluiten

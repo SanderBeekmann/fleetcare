@@ -17,13 +17,18 @@ export function HeroSection() {
 
   return (
     <div ref={heroScopeRef} className="relative -mt-16">
-      <div id="hero" className="relative isolate z-[1] min-h-screen md:fixed md:inset-0">
+      <div id="hero" className="relative isolate z-[1] min-h-screen lg:fixed lg:inset-0">
         {/* 1. Aurora bewegende achtergrond (achter) */}
         <ShaderBackground />
-        <section className="relative z-20 min-h-screen w-full max-w-none overflow-x-hidden overflow-y-visible md:h-screen md:w-screen md:overflow-hidden">
+        {/* 2. Premium gradient overlay — boven canvas, onder content */}
+        <div
+          className="hero-gradient-overlay pointer-events-none absolute inset-0 z-10"
+          aria-hidden
+        />
+        <section className="relative z-20 min-h-screen w-full max-w-none overflow-x-hidden overflow-y-visible lg:h-screen lg:w-screen lg:overflow-hidden">
           {/* Layer 3: Content — full width, clamp padding voor alle schermgroottes */}
           <div
-            className="relative z-10 mx-auto flex min-h-screen w-full max-w-none flex-col justify-start pb-12 pt-20 sm:pb-16 sm:pt-24 md:pb-24 md:pt-24 lg:justify-center lg:pb-16 xl:pb-12 xl:pt-12 2xl:justify-center 2xl:pt-16"
+            className="relative z-10 mx-auto flex min-h-screen w-full max-w-none flex-col justify-start pb-12 pt-20 sm:pb-16 sm:pt-24 lg:justify-center lg:pb-16 lg:pt-24 xl:pb-12 xl:pt-12 2xl:justify-center 2xl:pt-16"
             style={{
               paddingLeft: "clamp(24px, 4vw, 120px)",
               paddingRight: "clamp(24px, 4vw, 120px)",
@@ -35,6 +40,7 @@ export function HeroSection() {
               <div
                 className="max-w-2xl xl:max-w-4xl 2xl:max-w-5xl 2xl:justify-self-start"
                 data-hero-stagger
+                suppressHydrationWarning
               >
                 {/* Mobiel: telefoonmockup boven de hero-content, in normale flow */}
                 <div className="mb-6 flex w-full justify-center overflow-x-clip lg:hidden">
@@ -84,6 +90,7 @@ export function HeroSection() {
                     className="max-w-full text-[26px] font-extrabold leading-tight text-brand sm:text-[28px] sm:font-bold md:text-3xl md:font-semibold lg:text-[32px] xl:text-[44px] 2xl:text-6xl"
                     data-reveal="fade-up"
                     data-reveal-no-reverse
+                    suppressHydrationWarning
                   >
                     <span className="block">Uw vloot,</span>
                     <span className="block whitespace-normal sm:mt-2 sm:whitespace-nowrap">
@@ -94,6 +101,7 @@ export function HeroSection() {
                     className="mt-2 text-base font-bold text-brand sm:text-[17px] md:text-lg lg:text-base xl:text-[22px] 2xl:text-[24px]"
                     data-reveal="fade-up"
                     data-reveal-no-reverse
+                    suppressHydrationWarning
                   >
                     LEV aftersales service & planning management
                   </p>
@@ -125,7 +133,7 @@ export function HeroSection() {
       {/* iPhone mockup: z-3 — boven sectie 2 (z-2), onder rest (z-4) */}
       <div
         id="phone-layer"
-        className="pointer-events-none hidden md:fixed md:inset-0 md:pb-24 md:pt-24 lg:grid lg:grid-cols-2 lg:items-center"
+        className="pointer-events-none hidden lg:fixed lg:inset-0 lg:grid lg:grid-cols-2 lg:items-center lg:pb-24 lg:pt-24"
         style={{ paddingLeft: "clamp(24px, 4vw, 120px)", paddingRight: "clamp(24px, 4vw, 120px)" }}
         aria-hidden
       >
@@ -221,6 +229,7 @@ export function HeroSection() {
                       fill
                       className="object-cover object-top"
                       sizes="310px"
+                      priority
                     />
                     <div className="screen-glass-overlay pointer-events-none absolute inset-0" />
                     {/* Home Indicator */}
@@ -243,7 +252,7 @@ export function HeroSection() {
       </div>
 
       {/* Spacer: trigger voor scroll-animatie; alleen op desktop (secties scrollen over hero) */}
-      <div data-scroll-trigger className="hidden h-screen w-full md:block" aria-hidden />
+      <div data-scroll-trigger className="hidden h-screen w-full lg:block" aria-hidden />
     </div>
   );
 }

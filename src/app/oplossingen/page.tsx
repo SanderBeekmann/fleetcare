@@ -6,6 +6,9 @@ import { PlanComparison } from "@/components/oplossingen/PlanComparison";
 import { FaqSection } from "@/components/oplossingen/FaqSection";
 import { CtaBlock } from "@/components/oplossingen/CtaBlock";
 import { ScrollToRecommended } from "@/components/oplossingen/ScrollToRecommended";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
+import { FaqJsonLd } from "@/components/seo/FaqJsonLd";
+import { faqs } from "@/lib/faqData";
 
 export const metadata: Metadata = {
   title: "Oplossingen",
@@ -25,6 +28,13 @@ export default function OplossingenPage({ searchParams }: PageProps) {
   const recommended = searchParams.aanbevolen;
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Oplossingen", href: "/oplossingen" },
+        ]}
+      />
+      <FaqJsonLd faqs={faqs} />
       <section className="relative flex min-h-[calc(100vh-64px)] flex-col bg-white py-16 md:py-20">
         <div className="flex flex-1 flex-col justify-center">
           <Container>

@@ -22,7 +22,7 @@ export function WhatWeDoSection() {
               data-reveal="fade-up"
               data-delay="0.08"
             >
-              FleetCare Connect ontzorgt u in het koppelen van uw specifiek LEV aan de best passende
+              FleetCare Connect ontzorgt u in het koppelen van uw LEV aan de best passende
               servicepartner bij u in de buurt, door heel Nederland.
             </p>
             <p
