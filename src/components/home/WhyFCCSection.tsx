@@ -134,47 +134,44 @@ export function WhyFCCSection() {
 
         {/* Bento grid */}
         <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
-          {/* Highlight card - flip on desktop hover */}
-          <div className="why-highlight group [perspective:1200px] lg:col-span-2 lg:row-span-2">
-            <div className="relative h-full w-full transition-transform duration-700 ease-in-out [transform-style:preserve-3d] lg:group-hover:[transform:rotateY(180deg)]">
-              {/* Front */}
-              <div className="flex h-full flex-col justify-between bg-brand p-8 text-white [backface-visibility:hidden] md:p-10">
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/60">
-                    Het verschil
-                  </p>
-                  <p className="mt-4 text-2xl font-semibold leading-snug sm:text-3xl md:text-4xl">
-                    Eén platform dat uw complete LEV-aftersales verbindt, van aanvraag tot
-                    afronding.
-                  </p>
-                </div>
-                <div className="mt-10 flex items-end justify-between">
-                  <div className="flex gap-12">
-                    <div>
-                      <p className="text-3xl font-bold md:text-4xl">98%</p>
-                      <p className="mt-1 text-xs uppercase tracking-widest text-white/70">
-                        Tevredenheid
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-3xl font-bold md:text-4xl">24/7</p>
-                      <p className="mt-1 text-xs uppercase tracking-widest text-white/70">
-                        Beschikbaar
-                      </p>
-                    </div>
-                  </div>
-                  <p className="hidden text-xs uppercase tracking-widest text-white/40 lg:block">
-                    Hover voor preview
-                  </p>
-                </div>
-              </div>
-              {/* Back - coming soon placeholder (desktop only) */}
-              <div className="absolute inset-0 hidden flex-col items-center justify-center bg-neutral-900 [backface-visibility:hidden] [transform:rotateY(180deg)] lg:flex">
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/40">
-                  Dashboard preview
+          {/* Highlight card - radial reveal on desktop hover */}
+          <div className="why-highlight group relative overflow-hidden lg:col-span-2 lg:row-span-2">
+            {/* Front */}
+            <div className="flex h-full flex-col justify-between bg-brand p-8 text-white md:p-10">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/60">
+                  Het verschil
                 </p>
-                <p className="mt-3 text-2xl font-semibold text-white">Coming soon</p>
+                <p className="mt-4 text-2xl font-semibold leading-snug sm:text-3xl md:text-4xl">
+                  Eén platform dat uw complete LEV-aftersales verbindt, van aanvraag tot afronding.
+                </p>
               </div>
+              <div className="mt-10 flex items-end justify-between">
+                <div className="flex gap-12">
+                  <div>
+                    <p className="text-3xl font-bold md:text-4xl">98%</p>
+                    <p className="mt-1 text-xs uppercase tracking-widest text-white/70">
+                      Tevredenheid
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-3xl font-bold md:text-4xl">24/7</p>
+                    <p className="mt-1 text-xs uppercase tracking-widest text-white/70">
+                      Beschikbaar
+                    </p>
+                  </div>
+                </div>
+                <p className="hidden text-xs uppercase tracking-widest text-white/40 lg:block">
+                  Hover voor preview
+                </p>
+              </div>
+            </div>
+            {/* Overlay - radial gradient reveal (desktop only) */}
+            <div className="pointer-events-none absolute inset-0 hidden flex-col items-center justify-center bg-neutral-900 transition-[clip-path] duration-700 ease-in-out [clip-path:circle(0%_at_50%_50%)] lg:flex lg:group-hover:[clip-path:circle(75%_at_50%_50%)]">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/40">
+                Dashboard preview
+              </p>
+              <p className="mt-3 text-2xl font-semibold text-white">Coming soon</p>
             </div>
           </div>
 
@@ -198,6 +195,28 @@ export function WhyFCCSection() {
               </div>
             );
           })}
+
+          {/* Image placeholder card - bottom right */}
+          <div className="relative flex items-center justify-center overflow-hidden bg-neutral-100">
+            <div className="flex flex-col items-center gap-3 p-8 text-neutral-400">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="48"
+                height="48"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+                <circle cx="9" cy="9" r="2" />
+                <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+              </svg>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em]">Afbeelding</p>
+            </div>
+          </div>
         </div>
       </Container>
     </section>

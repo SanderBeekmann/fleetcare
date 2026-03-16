@@ -216,20 +216,20 @@ export function usePhoneScrollAnimation(scopeRef: React.RefObject<HTMLElement | 
       }, scopeRef);
     };
 
-    let onLoad: (() => void) | null = null;
-    if (document.readyState === "complete") {
-      runSetup();
-    } else {
-      onLoad = () => {
-        window.removeEventListener("load", onLoad!);
+    let rafId: number | null = null;
+
+    // Wait for fonts (correct layout measurements) then setup on next frame
+    document.fonts.ready.then(() => {
+      if (cancelled) return;
+      rafId = requestAnimationFrame(() => {
         runSetup();
-      };
-      window.addEventListener("load", onLoad);
-    }
+        ScrollTrigger.refresh();
+      });
+    });
 
     return () => {
       cancelled = true;
-      if (onLoad) window.removeEventListener("load", onLoad);
+      if (rafId !== null) cancelAnimationFrame(rafId);
       resizeCleanupRef.current?.();
       resizeCleanupRef.current = null;
       mmRef.current?.revert();
