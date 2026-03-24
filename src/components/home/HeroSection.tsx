@@ -35,10 +35,10 @@ export function HeroSection() {
             }}
           >
             {/* 2 gelijke onzichtbare gridkolommen: links content, rechts ruimte voor phone */}
-            <div className="grid items-end gap-8 sm:gap-12 lg:grid-cols-2 lg:items-center lg:gap-16 2xl:grid-cols-2 2xl:items-center 2xl:gap-16">
+            <div className="grid items-end gap-8 sm:gap-12 lg:grid-cols-[3fr_2fr] lg:items-center lg:gap-16 xl:grid-cols-2 2xl:grid-cols-2 2xl:items-center 2xl:gap-16">
               {/* Links: content linksuitgelijnd in linker grid; op 2xl omhoog (gecentreerd) */}
               <div
-                className="max-w-2xl xl:max-w-4xl 2xl:max-w-5xl 2xl:justify-self-start"
+                className="min-w-0 max-w-2xl xl:max-w-4xl 2xl:max-w-5xl 2xl:justify-self-start"
                 data-hero-stagger
                 suppressHydrationWarning
               >
@@ -93,9 +93,9 @@ export function HeroSection() {
                     suppressHydrationWarning
                   >
                     <span className="block">Uw vloot,</span>
-                    <span className="block whitespace-normal sm:mt-2 sm:whitespace-nowrap">
-                      altijd en overal verbonden
-                    </span>
+                    <span className="block sm:mt-2">altijd en overal</span>
+                    <span className="hidden sm:mt-2 lg:block 2xl:hidden">verbonden</span>
+                    <span className="lg:hidden 2xl:inline"> verbonden</span>
                   </h1>
                   <p
                     className="mt-2 text-base font-bold text-brand sm:text-[17px] md:text-lg lg:text-base xl:text-[22px] 2xl:text-[24px]"
@@ -133,12 +133,12 @@ export function HeroSection() {
       {/* iPhone mockup: z-3 — boven sectie 2 (z-2), onder rest (z-4) */}
       <div
         id="phone-layer"
-        className="pointer-events-none hidden lg:fixed lg:inset-0 lg:grid lg:grid-cols-2 lg:items-center lg:pb-24 lg:pt-24"
+        className="pointer-events-none hidden lg:fixed lg:inset-0 lg:grid lg:grid-cols-[3fr_2fr] lg:items-center lg:pb-24 lg:pt-24 xl:grid-cols-2"
         style={{ paddingLeft: "clamp(24px, 4vw, 120px)", paddingRight: "clamp(24px, 4vw, 120px)" }}
         aria-hidden
       >
         <div className="hidden lg:block" aria-hidden />
-        <div className="phoneWrap relative flex w-full items-end justify-center lg:translate-x-8 lg:items-center lg:justify-center xl:translate-x-8 2xl:translate-x-0">
+        <div className="phoneWrap relative flex w-full items-end justify-center lg:ml-16 lg:items-center lg:justify-center xl:translate-x-8 2xl:ml-0 2xl:translate-x-0">
           {/* Glasmorphism card: animeert naar rechterbovenhoek iPhone bij scroll */}
           <div
             className="phoneCard absolute bottom-6 right-4 z-20 rounded-lg border border-brand bg-brand px-6 py-3 shadow-xl backdrop-blur-md md:bottom-8 md:right-6 lg:bottom-auto lg:left-[calc(25vw+60px)] lg:right-auto lg:top-[calc(50vh+100px)] 2xl:top-[calc(50vh-12px)]"

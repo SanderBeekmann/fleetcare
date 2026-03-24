@@ -1,6 +1,8 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import logo from "@/assets/LogoFCCtransparant.png";
 
 const columns = [
   {
@@ -33,7 +35,7 @@ export function Footer() {
           data-stagger-delay="0.06"
         >
           <div>
-            <p className="text-lg font-semibold text-neutral-900">FleetCare Connect</p>
+            <Image src={logo} alt="FleetCare Connect" height={40} className="w-auto" />
             <p className="mt-2 text-sm text-neutral-600">
               Uw partner in fleetmanagement. Eenvoudig, inzichtelijk, betrouwbaar.
             </p>

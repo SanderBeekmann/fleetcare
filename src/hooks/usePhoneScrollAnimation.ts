@@ -17,6 +17,8 @@ const SMALL_DESKTOP_BREAKPOINT = "(max-width: 1280px)";
 const PHONE_SCALE_END = 0.88; // scale telefoon aan einde scroll (kleinere desktop)
 /** Op kleinere desktop: cards 64px lager in endstate (startpositie in hero ongewijzigd). */
 const CARD_END_Y_OFFSET_SMALL_DESKTOP = 64;
+/** Op kleinere desktop: telefoon begint 64px verder naar rechts (voorkomt overlap met titel). */
+const PHONE_START_X_SMALL_DESKTOP = 64;
 
 /**
  * Scroll-gekoppelde animatie: phoneWrap naar rechts, phoneCard naar rechterbovenhoek phoneMockup.
@@ -92,7 +94,7 @@ export function usePhoneScrollAnimation(scopeRef: React.RefObject<HTMLElement | 
           0
         );
 
-        // Kleinere desktop: telefoon verkleint tijdens scroll (zelfde timeline, geen extra trigger)
+        // Kleinere desktop: telefoon verkleint tijdens scroll + begint 64px verder naar rechts
         mmRef.current = gsap.matchMedia();
         mmRef.current.add(SMALL_DESKTOP_BREAKPOINT, () => {
           gsap.set(phoneMockup, { transformOrigin: "center bottom" });

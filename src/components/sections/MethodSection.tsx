@@ -182,7 +182,7 @@ export function MethodSection() {
               </p>
               <Button
                 variant="primary"
-                href="/#contact"
+                href="/contact"
                 className="px-10 py-5 text-sm font-bold uppercase tracking-widest"
               >
                 Vraag Demo Aan

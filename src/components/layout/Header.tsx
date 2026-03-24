@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useLayoutEffect, useRef, useEffect, useCallback } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -9,6 +10,7 @@ import { Button } from "@/components/ui/Button";
 import { AnimatedMobileMenu } from "@/components/ui/AnimatedMobileMenu";
 import { getStoreLink } from "@/lib/storeLinks";
 import { gsap } from "gsap";
+import logo from "@/assets/LogoFCCtransparant.png";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -107,12 +109,7 @@ export function Header() {
       if (!isDesktop()) {
         // Opaque logica nog wel nodig voor homepage
         if (pathname === "/") {
-          const watWeDoen = document.getElementById("wat-we-doen");
-          if (watWeDoen) {
-            applyOpaque(watWeDoen.getBoundingClientRect().top <= 0);
-          } else {
-            applyOpaque(scrollY > 20);
-          }
+          applyOpaque(scrollY >= window.innerHeight);
         }
         prevScrollYRef.current = scrollY;
         return;
@@ -131,12 +128,7 @@ export function Header() {
 
       // Opaque logica — alleen voor homepage (andere pages altijd opaque)
       if (pathname === "/") {
-        const watWeDoen = document.getElementById("wat-we-doen");
-        if (watWeDoen) {
-          applyOpaque(watWeDoen.getBoundingClientRect().top <= 0);
-        } else {
-          applyOpaque(scrollY > 20);
-        }
+        applyOpaque(scrollY >= window.innerHeight);
       }
 
       prevScrollYRef.current = scrollY;
@@ -170,13 +162,8 @@ export function Header() {
     if (pathname !== "/") {
       applyOpaque(true);
     } else {
-      // Homepage: check huidige scroll positie
-      const watWeDoen = document.getElementById("wat-we-doen");
-      if (watWeDoen) {
-        applyOpaque(watWeDoen.getBoundingClientRect().top <= 0);
-      } else {
-        applyOpaque(window.scrollY > 20);
-      }
+      // Homepage: transparant zolang hero zichtbaar is
+      applyOpaque(window.scrollY >= window.innerHeight);
     }
   }, [pathname, applyOpaque]);
 
@@ -200,8 +187,9 @@ export function Header() {
           className="flex shrink-0 items-center"
           style={{ paddingLeft: "clamp(24px, 4vw, 48px)" }}
         >
-          <Link href="/" className="font-heading text-lg font-semibold text-brand">
-            FleetCare Connect
+          <Link href="/" className="flex items-center">
+            <Image src={logo} alt="FleetCare Connect" height={40} className="w-auto" />
+            <span className="font-heading text-sm font-semibold text-brand">FleetCare Connect</span>
           </Link>
         </div>
         <nav className="flex h-16 flex-1 items-center justify-center gap-8">
@@ -259,8 +247,11 @@ export function Header() {
       <div className="md:hidden">
         <Container>
           <div className="flex h-16 items-center justify-between">
-            <Link href="/" className="font-heading text-lg font-semibold text-black">
-              FleetCare Connect
+            <Link href="/" className="flex items-center">
+              <Image src={logo} alt="FleetCare Connect" height={36} className="w-auto" />
+              <span className="font-heading text-sm font-semibold text-black">
+                FleetCare Connect
+              </span>
             </Link>
 
             <button

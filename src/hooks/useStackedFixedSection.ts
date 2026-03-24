@@ -22,6 +22,7 @@ export function useStackedFixedSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isFixed, setIsFixed] = useState(false);
   const [slotHeight, setSlotHeight] = useState<number | null>(null);
+  const [slotWidth, setSlotWidth] = useState<number | null>(null);
   const tickingRef = useRef(false);
   const prevFixedRef = useRef(false);
 
@@ -50,13 +51,16 @@ export function useStackedFixedSection() {
     const shouldBeUnfixed = top > 5;
 
     if (shouldBeFixed) {
-      // Gebruik de actuele slot-hoogte om layout-shift te voorkomen
+      // Gebruik de actuele slot-afmetingen om layout-shift te voorkomen
       const height = slot.offsetHeight;
+      const width = slot.offsetWidth;
       setIsFixed(true);
       setSlotHeight(height);
+      setSlotWidth(width);
     } else if (shouldBeUnfixed) {
       setIsFixed(false);
       setSlotHeight(null);
+      setSlotWidth(null);
     }
   }, [isDesktop]);
 
@@ -80,6 +84,7 @@ export function useStackedFixedSection() {
     if (!isDesktop()) {
       setIsFixed(false);
       setSlotHeight(null);
+      setSlotWidth(null);
       return;
     }
 
@@ -98,5 +103,5 @@ export function useStackedFixedSection() {
     prevFixedRef.current = isFixed;
   }, [isFixed]);
 
-  return { slotRef, sectionRef, isFixed, slotHeight };
+  return { slotRef, sectionRef, isFixed, slotHeight, slotWidth };
 }
