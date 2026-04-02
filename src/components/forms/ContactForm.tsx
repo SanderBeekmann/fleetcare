@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { contactFormSchema, type ContactFormValues } from "@/lib/contactSchema";
-import { submitContactForm } from "@/app/contact/actions";
 import { Button } from "@/components/ui/Button";
 
 type ContactFormProps = { variant?: "default" | "onDark" };
@@ -30,11 +29,35 @@ export function ContactForm({ variant = "default" }: ContactFormProps) {
 
   async function onSubmit(data: ContactFormValues) {
     setSubmitStatus("idle");
-    const result = await submitContactForm(data);
-    if (result.success) {
+
+    if (data.honeypot && data.honeypot.length > 0) {
+      setSubmitStatus("success");
+      return;
+    }
+
+    const body = new URLSearchParams({
+      "form-name": "contact",
+      name: data.name,
+      email: data.email,
+      company: data.company ?? "",
+      message: data.message,
+    });
+
+    try {
+      const res = await fetch("/__forms.html", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: body.toString(),
+      });
+
+      if (!res.ok) {
+        setSubmitStatus("error");
+        return;
+      }
+
       setSubmitStatus("success");
       reset();
-    } else {
+    } catch {
       setSubmitStatus("error");
     }
   }

@@ -39,12 +39,6 @@ export default function RootLayout({
   return (
     <html lang="nl" className={headingFont.variable} suppressHydrationWarning>
       <body suppressHydrationWarning>
-        <form name="contact" data-netlify="true" hidden>
-          <input name="name" />
-          <input name="email" />
-          <input name="company" />
-          <textarea name="message" />
-        </form>
         <Header />
         <GsapProvider>
           <main>{children}</main>
