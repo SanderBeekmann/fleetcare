@@ -10,8 +10,8 @@ type ContactSectionProps = {
 const contactDetails = [
   {
     label: "E-mail",
-    value: "info@fleetcareconnect.nl",
-    href: "mailto:info@fleetcareconnect.nl",
+    value: "info@fleetcareconnect.com",
+    href: "mailto:info@fleetcareconnect.com",
   },
   {
     label: "Telefoon",

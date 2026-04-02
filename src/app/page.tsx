@@ -13,7 +13,7 @@ import { ContactSection } from "@/components/sections/ContactSection";
 import { CtaBlock } from "@/components/oplossingen/CtaBlock";
 import { JsonLd } from "@/components/seo/JsonLd";
 
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://fleetcareconnect.nl";
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://fleetcareconnect.com";
 
 const organizationSchema = {
   "@context": "https://schema.org",

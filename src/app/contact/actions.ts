@@ -15,6 +15,25 @@ export async function submitContactForm(data: ContactFormValues): Promise<Contac
     return { success: true };
   }
 
-  await new Promise((r) => setTimeout(r, 300));
+  const body = new URLSearchParams({
+    "form-name": "contact",
+    name: rest.name,
+    email: rest.email,
+    company: rest.company ?? "",
+    message: rest.message,
+  });
+
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? process.env.URL ?? "http://localhost:3000";
+
+  const res = await fetch(`${siteUrl}/__forms.html`, {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: body.toString(),
+  });
+
+  if (!res.ok) {
+    return { success: false, error: "Verzenden mislukt. Probeer het later opnieuw." };
+  }
+
   return { success: true };
 }

@@ -11,7 +11,7 @@ const TABS = [
 ] as const;
 
 const contactDetails = [
-  { label: "E-mail", value: "info@fleetcareconnect.nl", href: "mailto:info@fleetcareconnect.nl" },
+  { label: "E-mail", value: "info@fleetcareconnect.com", href: "mailto:info@fleetcareconnect.com" },
   { label: "Telefoon", value: "+31 (0)20 123 4567", href: "tel:+31201234567" },
   {
     label: "Adres",

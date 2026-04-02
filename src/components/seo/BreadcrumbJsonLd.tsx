@@ -9,7 +9,7 @@ type BreadcrumbJsonLdProps = {
   items: BreadcrumbItem[];
 };
 
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://fleetcareconnect.nl";
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://fleetcareconnect.com";
 
 export function BreadcrumbJsonLd({ items }: BreadcrumbJsonLdProps) {
   const data = {

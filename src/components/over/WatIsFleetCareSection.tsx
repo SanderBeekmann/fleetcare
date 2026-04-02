@@ -100,11 +100,11 @@ function ParallaxHero() {
                   </p>
                 </div>
                 <p className="text-sm font-semibold leading-snug text-neutral-900">
-                  Volledig wagenpark&shy;beheer
+                  Geautomatiseerde matching
                 </p>
               </div>
               <p className="mt-2 text-xs leading-relaxed text-neutral-500">
-                Van laadstatus tot onderhouds&shy;planning, alles in één overzicht.
+                Voor iedere behoefte, koppelen wij jou aan de juiste partner.
               </p>
             </div>
             <Image
@@ -288,11 +288,11 @@ function ParallaxCard({
               </p>
             </div>
             <p className="text-lg font-semibold leading-snug text-neutral-900">
-              Volledig wagenpark&shy;beheer
+              Geautomatiseerde matching
             </p>
           </div>
           <p className="mt-3 text-sm leading-relaxed text-neutral-500">
-            Van laadstatus tot onderhouds&shy;planning, alles in één overzicht.
+            Voor iedere behoefte, koppelen wij jou aan de juiste partner.
           </p>
         </div>
       )}
@@ -316,6 +316,7 @@ function FeatureList() {
         <motion.p
           initial={initial}
           whileInView={whileInView}
+          viewport={{ once: true }}
           transition={transition}
           className="mb-4 text-xs font-medium uppercase tracking-widest text-brand"
         >
@@ -324,6 +325,7 @@ function FeatureList() {
         <motion.h2
           initial={initial}
           whileInView={whileInView}
+          viewport={{ once: true }}
           transition={transition}
           className="mb-6 text-3xl font-bold text-brand md:text-4xl"
         >
@@ -332,6 +334,7 @@ function FeatureList() {
         <motion.p
           initial={initial}
           whileInView={whileInView}
+          viewport={{ once: true }}
           transition={transition}
           className="mb-12 max-w-2xl text-base leading-relaxed text-neutral-600 md:text-lg"
         >
@@ -347,6 +350,7 @@ function FeatureList() {
               key={feature.title}
               initial={initial}
               whileInView={whileInView}
+              viewport={{ once: true }}
               transition={transition}
               className="mb-9 flex items-center justify-between border-b border-neutral-200 px-3 pb-9"
             >

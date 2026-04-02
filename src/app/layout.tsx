@@ -14,7 +14,7 @@ import { Footer } from "@/components/layout/Footer";
 import { CookieBanner } from "@/components/layout/CookieBanner";
 import { GsapProvider } from "@/components/animations/GsapProvider";
 
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://fleetcareconnect.nl";
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://fleetcareconnect.com";
 
 export const metadata: Metadata = {
   title: {
@@ -39,6 +39,12 @@ export default function RootLayout({
   return (
     <html lang="nl" className={headingFont.variable} suppressHydrationWarning>
       <body suppressHydrationWarning>
+        <form name="contact" data-netlify="true" hidden>
+          <input name="name" />
+          <input name="email" />
+          <input name="company" />
+          <textarea name="message" />
+        </form>
         <Header />
         <GsapProvider>
           <main>{children}</main>
