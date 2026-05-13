@@ -3,7 +3,8 @@ import {
   StackedFixedSection2,
   PlansOverview,
   StatsSection,
-  KlantenPreview,
+  // Tijdelijk verborgen tot er echte klantreviews zijn om de placeholders te vervangen
+  // KlantenPreview,
   AppShowcaseSection,
   PlanFunnel,
   WhyFCCSection,
@@ -55,7 +56,8 @@ export default function HomePage() {
         <WhyFCCSection />
         <StatsSection />
         <PlanFunnel />
-        <KlantenPreview />
+        {/* Tijdelijk verborgen tot er echte klantreviews zijn om de placeholders te vervangen */}
+        {/* <KlantenPreview /> */}
         <ContactSection variant="onDark" />
       </div>
     </>
