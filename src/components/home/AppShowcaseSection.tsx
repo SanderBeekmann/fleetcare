@@ -8,7 +8,7 @@ const featuresLeft = [
   {
     title: "Real-time inzicht",
     description:
-      "Bekijk de status van elk voertuig op één plek. Van onderhoudsplanning tot brandstofverbruik, alles live en overzichtelijk.",
+      "Bekijk de status van elk voertuig op één plek. Van onderhoudsplanning tot energieverbruik, alles live en overzichtelijk.",
   },
 ];
 

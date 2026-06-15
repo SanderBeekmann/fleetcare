@@ -103,7 +103,7 @@ export function HeroSection() {
                     data-reveal-no-reverse
                     suppressHydrationWarning
                   >
-                    LEV aftersales service & planning management
+                    Light Electric Vehicles aftersales service & planning management
                   </p>
                 </div>
                 <p className="mt-4 max-w-full text-base leading-relaxed text-neutral-700 sm:max-w-[584px]">
