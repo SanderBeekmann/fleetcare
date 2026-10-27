@@ -31,13 +31,13 @@ function useStoryStagger(sectionRef: React.RefObject<HTMLElement | null>) {
       tl.fromTo(
         tiles,
         { clipPath: "inset(100% 0% 0% 0%)" },
-        { clipPath: "inset(0% 0% 0% 0%)", duration: 1.1, stagger: 0.16 }
+        { clipPath: "inset(0% 0% 0% 0%)", duration: 1, stagger: 0.12 }
       )
-        .fromTo(tileMedia, { scale: 1.15 }, { scale: 1, duration: 1.4, stagger: 0.16 }, 0)
+        .fromTo(tileMedia, { scale: 1.05 }, { scale: 1, duration: 1.3, stagger: 0.12 }, 0)
         .fromTo(heading, { yPercent: 110 }, { yPercent: 0, duration: 0.9 }, 0.35)
         .fromTo(
           paragraphs,
-          { y: 24, opacity: 0 },
+          { y: 12, opacity: 0 },
           { y: 0, opacity: 1, duration: 0.9, stagger: 0.14 },
           0.55
         );

@@ -63,7 +63,7 @@ export function WhyFCCSection() {
       const highlight = scope.querySelector(".why-highlight");
 
       if (heading) {
-        gsap.set(heading, { opacity: 0, y: 24 });
+        gsap.set(heading, { opacity: 0, y: 12 });
         ScrollTrigger.create({
           trigger: scope,
           start: "top 80%",
@@ -80,7 +80,7 @@ export function WhyFCCSection() {
       }
 
       if (highlight) {
-        gsap.set(highlight, { opacity: 0, y: 24 });
+        gsap.set(highlight, { opacity: 0, y: 12 });
         ScrollTrigger.create({
           trigger: highlight,
           start: "top 85%",
@@ -97,7 +97,7 @@ export function WhyFCCSection() {
         });
       }
 
-      gsap.set(cards, { opacity: 0, y: 20 });
+      gsap.set(cards, { opacity: 0, y: 12 });
       cards.forEach((card, i) => {
         ScrollTrigger.create({
           trigger: card,

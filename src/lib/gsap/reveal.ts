@@ -6,10 +6,11 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-const REVEAL_DURATION = 0.6;
-const REVEAL_EASE = "power2.out";
+const REVEAL_DURATION = 0.9;
+const REVEAL_EASE = "power3.out";
 const REVEAL_START = "top 95%";
-const REVEAL_TOGGLE = "play none play reverse";
+// Play once: elements stay in place when scrolling back, which feels calmer
+const REVEAL_TOGGLE = "play none none none";
 /** Geen reverse: animatie speelt eenmaal en blijft zichtbaar (bv. vaste hero bij scroll terug omhoog). */
 const REVEAL_TOGGLE_NO_REVERSE = "play none none none";
 
@@ -22,11 +23,11 @@ export type RevealType =
   | "fade-right";
 
 const revealFrom: Record<RevealType, gsap.TweenVars> = {
-  "fade-up": { opacity: 0, y: 28 },
-  "fade-down": { opacity: 0, y: -28 },
-  "fade-up-small": { opacity: 0, y: 16 },
-  "fade-left": { opacity: 0, x: -60 },
-  "fade-right": { opacity: 0, x: 60 },
+  "fade-up": { opacity: 0, y: 14 },
+  "fade-down": { opacity: 0, y: -14 },
+  "fade-up-small": { opacity: 0, y: 8 },
+  "fade-left": { opacity: 0, x: -20 },
+  "fade-right": { opacity: 0, x: 20 },
   fade: { opacity: 0 },
 };
 

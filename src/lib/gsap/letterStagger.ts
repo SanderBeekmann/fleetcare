@@ -1,99 +1,42 @@
 /**
- * Letter-by-letter stagger animatie voor titels.
- * Zoekt [data-letter-stagger] en animeert elke letter (span child) met ScrollTrigger.
- * Werkt met AnimatedTitle component of met DOM-split voor elementen die alleen tekst hebben.
+ * Heading reveal for [data-letter-stagger]: the heading (or each pre-split line) rises in
+ * softly once it scrolls into view. The attribute name is kept for existing markup.
  */
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-const DURATION = 0.5;
-const STAGGER = 0.03;
-const EASE = "power2.out";
-const FROM = { opacity: 0 };
+const DURATION = 0.9;
+const EASE = "power3.out";
+const FROM = { opacity: 0, y: 12 };
 const START = "top 90%";
-const TOGGLE = "play none play reverse";
-const TOGGLE_NO_REVERSE = "play none none none";
+/** Play once: headings stay in place when scrolling back. */
+const TOGGLE = "play none none none";
 
-/**
- * Split tekst in woorden, elk woord in letters. Woorden blijven bij elkaar
- * zodat de natuurlijke regelbreking behouden blijft (geen ongewenste breaks
- * tussen letters door inline-block).
- */
-function splitToLetters(el: HTMLElement): HTMLSpanElement[] {
-  const text = el.textContent ?? "";
-  if (!text.trim()) return [];
-
-  const fragment = document.createDocumentFragment();
-  const letterSpans: HTMLSpanElement[] = [];
-
-  const words = text.split(/(\s+)/); // behoud spaties als aparte "woorden"
-
-  for (const word of words) {
-    if (word === "") continue;
-
-    if (/^\s+$/.test(word)) {
-      // Alleen spaties: gewone tekstnode, zodat de spatie bij een regelafbreking
-      // wegvalt (white-space: pre gaf een inspringing op de volgende regel)
-      fragment.appendChild(document.createTextNode(" "));
-      continue;
-    }
-
-    const wordWrapper = document.createElement("span");
-    wordWrapper.style.display = "inline-block";
-    wordWrapper.style.whiteSpace = "nowrap";
-
-    for (const char of word) {
-      const span = document.createElement("span");
-      span.style.display = "inline-block";
-      span.style.verticalAlign = "bottom";
-      span.textContent = char;
-      wordWrapper.appendChild(span);
-      letterSpans.push(span);
-    }
-
-    fragment.appendChild(wordWrapper);
-  }
-
-  el.textContent = "";
-  el.appendChild(fragment);
-  return letterSpans;
-}
-
-/**
- * Registreer letter-stagger animaties voor alle [data-letter-stagger] binnen scope.
- * Als het element al span-kinderen heeft (van AnimatedTitle), animeer die.
- * Anders splits de tekst eerst in letters.
- */
+/** Registers the heading reveal for every [data-letter-stagger] inside scope. */
 export function createLetterStaggerAnimations(scope: HTMLElement | null): void {
   if (!scope) return;
 
   const elements = scope.querySelectorAll<HTMLElement>("[data-letter-stagger]");
 
+  // The heading rises in as a whole instead of letter by letter: calmer and more
+  // professional, and the text is never split into spans.
   elements.forEach((el) => {
-    const hasSpanChildren = el.querySelector(":scope > span");
-    const letters = hasSpanChildren
-      ? (Array.from(el.children) as HTMLSpanElement[])
-      : splitToLetters(el);
-    if (letters.length === 0) return;
-
-    const noReverse = el.hasAttribute("data-reveal-no-reverse");
     const delay = parseFloat(el.dataset.delay ?? "0") || 0;
-    const toggleActions = noReverse ? TOGGLE_NO_REVERSE : TOGGLE;
 
     gsap.fromTo(
-      letters,
+      el,
       { ...FROM, immediateRender: false },
       {
         opacity: 1,
+        y: 0,
         duration: DURATION,
         delay,
-        stagger: STAGGER,
         ease: EASE,
         scrollTrigger: {
           trigger: el,
           start: START,
-          toggleActions,
+          toggleActions: TOGGLE,
         },
       }
     );

@@ -145,7 +145,7 @@ export function MethodSection() {
       if (leftCol) {
         gsap.fromTo(
           leftCol,
-          { opacity: 0, y: 20 },
+          { opacity: 0, y: 12 },
           {
             opacity: 1,
             y: 0,

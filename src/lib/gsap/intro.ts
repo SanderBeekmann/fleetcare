@@ -5,9 +5,9 @@
 
 import { gsap } from "gsap";
 
-const INTRO_Y = 28;
-const INTRO_DURATION = 1;
-const INTRO_STAGGER = 0.1;
+const INTRO_Y = 14;
+const INTRO_DURATION = 0.9;
+const INTRO_STAGGER = 0.07;
 const INTRO_DELAY = 0.1;
 const INTRO_EASE = "power3.out";
 

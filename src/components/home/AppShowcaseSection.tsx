@@ -55,8 +55,8 @@ function FeatureCard({ title, description, position, from }: Feature) {
   );
 }
 
-/** Cards vliegen met de scroll mee van buiten het scherm naar hun plek bij de tablet (niet op mobiel). */
-function useCardsFlyIn(sectionRef: React.RefObject<HTMLElement | null>) {
+/** Cards fade in softly one after another once they reach the viewport (not on mobile). */
+function useCardsReveal(sectionRef: React.RefObject<HTMLElement | null>) {
   const prefersReducedMotion = usePrefersReducedMotion();
 
   useGsapContext(
@@ -65,22 +65,17 @@ function useCardsFlyIn(sectionRef: React.RefObject<HTMLElement | null>) {
       registerGSAP();
       if (window.matchMedia("(max-width: 767px)").matches) return;
       const cards = sectionRef.current?.querySelectorAll<HTMLElement>(".showcase-card");
-      cards?.forEach((card, i) => {
+      cards?.forEach((card) => {
         const direction = card.dataset.from === "left" ? -1 : 1;
         gsap.fromTo(
           card,
-          // Een volle schermbreedte opzij ligt altijd buiten beeld, ongeacht de eindpositie
-          { x: () => direction * window.innerWidth },
+          { opacity: 0, x: direction * 16 },
           {
+            opacity: 1,
             x: 0,
+            duration: 0.9,
             ease: "power3.out",
-            scrollTrigger: {
-              trigger: card,
-              start: "top bottom",
-              end: `center ${55 - i * 5}%`,
-              scrub: 0.6,
-              invalidateOnRefresh: true,
-            },
+            scrollTrigger: { trigger: card, start: "top 85%", once: true },
           }
         );
       });
@@ -91,7 +86,7 @@ function useCardsFlyIn(sectionRef: React.RefObject<HTMLElement | null>) {
 
 export function AppShowcaseSection() {
   const sectionRef = useRef<HTMLElement>(null);
-  useCardsFlyIn(sectionRef);
+  useCardsReveal(sectionRef);
 
   return (
     <section

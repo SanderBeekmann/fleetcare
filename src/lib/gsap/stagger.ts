@@ -5,13 +5,13 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-const STAGGER_DURATION = 0.5;
-const STAGGER_DELAY = 0.08;
-const STAGGER_Y = 16;
-const STAGGER_EASE = "power2.out";
+const STAGGER_DURATION = 0.8;
+const STAGGER_DELAY = 0.07;
+const STAGGER_Y = 12;
+const STAGGER_EASE = "power3.out";
 /** Container top at 85% of the viewport height ("top 85%"). */
 const STAGGER_START_RATIO = 0.85;
-const STAGGER_TOGGLE = "play none play reverse";
+const STAGGER_TOGGLE = "play none none none";
 
 /**
  * "top 85%", but never past the maximum scroll position. Containers at the very bottom of a

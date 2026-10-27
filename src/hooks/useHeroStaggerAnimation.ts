@@ -5,9 +5,9 @@ import { registerGSAP, gsap } from "@/lib/gsap/gsapClient";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
 const STAGGER_DELAY = 0.14;
-const DURATION = 1;
+const DURATION = 0.9;
 const EASE = "power3.out";
-const FROM_Y = 24;
+const FROM_Y = 14;
 
 /**
  * High-end staggered entrance-animatie voor hero tekst en buttons.

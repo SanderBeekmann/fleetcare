@@ -7,7 +7,7 @@ import { OverStackedSection } from "@/components/over/OverStackedSection";
 import { WatIsFleetCareSection } from "@/components/over/WatIsFleetCareSection";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import waaromEenvoudImage from "@/assets/waarom-eenvoud.jpg";
-import waaromInzichtImage from "@/assets/waarom-inzicht.jpg";
+import dashboardKpiImage from "@/assets/dashboard-kpi.jpg";
 import waaromBetrouwbaarheidImage from "@/assets/waarom-betrouwbaarheid.jpg";
 
 export const metadata: Metadata = {
@@ -34,8 +34,10 @@ const values = [
     title: "Inzicht",
     description:
       "Realtime data over uw LEV-vloot. Altijd weten welke zorg uw voertuigen nodig hebben, met service status en overzicht.",
-    image: waaromInzichtImage,
-    imageAlt: "Accupack van een licht elektrisch voertuig aangesloten op een diagnoseapparaat",
+    image: dashboardKpiImage,
+    imageAlt:
+      "KPI-overzicht in het FleetCare Connect-portaal met vlootprestaties en meldingen per maand",
+    imagePosition: "object-[40%_100%]",
   },
   {
     title: "Betrouwbaarheid",
@@ -92,6 +94,7 @@ export default function OverPage() {
                     src={item.image}
                     alt={item.imageAlt}
                     sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"
+                    position={item.imagePosition}
                   />
                   <h3 className="text-xl font-semibold text-brand">{item.title}</h3>
                   <p className="mt-4 max-w-[90%] text-base leading-normal text-neutral-600">

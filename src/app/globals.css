@@ -691,13 +691,13 @@
 @keyframes page-out {
   to {
     opacity: 0;
-    transform: translateY(-12px);
+    transform: translateY(-6px);
   }
 }
 @keyframes page-in {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(8px);
   }
 }
 ::view-transition-old(root) {
