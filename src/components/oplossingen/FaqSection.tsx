@@ -9,20 +9,16 @@ export function FaqSection() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="bg-neutral-50 py-section">
+    <section className="surface-ambient-soft py-section">
       <Container>
-        <div className="bg-white p-8 md:p-10">
+        <div className="rounded-md bg-white px-8 pb-8 pt-6 md:px-10 md:pb-10 md:pt-8">
           <h2
-            className="text-2xl font-semibold uppercase tracking-wide text-brand md:text-3xl"
+            className="text-4xl font-light uppercase leading-none tracking-tight text-neutral-900 md:text-5xl md:leading-none"
             data-letter-stagger
           >
             Veelgestelde vragen
           </h2>
-          <ul
-            className="mt-12 divide-y divide-neutral-200"
-            data-stagger="children"
-            data-stagger-delay="0.08"
-          >
+          <ul className="mt-12" data-stagger="children" data-stagger-delay="0.08">
             {faqs.map((faq, i) => {
               const isOpen = openIndex === i;
               return (
@@ -53,7 +49,7 @@ export function FaqSection() {
                     style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
                   >
                     <div className="min-h-0 overflow-hidden">
-                      <p className="pb-5 pr-6 text-base leading-relaxed text-neutral-600 sm:pr-12">
+                      <p className="pb-5 pr-6 text-base leading-normal text-neutral-600 sm:pr-12">
                         {faq.answer}
                       </p>
                     </div>

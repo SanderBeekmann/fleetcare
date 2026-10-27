@@ -13,6 +13,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { CookieBanner } from "@/components/layout/CookieBanner";
 import { GsapProvider } from "@/components/animations/GsapProvider";
+import { PageTransitions } from "@/components/animations/PageTransitions";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://fleetcareconnect.com";
 
@@ -21,7 +22,8 @@ export const metadata: Metadata = {
     default: "FleetCare Connect",
     template: "%s | FleetCare Connect",
   },
-  description: "FleetCare Connect is uw partner in fleetmanagement.",
+  description:
+    "FleetCare Connect is het centrale aftersalesplatform voor Light Electric Vehicles: onderhoud, reparatie en service voor uw vloot in één app.",
   metadataBase: new URL(baseUrl),
   openGraph: {
     type: "website",
@@ -45,6 +47,7 @@ export default function RootLayout({
           <Footer />
         </GsapProvider>
         <CookieBanner />
+        <PageTransitions />
       </body>
     </html>
   );

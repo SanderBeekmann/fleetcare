@@ -1,31 +1,30 @@
-import { Suspense } from "react";
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { PlanComparison } from "@/components/oplossingen/PlanComparison";
+import { PricingCards } from "@/components/pricing/PricingCards";
+import { ServicePartnerBand } from "@/components/pricing/ServicePartnerBand";
 import { FaqSection } from "@/components/oplossingen/FaqSection";
-import { CtaBlock } from "@/components/oplossingen/CtaBlock";
-import { ScrollToRecommended } from "@/components/oplossingen/ScrollToRecommended";
+import { PricingCta } from "@/components/oplossingen/PricingCta";
+import { HowItWorksSteps } from "@/components/oplossingen/HowItWorksSteps";
 import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 import { FaqJsonLd } from "@/components/seo/FaqJsonLd";
 import { faqs } from "@/lib/faqData";
+import dashboardOverviewImage from "@/assets/dashboard-overzicht.jpg";
 
 export const metadata: Metadata = {
   title: "Oplossingen",
   description:
-    "Ontdek onze fleetmanagement oplossingen. Standaard, Smart en Enterprise voor elk type wagenpark.",
+    "Een platform op maat voor uw vloot. Start met Essentieel vanaf €1,99 per voertuig per maand (excl. btw) of kies een oplossing op maat.",
   openGraph: {
     title: "Oplossingen | FleetCare Connect",
     description:
-      "Ontdek onze fleetmanagement oplossingen. Standaard, Smart en Enterprise voor elk type wagenpark.",
+      "Een platform op maat voor uw vloot. Start met Essentieel vanaf €1,99 per voertuig per maand (excl. btw) of kies een oplossing op maat.",
   },
   alternates: { canonical: "/oplossingen" },
 };
 
-type PageProps = { searchParams: { aanbevolen?: string } };
-
-export default function OplossingenPage({ searchParams }: PageProps) {
-  const recommended = searchParams.aanbevolen;
+export default function OplossingenPage() {
   return (
     <>
       <BreadcrumbJsonLd
@@ -35,97 +34,67 @@ export default function OplossingenPage({ searchParams }: PageProps) {
         ]}
       />
       <FaqJsonLd faqs={faqs} />
-      <section className="relative flex min-h-[calc(100vh-64px)] flex-col bg-white py-16 md:py-20">
-        <div className="flex flex-1 flex-col justify-center">
-          <Container>
+      <section className="surface-ambient-alt relative -mt-16 pb-20 pt-32 md:pb-28 md:pt-40">
+        <Container>
+          <div className="mx-auto max-w-3xl text-center">
             <h1
-              className="text-3xl font-bold text-brand sm:text-[34px] md:text-4xl lg:text-5xl"
-              data-letter-stagger
+              data-intro-item
+              className="text-4xl font-light uppercase tracking-tight text-brand sm:text-5xl md:text-6xl"
             >
-              Oplossingen
+              Een platform op maat
             </h1>
-            <p
-              className="mt-4 max-w-2xl text-lg text-neutral-600"
-              data-reveal="fade-up"
-              data-delay="0.05"
-            >
-              Wij ontzorgen ieder type klant, ongeacht uw vloot grootte. Van eenvoudige matching en
-              ontzorgen van plannen, tot maatwerk voor grotere operaties. FleetCare Connect heeft
-              voor iedere individuele behoefte een oplossing.
+            <p data-intro-item className="mx-auto mt-4 max-w-2xl text-lg text-neutral-600">
+              Elke vloot is anders. Daarom stemmen we het platform en de prijs af op uw voertuigen,
+              processen en koppelingen.
             </p>
-            <div className="mt-8 flex flex-wrap gap-4" data-reveal="fade-up" data-delay="0.1">
+            <div data-intro-item className="mt-8 flex flex-wrap justify-center gap-4">
               <Button variant="primary" href="/#plan-test">
-                Test uw voorkeur
+                Wat past bij mij?
               </Button>
               <Button variant="secondary" href="#eerlijke-prijzen">
                 Bekijk prijzen
               </Button>
             </div>
-          </Container>
-        </div>
-        <a
-          href="#eerlijke-prijzen"
-          className="group absolute bottom-10 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-neutral-400 transition-colors hover:text-brand"
-          aria-label="Scroll naar beneden"
-        >
-          <span className="text-[10px] font-semibold uppercase tracking-[0.2em]">Scroll</span>
-          <span className="scroll-hint-bounce flex flex-col items-center -space-y-1.5">
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="opacity-40"
-              aria-hidden
-            >
-              <path d="m6 9 6 6 6-6" />
-            </svg>
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden
-            >
-              <path d="m6 9 6 6 6-6" />
-            </svg>
-          </span>
-        </a>
-      </section>
-
-      <section id="eerlijke-prijzen" className="bg-white py-section">
-        <Container>
-          <div
-            className="mb-16 grid gap-8 lg:grid-cols-[1fr_2fr] lg:items-start"
-            data-reveal="fade-up"
-          >
-            <div>
-              <h2 className="text-3xl font-bold text-neutral-900 sm:text-4xl md:text-5xl">
-                Eerlijke prijzen
-              </h2>
-            </div>
-            <p className="max-w-2xl text-base text-neutral-600 lg:text-lg">
-              Kies het plan dat past bij uw wagenpark. Van eenvoudig tracken tot volledig maatwerk.
-              Klein- en grootbedrijven doen meer met FleetCare Connect.
-            </p>
+          </div>
+          {/* Unoptimized: the source is already a compressed JPEG, recompressing it blurs the
+              small dashboard text. Capped at the source width so it stays sharp. */}
+          <div data-intro-item className="mx-auto mt-12 max-w-6xl md:mt-16">
+            <Image
+              src={dashboardOverviewImage}
+              alt="Dashboard van FleetCare Connect met actuele meldingen, status per werkorder en vlootoverzicht"
+              priority
+              unoptimized
+              className="h-auto w-full rounded-md"
+            />
           </div>
         </Container>
-        <PlanComparison recommended={recommended} />
-        <Suspense>
-          <ScrollToRecommended />
-        </Suspense>
+      </section>
+
+      <section id="eerlijke-prijzen" className="surface-ambient scroll-mt-16 py-section">
+        <Container>
+          <div className="mb-12 flex flex-col gap-4" data-reveal="fade-up">
+            <h2 className="text-4xl font-light uppercase leading-tight tracking-tight text-neutral-900 md:text-5xl">
+              Prijs op maat
+            </h2>
+            <p className="max-w-2xl text-base text-neutral-600 lg:text-lg">
+              Start direct, of laat ons het platform inrichten op uw organisatie. U betaalt alleen
+              voor wat u echt gebruikt.
+            </p>
+          </div>
+          <PricingCards />
+        </Container>
+      </section>
+
+      <HowItWorksSteps />
+
+      <section className="bg-white pb-section">
+        <Container>
+          <ServicePartnerBand id="servicepartners" />
+        </Container>
       </section>
 
       <FaqSection />
-      <CtaBlock />
+      <PricingCta />
     </>
   );
 }

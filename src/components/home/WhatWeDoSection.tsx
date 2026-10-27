@@ -1,15 +1,20 @@
 import { Container } from "@/components/ui/Container";
+import { Button } from "@/components/ui/Button";
+import { webportal } from "@/lib/company";
 
 /**
  * Sectie "Wat we doen" — full height, tekst onder de hero.
  */
 export function WhatWeDoSection() {
   return (
-    <section id="wat-we-doen" className="flex min-h-screen flex-col justify-center bg-white">
+    <section
+      id="wat-we-doen"
+      className="surface-ambient flex flex-col justify-center py-section lg:min-h-screen lg:py-0"
+    >
       <Container>
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-          {/* Linkergrid: tekst met gestaggerde reveal-animatie — data-card-anchor voor mobiele scroll-animatie */}
-          <div className="flex flex-col justify-center py-24 sm:py-32 lg:py-0" data-card-anchor>
+          {/* Left column: text with staggered reveal */}
+          <div className="flex flex-col justify-center">
             <h2
               className="text-3xl font-bold text-brand sm:text-[33px] md:text-4xl"
               data-letter-stagger
@@ -35,6 +40,11 @@ export function WhatWeDoSection() {
               efficiënt mogelijk te laten verlopen. Wij hebben een oplossing voor iedere vloot
               grootte.
             </p>
+            <div className="mt-8" data-reveal="fade-up" data-delay="0.12">
+              <Button variant="secondary" href={webportal.href} className="!bg-white">
+                Naar het webportaal
+              </Button>
+            </div>
           </div>
           {/* Rechtergrid: leeg of toekomstige content */}
           <div className="hidden lg:block" aria-hidden />

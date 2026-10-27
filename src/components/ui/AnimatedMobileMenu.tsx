@@ -4,31 +4,15 @@ import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import { motion, AnimatePresence, useMotionValue, type Variants } from "framer-motion";
-import { X, Home, Info, Briefcase, Users, Mail } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
+import { webportal } from "@/lib/company";
 
 type NavLink = { href: string; label: string };
-type StoreLink = {
-  href: string;
-  label: string;
-  disabled?: boolean;
-  hoverLabel?: string;
-};
-
-const iconMap: Record<string, LucideIcon> = {
-  "/": Home,
-  "/oplossingen": Briefcase,
-  "/over": Info,
-  "/klanten": Users,
-  "/contact": Mail,
-};
 
 type AnimatedMobileMenuProps = {
   isOpen: boolean;
   onClose: () => void;
   navLinks: NavLink[];
-  storeLink: StoreLink;
   linkClass: (href: string) => string;
 };
 
@@ -36,7 +20,6 @@ export function AnimatedMobileMenu({
   isOpen,
   onClose,
   navLinks,
-  storeLink,
   linkClass,
 }: AnimatedMobileMenuProps) {
   const [mounted, setMounted] = useState(false);
@@ -118,7 +101,7 @@ export function AnimatedMobileMenu({
         dragElastic={0.2}
         onDragEnd={handleDragEnd}
         style={{ x: dragX }}
-        className="fixed right-0 top-0 z-[9999] h-full min-h-screen w-80 bg-white shadow-2xl md:hidden"
+        className="surface-ambient fixed right-0 top-0 z-[9999] flex h-full min-h-screen w-[86vw] max-w-sm flex-col shadow-[0_0_80px_-20px_rgba(7,40,80,0.45)] md:hidden"
         aria-label="Navigatiemenu"
       >
         {/* Close Button */}
@@ -126,110 +109,77 @@ export function AnimatedMobileMenu({
           initial={prefersReducedMotion ? undefined : { opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={prefersReducedMotion ? instantTransition : { delay: 0.2 }}
-          whileHover={prefersReducedMotion ? undefined : { scale: 1.1, rotate: 90 }}
           whileTap={prefersReducedMotion ? undefined : { scale: 0.9 }}
           onClick={onClose}
-          className="absolute right-12 top-6 flex min-h-[44px] min-w-[44px] items-center justify-center rounded-lg bg-neutral-100 p-2 text-neutral-900 transition-colors hover:bg-neutral-200"
+          className="absolute right-4 top-3 flex min-h-[44px] min-w-[44px] items-center justify-center text-neutral-900 transition-colors hover:text-brand"
           aria-label="Menu sluiten"
         >
-          <X size={24} />
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            aria-hidden
+          >
+            <path d="M18 6 6 18M6 6l12 12" />
+          </svg>
         </motion.button>
 
-        <div className="p-8 pt-20">
-          <motion.div
-            initial={prefersReducedMotion ? undefined : { opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={
-              prefersReducedMotion
-                ? instantTransition
-                : { delay: 0.15, type: "spring", stiffness: 200 }
-            }
-            className="mb-12"
-          >
-            <h2 className="text-3xl font-bold text-brand">Navigatie</h2>
-            <motion.div
-              initial={prefersReducedMotion ? undefined : { width: 0 }}
-              animate={{ width: 80 }}
-              transition={
-                prefersReducedMotion
-                  ? instantTransition
-                  : { delay: 0.3, duration: 0.6, ease: "easeOut" }
-              }
-              className="mt-2 h-1 rounded bg-brand"
-            />
-          </motion.div>
-
-          <ul className="space-y-4">
-            {navLinks.map((item, i) => {
-              const Icon = iconMap[item.href] ?? Info;
-              return (
-                <motion.li
-                  key={item.href}
-                  custom={i}
-                  variants={itemVariants}
-                  initial="closed"
-                  animate={isOpen ? "open" : "closed"}
+        <div className="flex flex-1 flex-col px-8 pb-10 pt-24">
+          <ul className="space-y-1">
+            {navLinks.map((item, i) => (
+              <motion.li
+                key={item.href}
+                custom={i}
+                variants={itemVariants}
+                initial="closed"
+                animate={isOpen ? "open" : "closed"}
+              >
+                <Link
+                  href={item.href}
+                  onClick={onClose}
+                  className={`group flex items-baseline gap-4 py-3 transition-colors ${linkClass(item.href)}`}
                 >
-                  <Link
-                    href={item.href}
-                    onClick={onClose}
-                    className={`group flex items-center gap-4 rounded-lg p-4 transition-all hover:bg-neutral-100 ${linkClass(item.href)}`}
-                  >
-                    <motion.div
-                      whileHover={prefersReducedMotion ? undefined : { scale: 1.15, rotate: 8 }}
-                      whileTap={prefersReducedMotion ? undefined : { scale: 0.95 }}
-                      className="rounded-lg bg-neutral-200 p-2 transition-colors duration-300 group-hover:bg-brand group-hover:text-white"
-                    >
-                      <Icon size={24} />
-                    </motion.div>
-                    <span className="text-lg font-medium">{item.label}</span>
-                  </Link>
-                </motion.li>
-              );
-            })}
+                  <span className="w-6 text-xs font-medium tabular-nums text-neutral-400">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="text-2xl font-light uppercase tracking-tight">{item.label}</span>
+                </Link>
+              </motion.li>
+            ))}
           </ul>
 
           <motion.div
             initial={prefersReducedMotion ? undefined : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={prefersReducedMotion ? instantTransition : { delay: 0.7, duration: 0.5 }}
-            className="mt-12 rounded-lg bg-neutral-100 p-4"
+            className="mt-auto"
           >
-            {storeLink.disabled ? (
-              <div className="flex gap-0">
-                <Link
-                  href="/contact"
-                  onClick={onClose}
-                  className="flex-1 rounded-l-md rounded-r-none border border-brand bg-brand px-4 py-3 text-center text-sm font-medium text-white transition-colors hover:bg-[var(--color-brand-hover)]"
-                >
-                  Contact
-                </Link>
-                <span
-                  className="flex flex-1 items-center justify-center rounded-l-none rounded-r-md border border-neutral-200 bg-white px-4 py-3 text-center text-sm text-neutral-600"
-                  title={storeLink.hoverLabel}
-                >
-                  {storeLink.label}
-                </span>
-              </div>
-            ) : (
+            <div className="flex gap-0">
               <Link
-                href={storeLink.href}
+                href="/contact"
                 onClick={onClose}
-                className="flex items-center justify-center gap-2 rounded-md border border-brand bg-white px-4 py-3 text-center text-sm font-medium text-brand transition-colors hover:bg-neutral-50"
+                className="flex-1 rounded-l-md rounded-r-none border border-brand bg-brand px-4 py-3 text-center text-sm font-medium text-white transition-colors hover:bg-[var(--color-brand-hover)]"
               >
-                {storeLink.label}
+                Contact
               </Link>
-            )}
+              <Link
+                href={webportal.href}
+                onClick={onClose}
+                className="flex flex-1 flex-col items-center justify-center rounded-l-none rounded-r-md border border-neutral-200 bg-white px-4 py-2 text-center text-sm text-brand transition-colors hover:bg-neutral-50"
+              >
+                {webportal.label}
+                {!webportal.isLive && (
+                  <span className="text-[10px] uppercase tracking-wider text-neutral-500">
+                    {webportal.comingSoonLabel}
+                  </span>
+                )}
+              </Link>
+            </div>
           </motion.div>
-
-          <motion.p
-            initial={prefersReducedMotion ? undefined : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={prefersReducedMotion ? instantTransition : { delay: 0.9 }}
-            className="mt-4 text-center text-xs text-neutral-500"
-          >
-            Sleep naar rechts om te sluiten
-          </motion.p>
         </div>
       </motion.nav>
     </>

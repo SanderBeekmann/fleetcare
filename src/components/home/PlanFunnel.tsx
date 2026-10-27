@@ -1,15 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 
 type Option = {
   label: string;
   description: string;
-  score: number;
-  minPlan?: "smart" | "enterprise";
+  /** Deze keuze vraagt om een platform op maat. */
+  custom?: boolean;
 };
 
 type Step = { question: string; options: Option[] };
@@ -18,106 +17,67 @@ const steps: Step[] = [
   {
     question: "Hoeveel voertuigen heeft u in uw vloot?",
     options: [
-      { label: "1 – 10", description: "Klein wagenpark", score: 0 },
-      { label: "10 – 50", description: "Middelgroot wagenpark", score: 1 },
-      { label: "50+", description: "Groot wagenpark", score: 2 },
+      { label: "1 - 10", description: "Klein wagenpark" },
+      { label: "10 - 50", description: "Middelgroot wagenpark" },
+      { label: "50+", description: "Groot wagenpark", custom: true },
     ],
   },
   {
-    question: "Welke functies zijn voor u het belangrijkst?",
+    question: "Welke functies heeft u nodig?",
     options: [
-      { label: "Basistracking", description: "Tracking via de app is voldoende", score: 0 },
       {
-        label: "Webportaal",
-        description: "Extra overzicht via het online portaal",
-        score: 1,
-        minPlan: "smart",
+        label: "De basis",
+        description: "Onderhoudsdossier, storingen melden en opdrachten naar servicepartners",
       },
       {
-        label: "White label",
-        description: "Eigen huisstijl en integraties",
-        score: 2,
-        minPlan: "enterprise",
+        label: "Extra functies",
+        description: "Functies en modules afgestemd op mijn organisatie",
+        custom: true,
       },
     ],
   },
   {
     question: "Wilt u FCC koppelen aan uw eigen bedrijfssystemen?",
     options: [
-      { label: "Nee", description: "Een standaardoplossing is prima", score: 0 },
-      {
-        label: "Ja",
-        description: "Naadloze integratie met mijn systemen",
-        score: 2,
-        minPlan: "enterprise",
-      },
+      { label: "Nee", description: "Een standaardoplossing is prima" },
+      { label: "Ja", description: "Koppeling met mijn systemen via een API", custom: true },
     ],
   },
   {
     question: "Welk type ondersteuning past bij u?",
     options: [
-      { label: "Selfservice", description: "Ik red me prima via de app", score: 0 },
-      {
-        label: "24/7 chat",
-        description: "Direct contact wanneer ik het nodig heb",
-        score: 1,
-        minPlan: "smart",
-      },
+      { label: "Selfservice", description: "Ik red me prima via de app" },
       {
         label: "Persoonlijke begeleiding",
-        description: "Een vaste accountmanager",
-        score: 2,
-        minPlan: "enterprise",
+        description: "Begeleide implementatie, servicegaranties en persoonlijk contact",
+        custom: true,
       },
     ],
   },
 ];
 
-const planResults: Record<string, { id: string; name: string; description: string }> = {
-  standaard: {
-    id: "standaard",
-    name: "Standaard",
+type ResultId = "essentieel" | "op-maat";
+
+const planResults: Record<ResultId, { name: string; description: string }> = {
+  essentieel: {
+    name: "Essentieel",
     description:
-      "Met het Standaard-plan profiteert u van de essentiële functies: de app en realtime tracking voor uw wagenpark.",
+      "Met de essentiële versie start u direct digitaal: een onderhoudsdossier, storingen melden via de app, opdrachten naar servicepartners en een status- en kostenoverzicht. Vanaf €1,99 per voertuig per maand, excl. btw.",
   },
-  smart: {
-    id: "smart",
-    name: "Smart",
+  "op-maat": {
+    name: "Op maat",
     description:
-      "Het Smart-plan biedt extra overzicht via het webportaal en 24/7 chat-ondersteuning voor uw operatie.",
-  },
-  enterprise: {
-    id: "enterprise",
-    name: "Enterprise",
-    description:
-      "Met Enterprise krijgt u een oplossing op maat: white label, persoonlijke begeleiding en naadloze integratie.",
+      "Uw organisatie vraagt om een platform op maat: functies en modules naar behoefte, koppelingen met uw systemen en persoonlijke begeleiding. Samen bepalen we een vaste prijs per voertuig die daarbij past.",
   },
 };
 
-type Answer = { score: number; minPlan?: "smart" | "enterprise" } | null;
+type Answer = { label: string; custom: boolean } | null;
 
-const planRank: Record<string, number> = { standaard: 0, smart: 1, enterprise: 2 };
-const planById = ["standaard", "smart", "enterprise"] as const;
-
-function getRecommendation(answers: Answer[]): string {
-  // Knockout: hoogste minPlan wint altijd
-  let minRank = 0;
-  for (const a of answers) {
-    if (a?.minPlan) {
-      minRank = Math.max(minRank, planRank[a.minPlan]);
-    }
-  }
-  if (minRank > 0) return planById[minRank];
-
-  // Fallback: score-based
-  const total = answers.reduce<number>((sum, a) => sum + (a?.score ?? 0), 0);
-  if (total >= 5) return "enterprise";
-  if (total >= 2) return "smart";
-  return "standaard";
+function getRecommendation(answers: Answer[]): ResultId {
+  return answers.some((a) => a?.custom) ? "op-maat" : "essentieel";
 }
 
 export function PlanFunnel() {
-  const router = useRouter();
   const funnelRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
@@ -147,7 +107,7 @@ export function PlanFunnel() {
   function selectOption(option: Option) {
     setAnswers((prev) => {
       const next = [...prev];
-      next[currentStep] = { score: option.score, minPlan: option.minPlan };
+      next[currentStep] = { label: option.label, custom: Boolean(option.custom) };
       return next;
     });
   }
@@ -175,21 +135,25 @@ export function PlanFunnel() {
   }
 
   return (
-    <section id="plan-test" className="cta-klaar-om-te-starten bg-neutral-900 text-white">
+    <section id="plan-test" className="cta-klaar-om-te-starten surface-ink text-white">
       {/* CTA block */}
       <div className="py-section">
         <Container>
           <div className="mx-auto max-w-2xl text-center">
-            <h2 className="text-3xl font-bold text-white md:text-4xl" data-letter-stagger>
+            <h2
+              className="text-balance text-3xl font-bold text-white md:text-4xl"
+              data-letter-stagger
+            >
               Benieuwd welk plan het best bij u past?
             </h2>
             <p className="mt-4 text-neutral-300" data-reveal="fade-up" data-delay="0.05">
               Doe dan onze test of neem contact op.
             </p>
             <div className="mt-8 flex items-center justify-center gap-4" data-reveal="fade-up">
+              {/* max-width (not a fixed width) so the wrapper hugs the button and the pair stays centred */}
               <div
                 className={`overflow-hidden transition-all duration-500 ease-in-out ${
-                  isOpen ? "w-0 opacity-0" : "w-[154px] opacity-100"
+                  isOpen ? "max-w-0 opacity-0" : "max-w-[200px] opacity-100"
                 }`}
               >
                 <Button variant="primary" onClick={openFunnel} className="whitespace-nowrap">
@@ -210,14 +174,11 @@ export function PlanFunnel() {
           <div className="pb-section pt-12">
             <Container>
               <div className="mx-auto max-w-3xl">
-                <div className="flex items-center justify-between">
-                  <p className="text-sm font-medium uppercase tracking-widest text-white/60">
-                    Keuzehulp
-                  </p>
+                <div className="flex items-center justify-end">
                   <button
                     type="button"
                     onClick={closeFunnel}
-                    className="flex items-center gap-1.5 text-sm font-medium text-neutral-400 transition-colors hover:text-white"
+                    className="-m-3 flex items-center gap-1.5 p-3 text-sm font-medium text-neutral-400 transition-colors hover:text-white"
                     aria-label="Keuzehulp sluiten"
                   >
                     Sluiten
@@ -270,21 +231,23 @@ export function PlanFunnel() {
                       <h4 className="mt-2 text-xl font-semibold text-white">
                         {steps[currentStep].question}
                       </h4>
-                      <div className="mt-6 grid gap-3 sm:grid-cols-3">
+                      <div
+                        className={`mt-6 grid gap-3 ${steps[currentStep].options.length === 2 ? "sm:grid-cols-2" : "sm:grid-cols-3"}`}
+                      >
                         {steps[currentStep].options.map((option) => {
-                          const isSelected = answers[currentStep]?.score === option.score;
+                          const isSelected = answers[currentStep]?.label === option.label;
                           return (
                             <button
                               key={option.label}
                               type="button"
                               onClick={() => selectOption(option)}
-                              className={`flex flex-col rounded-lg border-2 p-5 text-left transition-all duration-200 ${
+                              className={`flex flex-col rounded-lg border-2 px-5 pb-5 pt-4 text-left transition-all duration-200 ${
                                 isSelected
                                   ? "border-white bg-white/10 shadow-lg"
                                   : "border-white/20 bg-white/5 hover:border-white/40 hover:bg-white/10"
                               }`}
                             >
-                              <span className="text-base font-semibold text-white">
+                              <span className="text-base font-semibold leading-tight text-white">
                                 {option.label}
                               </span>
                               <span className="mt-1 text-sm text-neutral-400">
@@ -299,7 +262,7 @@ export function PlanFunnel() {
                           <button
                             type="button"
                             onClick={back}
-                            className="text-sm font-medium text-neutral-400 transition-colors hover:text-white"
+                            className="-my-3 py-3 text-sm font-medium text-neutral-400 transition-colors hover:text-white"
                           >
                             Vorige
                           </button>
@@ -311,31 +274,21 @@ export function PlanFunnel() {
                     </div>
                   ) : (
                     <div key="result" className="animate-step-forward">
-                      <div className="rounded-lg border-2 border-white bg-white/10 p-8 shadow-lg">
-                        <p className="text-sm font-medium uppercase tracking-widest text-white/60">
-                          Onze aanbeveling
-                        </p>
-                        <h4 className="mt-2 text-2xl font-bold text-white">
+                      <div className="rounded-lg border-2 border-white bg-white/10 px-8 pb-8 pt-7 shadow-lg">
+                        <h4 className="text-2xl font-bold leading-none text-white">
                           {recommendation!.name}
                         </h4>
-                        <p className="mt-3 text-base leading-relaxed text-neutral-300">
+                        <p className="mt-4 text-base leading-normal text-neutral-300">
                           {recommendation!.description}
                         </p>
                         <div className="mt-6 flex flex-wrap items-center gap-4">
-                          <Button
-                            variant="primary"
-                            onClick={() =>
-                              router.push(
-                                `/oplossingen?aanbevolen=${recommendation!.id}#eerlijke-prijzen`
-                              )
-                            }
-                          >
-                            Bekijk {recommendation!.name}-plan
+                          <Button variant="primary" href="/contact">
+                            Neem contact op
                           </Button>
                           <button
                             type="button"
                             onClick={reset}
-                            className="text-sm font-medium text-neutral-400 transition-colors hover:text-white"
+                            className="-my-3 py-3 text-sm font-medium text-neutral-400 transition-colors hover:text-white"
                           >
                             Opnieuw beginnen
                           </button>

@@ -34,7 +34,7 @@ const DURATION = 36;
 
 function TestimonialCard({ item }: { item: (typeof testimonials)[0] }) {
   return (
-    <Card className="relative flex h-full min-h-[240px] w-[280px] shrink-0 flex-col overflow-hidden border-0 border-l-4 border-l-brand px-8 pb-10 pt-3 transition-all duration-300 ease-out [box-shadow:16px_20px_40px_-12px_rgba(0,0,0,0.22),10px_10px_24px_-8px_rgba(0,0,0,0.14)] hover:-translate-y-1 hover:[box-shadow:20px_24px_48px_-12px_rgba(0,0,0,0.25),14px_12px_28px_-8px_rgba(0,0,0,0.16)] sm:min-h-[260px] sm:w-[320px] sm:px-10 sm:pb-12 sm:pt-4">
+    <Card className="card-lift relative flex h-full min-h-[240px] w-[280px] shrink-0 flex-col overflow-hidden border-0 border-l-4 border-l-brand px-8 pb-10 pt-3 [box-shadow:16px_20px_40px_-12px_rgba(0,0,0,0.22),10px_10px_24px_-8px_rgba(0,0,0,0.14)] sm:min-h-[260px] sm:w-[320px] sm:px-10 sm:pb-12 sm:pt-4">
       <div className="mb-3 flex h-10 shrink-0 items-center sm:mb-4 sm:h-12" aria-hidden>
         <div className="flex h-8 w-16 items-center justify-center rounded bg-neutral-200 text-xs font-semibold text-neutral-900 sm:h-10 sm:w-20">
           {item.logo}

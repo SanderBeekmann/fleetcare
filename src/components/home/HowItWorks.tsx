@@ -4,7 +4,7 @@ const steps = [
   {
     step: 1,
     title: "Kies uw plan",
-    text: "Selecteer Standaard, Smart of Enterprise op basis van uw wensen en vlootgrootte.",
+    text: "Kies de basis of laat ons het platform op maat inrichten op basis van uw wensen en vlootgrootte.",
   },
   {
     step: 2,
@@ -13,7 +13,7 @@ const steps = [
   },
   {
     step: 3,
-    title: "Wordt volledig ontzorgd",
+    title: "Word volledig ontzorgd",
     text: "Volledige ontzorging door onze specialisten en het slimme algoritme van de app",
   },
 ];

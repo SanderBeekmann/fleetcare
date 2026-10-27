@@ -1,8 +1,12 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { LayoutGrid, Settings, Rocket, ArrowRight, type LucideIcon } from "lucide-react";
+import Image from "next/image";
+import type { StaticImageData } from "next/image";
+import iconPlan from "@/assets/icons/fcc-plan.webp";
+import iconStart from "@/assets/icons/fcc-start.webp";
+import iconOntzorgd from "@/assets/icons/fcc-ontzorgd.webp";
 import { useGsapContext } from "@/hooks/useGsapContext";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { registerGSAP, gsap, ScrollTrigger } from "@/lib/gsap/gsapClient";
@@ -13,7 +17,7 @@ type Step = {
   number: number;
   title: string;
   description: string;
-  icon: LucideIcon;
+  icon: StaticImageData;
 };
 
 const steps: Step[] = [
@@ -21,129 +25,177 @@ const steps: Step[] = [
     number: 1,
     title: "Kies uw plan",
     description:
-      "Selecteer Standaard, Smart of Enterprise op basis van uw wensen en vlootgrootte. Een fundament op maat voor uw organisatie.",
-    icon: LayoutGrid,
+      "Kies de basis of laat ons het platform op maat inrichten op basis van uw wensen en vlootgrootte.",
+    icon: iconPlan,
   },
   {
     number: 2,
     title: "Direct aan de slag",
     description: "Log in op de app, en wij regelen uw aftersales-werkzaamheden.",
-    icon: Rocket,
+    icon: iconStart,
   },
   {
     number: 3,
-    title: "Wordt volledig ontzorgd",
+    title: "Word volledig ontzorgd",
     description: "Volledige ontzorging door onze specialisten en het slimme algoritme van de app",
-    icon: Settings,
+    icon: iconOntzorgd,
   },
 ];
 
-function StepCard({ step, isLast }: { step: Step; isLast: boolean }) {
-  const Icon = step.icon;
-  return (
-    <div className="method-card relative flex gap-6 pb-20 last:pb-0 md:gap-16">
-      {/* Icon & vertical line — lijn gecentreerd tussen de iconen */}
-      <div className="flex w-14 flex-shrink-0 flex-col items-center">
-        <div className="z-10 flex h-14 w-14 items-center justify-center">
-          <Icon className="text-brand" size={28} strokeWidth={1.5} />
-        </div>
-        {!isLast && (
-          <div className="relative -mb-20 mt-5 flex min-h-[14rem] flex-1 flex-col items-center pb-5">
-            <div className="relative h-full w-px bg-neutral-200">
-              <div
-                className="method-line-fill absolute inset-0 origin-top bg-brand"
-                style={{ transform: "scaleY(0)" }}
-                aria-hidden
-              />
-            </div>
-          </div>
-        )}
-      </div>
+/** Hoogte in beeld waar de voortgangslijn loopt: een stap licht op als zijn icoon deze lijn passeert. */
+const TIMELINE_LINE = "center 65%";
 
-      {/* Content */}
-      <div className="flex-1 pt-2">
-        <div className="mb-4 flex items-baseline gap-4">
-          <span className="text-sm font-bold uppercase tracking-[0.3em] text-brand">
-            {String(step.number).padStart(2, "0")}
-          </span>
-          <div className="bg-brand/20 h-px w-12" aria-hidden />
-        </div>
-        <h3 className="mb-4 text-xl font-light uppercase tracking-tight text-brand sm:text-2xl md:text-3xl">
+/** Ruimte tussen de onder-/bovenkant van een icoon en het begin/einde van een lijnstuk. */
+const SEGMENT_GAP = 12;
+
+function ArrowIcon() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M5 12h14M13 6l6 6-6 6" />
+    </svg>
+  );
+}
+
+function TimelineStep({ step }: { step: Step }) {
+  return (
+    <li className="method-step flex gap-6 pb-24 last:pb-0 md:gap-12">
+      <div className="method-node flex h-14 w-14 flex-shrink-0 items-center justify-center">
+        <Image src={step.icon} alt="" aria-hidden className="method-icon h-14 w-14" sizes="56px" />
+      </div>
+      <div className="method-content flex-1 pt-3">
+        <span className="text-sm font-bold uppercase tracking-[0.3em] text-brand">
+          {String(step.number).padStart(2, "0")}
+        </span>
+        <h3 className="mb-4 mt-3 text-xl font-light uppercase tracking-tight text-brand sm:text-2xl md:text-3xl">
           {step.title}
         </h3>
-        <p className="max-w-xl text-sm font-light leading-relaxed text-neutral-600">
+        <p className="max-w-xl text-sm font-light leading-normal text-neutral-600">
           {step.description}
         </p>
         <Link
           href="/oplossingen"
-          className="mt-6 flex items-center gap-2 font-medium text-brand transition-transform duration-200 hover:translate-x-1"
+          className="-mb-3 mt-3 flex w-fit items-center gap-2 py-3 font-medium text-brand transition-transform duration-200 hover:translate-x-1"
         >
           <span className="text-sm uppercase tracking-widest">Lees meer</span>
-          <ArrowRight size={16} />
+          <ArrowIcon />
         </Link>
       </div>
-    </div>
+    </li>
   );
+}
+
+/** Plaatst elk lijnstuk van onder het ene icoon tot boven het volgende. */
+function useTimelineTrack(timelineRef: React.RefObject<HTMLDivElement | null>) {
+  useEffect(() => {
+    const el = timelineRef.current;
+    if (!el) return;
+    const size = () => {
+      // Offsets i.p.v. getBoundingClientRect: de schaal-animatie van de iconen mag niet meetellen.
+      // The icon fills the whole node (h-14), so each segment starts right below and ends right above a node.
+      const nodes = el.querySelectorAll<HTMLElement>(".method-node");
+      const segments = el.querySelectorAll<HTMLElement>(".method-segment");
+      segments.forEach((segment, i) => {
+        const from = nodes[i];
+        const to = nodes[i + 1];
+        if (!from || !to) return;
+        const top = from.offsetTop + from.offsetHeight + SEGMENT_GAP;
+        const bottom = to.offsetTop - SEGMENT_GAP;
+        segment.style.top = `${top}px`;
+        segment.style.height = `${Math.max(0, bottom - top)}px`;
+      });
+    };
+    size();
+    const observer = new ResizeObserver(size);
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [timelineRef]);
 }
 
 export function MethodSection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const timelineRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = usePrefersReducedMotion();
+
+  useTimelineTrack(timelineRef);
 
   useGsapContext(
     sectionRef,
     () => {
       registerGSAP();
       const scope = sectionRef.current;
-      if (!scope) return;
+      const timeline = timelineRef.current;
+      if (!scope || !timeline) return;
 
       const leftCol = scope.querySelector(".method-sticky");
-      const cards = scope.querySelectorAll(".method-card");
-      const lineFills = scope.querySelectorAll(".method-line-fill");
-
-      gsap.set(cards, { opacity: 0, y: 16 });
-      gsap.set(lineFills, { transformOrigin: "top", scaleY: 0 });
-      if (leftCol) gsap.set(leftCol, { opacity: 0, y: 20 });
+      const progressEls = timeline.querySelectorAll<HTMLElement>(".method-progress");
+      const stepEls = timeline.querySelectorAll<HTMLElement>(".method-step");
+      const nodes = timeline.querySelectorAll<HTMLElement>(".method-node");
+      if (nodes.length === 0) return;
 
       if (leftCol) {
-        ScrollTrigger.create({
-          trigger: scope,
-          start: "top 80%",
-          once: true,
-          onEnter: () => {
-            gsap.to(leftCol, {
-              opacity: 1,
-              y: 0,
-              duration: 0.8,
-              ease: "power2.out",
-            });
-          },
-        });
+        gsap.fromTo(
+          leftCol,
+          { opacity: 0, y: 20 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power2.out",
+            scrollTrigger: { trigger: scope, start: "top 80%", once: true },
+          }
+        );
       }
 
-      cards.forEach((card, i) => {
+      // Pas nu dimmen we de stappen: zonder JS of bij reduced motion blijft alles zichtbaar
+      timeline.classList.add("is-ready");
+
+      // Op mobiel loopt de lijn lager in beeld, zodat een stap actief is zodra hij goed zichtbaar is
+      const activateLine = window.matchMedia("(max-width: 767px)").matches
+        ? "center 90%"
+        : TIMELINE_LINE;
+
+      // Elk lijnstuk loopt vol terwijl de scroll van het ene icoon naar het volgende gaat
+      progressEls.forEach((progress, i) => {
+        gsap.fromTo(
+          progress,
+          { height: "0%" },
+          {
+            height: "100%",
+            ease: "none",
+            scrollTrigger: {
+              trigger: nodes[i],
+              start: activateLine,
+              endTrigger: nodes[i + 1],
+              end: activateLine,
+              scrub: 0.6,
+              // Lichtpunt alleen tonen terwijl de lijn onderweg is, niet aan de uiteinden
+              onUpdate: (self) =>
+                progress.classList.toggle(
+                  "is-moving",
+                  self.progress > 0.03 && self.progress < 0.97
+                ),
+            },
+          }
+        );
+      });
+
+      // Een stap licht op zodra de lijn het bolletje bereikt
+      stepEls.forEach((stepEl, i) => {
         ScrollTrigger.create({
-          trigger: card,
-          start: "top 85%",
-          once: true,
-          onEnter: () => {
-            gsap.to(card, {
-              opacity: 1,
-              y: 0,
-              duration: 0.8,
-              ease: "power2.out",
-            });
-            const line = lineFills[i];
-            if (line) {
-              gsap.to(line, {
-                scaleY: 1,
-                duration: 1.2,
-                delay: 0.2,
-                ease: "power2.inOut",
-                overwrite: true,
-              });
-            }
-          },
+          trigger: nodes[i],
+          start: activateLine,
+          onEnter: () => stepEl.classList.add("is-active"),
+          onLeaveBack: () => stepEl.classList.remove("is-active"),
         });
       });
     },
@@ -154,29 +206,22 @@ export function MethodSection() {
     <section
       id="method"
       ref={sectionRef}
-      className="relative z-[3] bg-white py-24 md:py-32"
+      className="method-surface relative z-[3] py-section"
       aria-labelledby="method-heading"
     >
       <Container>
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-12">
-          {/* Left: sticky content on desktop */}
+          {/* Links: sticky op desktop */}
           <div className="lg:col-span-5">
             <div className="method-sticky lg:sticky lg:top-24">
-              <h4
-                id="method-label"
-                className="mb-6 border-l-4 border-brand pl-4 text-xs font-bold uppercase tracking-[0.3em] text-brand"
-              >
-                Onze Methode
-              </h4>
               <h2
                 id="method-heading"
-                className="font-heading text-4xl font-light leading-[1.1] tracking-tighter text-brand sm:text-5xl md:text-6xl"
-                data-reveal="fade-up"
+                className="font-heading text-4xl font-light leading-[1.1] tracking-tight text-brand sm:text-5xl md:text-6xl"
               >
                 Hoe het <br />
-                <span className="font-bold">werkt.</span>
+                <span className="font-semibold">werkt.</span>
               </h2>
-              <p className="mb-12 max-w-md text-sm font-light leading-relaxed text-neutral-600">
+              <p className="mb-12 mt-6 max-w-md text-sm font-light leading-normal text-neutral-600">
                 In drie stappen naar een beter beheerd wagenpark. Wij combineren data met intuïtieve
                 technologie.
               </p>
@@ -190,12 +235,25 @@ export function MethodSection() {
             </div>
           </div>
 
-          {/* Right: steps */}
+          {/* Rechts: tijdlijn */}
           <div className="pt-8 lg:col-span-7 lg:pt-0">
-            <div className="relative">
-              {steps.map((step, index) => (
-                <StepCard key={step.number} step={step} isLast={index === steps.length - 1} />
+            <div ref={timelineRef} className="method-timeline relative">
+              {steps.slice(1).map((step) => (
+                <div
+                  key={step.number}
+                  className="method-segment pointer-events-none absolute left-7 w-px -translate-x-1/2 bg-neutral-200"
+                  aria-hidden
+                >
+                  <div className="method-progress absolute inset-x-0 top-0 h-full bg-brand">
+                    <span className="method-head" aria-hidden />
+                  </div>
+                </div>
               ))}
+              <ol>
+                {steps.map((step) => (
+                  <TimelineStep key={step.number} step={step} />
+                ))}
+              </ol>
             </div>
           </div>
         </div>

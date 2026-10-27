@@ -16,8 +16,7 @@ const FS = `
   uniform float iTime;
 
   const float overallSpeed   = 0.1;
-  const float gridSmoothWidth = 0.015;
-  const float axisWidth       = 0.05;
+    const float axisWidth       = 0.05;
   const float majorLineWidth  = 0.025;
   const float minorLineWidth  = 0.0125;
   const float scale           = 9.0;
@@ -39,9 +38,9 @@ const FS = `
   const float maxOffsetSpread = 2.0;
   const int   linesPerGroup   = 10;
 
-  #define drawCircle(pos, radius, coord) smoothstep(radius + gridSmoothWidth, radius, length(coord - (pos)))
+  #define drawCircle(pos, radius, coord) smoothstep(radius + aa, radius, length(coord - (pos)))
   #define drawSmoothLine(pos, halfWidth, t) smoothstep(halfWidth, 0.0, abs(pos - (t)))
-  #define drawCrispLine(pos, halfWidth, t) smoothstep(halfWidth + gridSmoothWidth, halfWidth, abs(pos - (t)))
+  #define drawCrispLine(pos, halfWidth, t) smoothstep(halfWidth + aa, halfWidth, abs(pos - (t)))
 
   float random(float t) {
     return (cos(t) + cos(t * 1.3 + 1.3) + cos(t * 1.4 + 1.4)) / 3.0;
@@ -54,6 +53,8 @@ const FS = `
   void main() {
     vec2 uv    = gl_FragCoord.xy / iResolution.xy;
     vec2 space = (gl_FragCoord.xy - iResolution.xy / 2.0) / iResolution.x * 2.0 * scale;
+    // Anti-aliasing van ~1 pixel in plaats van een vaste (zachte) breedte: scherpere lijnen
+    float aa = 1.2 * 2.0 * scale / iResolution.x;
 
     float horizontalFade = 1.0 - (cos(uv.x * 6.28) * 0.5 + 0.5);
     float verticalFade   = 1.0 - (cos(uv.y * 6.28) * 0.5 + 0.5);
@@ -74,8 +75,9 @@ const FS = `
                         * mix(minOffsetSpread, maxOffsetSpread, horizontalFade);
 
       float linePosition = getPlasmaY(space.x, horizontalFade, offset);
-      float line = drawSmoothLine(linePosition, halfWidth, space.y) / 2.0
-                 + drawCrispLine(linePosition, halfWidth * 0.15, space.y);
+      // Minder gloed, iets dikkere kern: de lijn leest strak in plaats van wazig
+      float line = drawSmoothLine(linePosition, halfWidth, space.y) / 6.0
+                 + drawCrispLine(linePosition, halfWidth * 0.2, space.y);
 
       float circleX = mod(float(l) + iTime * lineSpeed, 25.0) - 12.0;
       vec2  circlePos = vec2(circleX, getPlasmaY(circleX, horizontalFade, offset));
@@ -84,26 +86,8 @@ const FS = `
       lines += (line + circle) * lineColor * rand;
     }
 
-    // Clean white background with very subtle blue gradient
-    vec3 pureWhite  = vec3(1.0, 1.0, 1.0);
-    vec3 softBlue   = vec3(0.94, 0.96, 0.99);            // #f0f5fc
-    vec3 deeperBlue = vec3(0.91, 0.94, 0.97);            // #e8f0f8
-
-    // Diagonal sweep: white → barely-there blue
-    float diag = uv.x * 0.45 + (1.0 - uv.y) * 0.55;
-    vec3 baseGrad = mix(pureWhite, softBlue, smoothstep(0.1, 1.0, diag));
-
-    // Soft radial glow bottom-right
-    vec2 glowCenter = vec2(0.75, 0.25);
-    float glowDist = length((uv - glowCenter) * vec2(1.0, 1.3));
-    float glow = 1.0 - smoothstep(0.0, 0.7, glowDist);
-    baseGrad = mix(baseGrad, deeperBlue, glow * 0.3);
-
-    // Top: pure white
-    float topClean = smoothstep(0.4, 1.0, uv.y);
-    baseGrad = mix(baseGrad, pureWhite, topClean * 0.7);
-
-    vec4  bg           = vec4(baseGrad, 1.0);
+    // Pure white background; only the brand lines carry colour
+    vec4  bg           = vec4(1.0, 1.0, 1.0, 1.0);
     float lineStrength = clamp(length(lines.rgb) * 0.8, 0.0, 1.0);
 
     gl_FragColor   = mix(bg, lineColor, lineStrength);
@@ -163,7 +147,7 @@ export function ShaderBackground({ className }: ShaderBackgroundProps) {
 
     // ── Resize: match canvas pixel size to its CSS size ──
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio, 2);
+      const dpr = Math.min(window.devicePixelRatio, 3);
       canvas.width = canvas.clientWidth * dpr;
       canvas.height = canvas.clientHeight * dpr;
       gl.viewport(0, 0, canvas.width, canvas.height);

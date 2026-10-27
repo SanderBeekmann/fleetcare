@@ -9,8 +9,22 @@ const STAGGER_DURATION = 0.5;
 const STAGGER_DELAY = 0.08;
 const STAGGER_Y = 16;
 const STAGGER_EASE = "power2.out";
-const STAGGER_START = "top 85%";
+/** Container top at 85% of the viewport height ("top 85%"). */
+const STAGGER_START_RATIO = 0.85;
 const STAGGER_TOGGLE = "play none play reverse";
+
+/**
+ * "top 85%", but never past the maximum scroll position. Containers at the very bottom of a
+ * page (like the footer's bottom row on tall viewports) would otherwise never be reached and
+ * their children would stay invisible.
+ */
+function reachableStart(container: HTMLElement): () => number {
+  return () => {
+    const top = container.getBoundingClientRect().top + window.scrollY;
+    const natural = top - window.innerHeight * STAGGER_START_RATIO;
+    return Math.min(natural, ScrollTrigger.maxScroll(window) - 1);
+  };
+}
 
 /**
  * Animeer directe kinderen van container met stagger.
@@ -44,7 +58,7 @@ export function staggerChildren(
       ease: STAGGER_EASE,
       scrollTrigger: {
         trigger: container,
-        start: STAGGER_START,
+        start: reachableStart(container),
         toggleActions: STAGGER_TOGGLE,
       },
     }

@@ -1,92 +1,62 @@
-export type PlanFeature = boolean | string;
+export type PlanId = "essentieel" | "op-maat";
+
+export type PlanCta = {
+  label: string;
+  href: string;
+  variant: "primary" | "secondary";
+};
 
 export type Plan = {
-  id: string;
+  id: PlanId;
   name: string;
   description: string;
   badge?: string;
+  pricePrefix?: string;
   price: string;
   priceSub: string;
-  minPeriod: string;
-  features: {
-    app: PlanFeature;
-    webPortal: PlanFeature;
-    realtimeTracking: PlanFeature;
-    chat24_7: PlanFeature;
-    whiteLabel: PlanFeature;
-    personalContact: PlanFeature;
-  };
+  featuresIntro?: string;
+  features: string[];
+  ctas: PlanCta[];
 };
 
 export const plans: Plan[] = [
   {
-    id: "standaard",
-    name: "Standaard",
+    id: "essentieel",
+    name: "Essentieel",
     description:
-      "Maak effectief gebruik van de essentiële functies van FleetCare Connect. Profiteer van ons servicepartner netwerk, door middel van de app en het algoritme.",
-    price: "€1,49",
-    priceSub: "per voertuig per maand",
-    minPeriod: "12 maanden",
-    features: {
-      app: true,
-      webPortal: false,
-      realtimeTracking: true,
-      chat24_7: false,
-      whiteLabel: false,
-      personalContact: false,
-    },
+      "De kern van het platform om direct digitaal te starten met uw aftersalesafhandelingen.",
+    pricePrefix: "vanaf",
+    price: "€1,99",
+    priceSub: "per voertuig per maand, excl. btw",
+    features: [
+      "Digitaal onderhoudsdossier",
+      "Storingen melden via de app",
+      "Opdrachten naar servicepartners",
+      "Status- en kostenoverzicht",
+    ],
+    ctas: [{ label: "Vraag de essentiële versie aan", href: "/contact", variant: "secondary" }],
   },
   {
-    id: "smart",
-    name: "Smart",
+    id: "op-maat",
+    name: "Op maat",
+    badge: "Aanbevolen",
     description:
-      "Optimaliseer het gebruik van FleetCare Connect door aanvullende functies zoals toegang tot het web-portaal, wat zorgt voor nóg meer overzicht in uw aftersales operatie.",
-    badge: "Meest gekozen",
-    price: "€2,99",
-    priceSub: "per voertuig per maand",
-    minPeriod: "6 maanden",
-    features: {
-      app: true,
-      webPortal: true,
-      realtimeTracking: true,
-      chat24_7: true,
-      whiteLabel: false,
-      personalContact: false,
-    },
-  },
-  {
-    id: "enterprise",
-    name: "Enterprise",
-    description:
-      "Een White label met naadloze integratie met uw eigen bedrijfssystemen, voor optimale aansluiting op uw organisatie. Op maat gemaakt voor de grootte van uw vloot.",
-    price: "Op maat",
-    priceSub: "service op maat",
-    minPeriod: "3 maanden",
-    features: {
-      app: true,
-      webPortal: true,
-      realtimeTracking: true,
-      chat24_7: true,
-      whiteLabel: true,
-      personalContact: true,
-    },
+      "Elke organisatie heeft eigen wensen, eisen en koppelingen. Samen bepalen we welke functionaliteit u nodig heeft, en u krijgt een vaste prijs per voertuig die daarbij past.",
+    price: "Op aanvraag",
+    priceSub: "vaste prijs per voertuig per maand, afgestemd op uw vloot, excl. btw",
+    featuresIntro: "Alles in Essentieel +",
+    features: [
+      "Functies en modules naar behoefte",
+      "Koppeling met uw systemen (API)",
+      "Servicegaranties (SLA)",
+      "Eenvoudige team onboarding",
+      "Administratie geregeld",
+      "Begeleide implementatie",
+      "Persoonlijk contact",
+    ],
+    ctas: [
+      { label: "Neem contact op met sales", href: "/contact", variant: "primary" },
+      { label: "Plan een demo", href: "/contact", variant: "secondary" },
+    ],
   },
 ];
-
-export const featureLabels: Record<keyof Plan["features"], string> = {
-  app: "App",
-  webPortal: "Webportaal",
-  realtimeTracking: "Realtime tracking",
-  chat24_7: "Chat 24/7",
-  whiteLabel: "White label",
-  personalContact: "Persoonlijk contact",
-};
-
-export const featureTooltips: Record<keyof Plan["features"], string> = {
-  app: "Beheer uw wagenpark via de mobiele FleetCare Connect app.",
-  webPortal: "Toegang tot het online portaal voor overzicht en rapportages.",
-  realtimeTracking: "Volg uw voertuigen realtime op de kaart.",
-  chat24_7: "Direct contact met onze support via chat, 24 uur per dag.",
-  whiteLabel: "Uw eigen huisstijl in de app en het portaal.",
-  personalContact: "Persoonlijke accountmanager voor uw organisatie.",
-};

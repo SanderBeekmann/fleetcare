@@ -8,7 +8,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { AnimatedMobileMenu } from "@/components/ui/AnimatedMobileMenu";
-import { getStoreLink } from "@/lib/storeLinks";
+import { webportal } from "@/lib/company";
 import { gsap } from "gsap";
 import logo from "@/assets/LogoFCCtransparant.png";
 
@@ -21,13 +21,19 @@ const navLinks = [
 
 const SCROLL_TOP_THRESHOLD = 24;
 
-const OPAQUE_CLASS = "border-neutral-200 bg-white shadow-sm backdrop-blur";
-const TRANSPARENT_CLASS = "border-transparent bg-transparent shadow-none backdrop-blur-none";
+const OPAQUE_CLASS = "header-frosted";
+const TRANSPARENT_CLASS = "bg-transparent";
+/** Scroll distance after which the header gets its frosted background. */
+const OPAQUE_SCROLL_THRESHOLD = 8;
+
+/** Transparent only at the very top of a page; frosted as soon as content scrolls under it. */
+function shouldBeOpaque(scrollY: number): boolean {
+  return scrollY > OPAQUE_SCROLL_THRESHOLD;
+}
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
-  const storeLink = getStoreLink();
   const headerRef = useRef<HTMLElement>(null);
   const lastHideStateRef = useRef<"visible" | "hidden">("visible");
   const mobileOpenRef = useRef(mobileOpen);
@@ -107,10 +113,7 @@ export function Header() {
 
       // Mobiel: geen hide/show logica — navbar altijd zichtbaar via pure CSS sticky
       if (!isDesktop()) {
-        // Opaque logica nog wel nodig voor homepage
-        if (pathname === "/") {
-          applyOpaque(scrollY >= window.innerHeight);
-        }
+        applyOpaque(shouldBeOpaque(scrollY));
         prevScrollYRef.current = scrollY;
         return;
       }
@@ -126,10 +129,7 @@ export function Header() {
         applyVisibility(true);
       }
 
-      // Opaque logica — alleen voor homepage (andere pages altijd opaque)
-      if (pathname === "/") {
-        applyOpaque(scrollY >= window.innerHeight);
-      }
+      applyOpaque(shouldBeOpaque(scrollY));
 
       prevScrollYRef.current = scrollY;
     };
@@ -159,12 +159,7 @@ export function Header() {
 
   // Initiële opaque-state per route (direct bij mount/route change)
   useLayoutEffect(() => {
-    if (pathname !== "/") {
-      applyOpaque(true);
-    } else {
-      // Homepage: transparant zolang hero zichtbaar is
-      applyOpaque(window.scrollY >= window.innerHeight);
-    }
+    applyOpaque(shouldBeOpaque(window.scrollY));
   }, [pathname, applyOpaque]);
 
   const linkClass = (href: string) => {
@@ -172,14 +167,13 @@ export function Header() {
     return `${isActive ? "font-semibold text-brand" : "text-neutral-600 hover:text-brand"}`;
   };
 
-  // Initiële class — wordt daarna via DOM bijgewerkt
-  const initialOpaque = pathname !== "/";
-  const opaqueStyles = initialOpaque ? OPAQUE_CLASS : TRANSPARENT_CLASS;
+  // Initial class: transparent at the top; updated via the DOM afterwards
+  const opaqueStyles = TRANSPARENT_CLASS;
 
   return (
     <header
       ref={headerRef}
-      className={`sticky top-0 z-50 border-b md:transition-[background-color,border-color,box-shadow] md:duration-300 ${opaqueStyles} w-full`}
+      className={`sticky top-0 z-50 [view-transition-name:site-header] md:transition-[background-color,box-shadow] md:duration-300 ${opaqueStyles} w-full`}
     >
       {/* Desktop: logo links, nav midden, CTA's rechts */}
       <div className="hidden md:flex md:h-16 md:w-full md:items-center">
@@ -189,10 +183,12 @@ export function Header() {
         >
           <Link href="/" className="flex items-center">
             <Image src={logo} alt="FleetCare Connect" height={40} className="w-auto" />
-            <span className="font-heading text-sm font-semibold text-brand">FleetCare Connect</span>
+            <span className="hidden font-heading text-sm font-semibold text-brand lg:inline">
+              FleetCare Connect
+            </span>
           </Link>
         </div>
-        <nav className="flex h-16 flex-1 items-center justify-center gap-8">
+        <nav className="flex h-16 flex-1 items-center justify-center gap-6 whitespace-nowrap lg:gap-8">
           {navLinks.map(({ href, label }) => (
             <Link
               key={href}
@@ -211,35 +207,34 @@ export function Header() {
           className="flex shrink-0 items-center"
           style={{ paddingRight: "clamp(24px, 4vw, 48px)" }}
         >
-          {storeLink.disabled ? (
-            <div className="flex items-stretch">
-              <Button
-                variant="primary"
-                href="/contact"
-                className="-mr-px flex h-9 items-center rounded-l-md rounded-r-none px-3 text-xs focus:ring-0 focus:ring-offset-0"
-              >
-                Contact
-              </Button>
-              <Button
-                variant="secondary"
-                disabled
-                className="group/btn relative flex h-9 min-w-0 items-center justify-center overflow-hidden rounded-l-none rounded-r-md px-3 text-xs focus:ring-0 focus:ring-offset-0"
-              >
-                <span className="block truncate transition-opacity duration-200 group-hover/btn:opacity-0">
-                  {storeLink.label}
-                </span>
-                {storeLink.hoverLabel && (
-                  <span className="absolute inset-0 flex items-center justify-center truncate opacity-0 transition-opacity duration-200 group-hover/btn:opacity-100">
-                    {storeLink.hoverLabel}
-                  </span>
-                )}
-              </Button>
-            </div>
-          ) : (
-            <Button variant="secondary" href={storeLink.href}>
-              {storeLink.label}
+          <div className="flex items-stretch">
+            <Button
+              variant="primary"
+              href="/contact"
+              className="-mr-px flex h-9 items-center rounded-l-md rounded-r-none px-3 text-xs focus:ring-0 focus:ring-offset-0"
+            >
+              Contact
             </Button>
-          )}
+            <Button
+              variant="secondary"
+              href={webportal.href}
+              className="group/btn relative flex h-9 min-w-0 items-center justify-center overflow-hidden rounded-l-none rounded-r-md px-3 text-xs focus:ring-0 focus:ring-offset-0"
+            >
+              <span
+                className={`block truncate transition-opacity duration-200 ${webportal.isLive ? "" : "group-hover/btn:opacity-0"}`}
+              >
+                {webportal.label}
+              </span>
+              {!webportal.isLive && (
+                <span
+                  className="absolute inset-0 flex items-center justify-center truncate opacity-0 transition-opacity duration-200 group-hover/btn:opacity-100"
+                  aria-hidden
+                >
+                  {webportal.comingSoonLabel}
+                </span>
+              )}
+            </Button>
+          </div>
         </div>
       </div>
 
@@ -256,7 +251,7 @@ export function Header() {
 
             <button
               type="button"
-              className="-m-2 flex min-h-[44px] min-w-[44px] items-center justify-center rounded p-2 text-black hover:bg-neutral-100"
+              className="-m-2 flex min-h-[44px] min-w-[44px] items-center justify-center rounded p-2 text-black transition-colors hover:text-brand"
               onClick={() => setMobileOpen((o) => !o)}
               aria-expanded={mobileOpen}
               aria-label={mobileOpen ? "Menu sluiten" : "Menu openen"}
@@ -271,7 +266,6 @@ export function Header() {
         isOpen={mobileOpen}
         onClose={() => setMobileOpen(false)}
         navLinks={navLinks}
-        storeLink={storeLink}
         linkClass={linkClass}
       />
     </header>

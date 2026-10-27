@@ -32,9 +32,10 @@
   );
   --spacing-grid: 8px;
   --spacing-section: 80px;
-  --radius-sm: 0;
-  --radius-md: 0;
-  --radius-lg: 0;
+  /* Barely rounded corners: softens the straight-edged brand style without losing it */
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: 4px;
   --radius-full: 9999px;
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
@@ -261,7 +262,10 @@
   left: 0;
   right: 0;
   height: 100%;
-  background: var(--color-brand);
+  background-color: var(--color-brand);
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 50%),
+    linear-gradient(135deg, #084d97 0%, #074789 60%, #06417e 100%);
   transition: height 0.3s ease;
   z-index: -1;
 }
@@ -311,7 +315,7 @@
   background-color: transparent;
 }
 
-/* Stacked layers: hero 1, section2 2, phone 3, rest 4 */
+/* Lagen: hero 1, sectie 2 2, telefoon 3, rest 4 */
 #hero {
   z-index: 1;
 }
@@ -348,6 +352,45 @@
 /* CTA "Klaar om te starten": secondary button 100% opacity (alleen deze sectie) */
 .cta-klaar-om-te-starten .btn-secondary-glass {
   background: rgba(255, 255, 255, 1);
+}
+
+/* Prijs-CTA op merkkleur: eerste knop wit gevuld, tweede wit omlijnd */
+/* Pricing CTA buttons on the blue portal surface, same fill motion as the rest of the site:
+   the solid white button drains to an outline, the outline button fills with white. */
+.pricing-cta .btn-secondary-glass {
+  isolation: isolate;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-color: white;
+  color: white;
+  transition: color 0.35s ease;
+}
+.pricing-cta .btn-secondary-glass::before {
+  background: white;
+  height: 0;
+  transition: height 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pricing-cta .btn-secondary-glass:hover {
+  border-color: white;
+  color: var(--color-brand);
+}
+.pricing-cta .btn-secondary-glass:hover::before {
+  height: 100%;
+}
+.pricing-cta .btn-secondary-glass:first-child {
+  color: var(--color-brand);
+}
+.pricing-cta .btn-secondary-glass:first-child::before {
+  top: 0;
+  bottom: auto;
+  height: 100%;
+}
+.pricing-cta .btn-secondary-glass:first-child:hover {
+  color: white;
+}
+.pricing-cta .btn-secondary-glass:first-child:hover::before {
+  height: 0;
 }
 
 /* Funnel stap-animatie */
@@ -442,11 +485,12 @@
   }
 }
 @media (max-width: 1023px) {
+  /* Canvas ends above the CTAs; fade it out so it never leaves a hard-edged band */
   .shader-canvas {
     top: -25%;
     bottom: 35%;
-    mask-image: none;
-    -webkit-mask-image: none;
+    mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 55%, transparent 100%);
   }
 }
 
@@ -454,31 +498,20 @@
 .hero-gradient-overlay {
   background: none;
 }
-@media (min-width: 1024px) {
-  .hero-gradient-overlay {
-    background:
-      radial-gradient(
-        ellipse 60% 50% at 15% 30%,
-        rgba(255, 255, 255, 0.5) 0%,
-        rgba(255, 255, 255, 0.2) 45%,
-        transparent 70%
-      ),
-      radial-gradient(
-        ellipse 45% 40% at 80% 75%,
-        rgba(var(--color-brand-rgb), 0.04) 0%,
-        transparent 60%
-      );
+/* Shared card hover: a slow, subtle lift with a deeper soft shadow.
+   Uses the independent `translate` property so it composes with GSAP's inline reveal transforms. */
+.card-lift {
+  transition:
+    translate 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .card-lift:hover {
+    translate: 0 -4px;
+    box-shadow:
+      0 1px 2px rgba(15, 23, 42, 0.04),
+      0 28px 56px -24px rgba(7, 40, 80, 0.32);
   }
-}
-
-/* Bento card: stroke draw-in animation vanuit één hoek */
-.border-draw-rect {
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
-  transition: stroke-dashoffset 0.6s ease-out;
-}
-.group:hover > .border-draw-svg .border-draw-rect {
-  stroke-dashoffset: 0;
 }
 
 .shadow-plan-card:hover {
@@ -502,4 +535,198 @@
     0 32px 64px -16px rgba(0, 0, 0, 0.14),
     0 0 0 1px rgba(0, 0, 0, 0.04),
     0 24px 48px -8px rgba(var(--color-brand-rgb), 0.12);
+}
+
+/* Tijdlijn "Hoe het werkt": standaard alles actief (zonder JS / reduced motion);
+   met .is-ready kleuren iconen en tekst pas in als de scroll-lijn ze bereikt */
+.method-icon {
+  transition:
+    filter 0.5s ease,
+    opacity 0.5s ease,
+    transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.method-timeline.is-ready .method-content {
+  transition:
+    opacity 0.7s ease,
+    transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.method-timeline.is-ready .method-step:not(.is-active) .method-icon {
+  filter: grayscale(1);
+  opacity: 0.3;
+  transform: scale(0.82);
+}
+.method-timeline.is-ready .method-step:not(.is-active) .method-content {
+  opacity: 0.25;
+  transform: translateY(14px);
+}
+/* Lichtpunt aan de kop van de voortgangslijn */
+.method-head {
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  width: 9px;
+  height: 9px;
+  border-radius: 9999px;
+  background: var(--color-brand);
+  box-shadow: 0 0 0 5px rgba(var(--color-brand-rgb), 0.14);
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.method-timeline.is-ready .method-progress.is-moving .method-head {
+  opacity: 1;
+}
+
+/* Ambient achtergronden: nauwelijks zichtbare kleurverlopen in de merkkleur voor diepte en
+   een premium gevoel. Alleen tint, geen nieuwe kleuren. */
+/* Vlekken liggen binnen de sectie en doven uit vóór de boven- en onderrand: geen naden tussen secties */
+.surface-ambient {
+  background-color: #fff;
+  background-image:
+    radial-gradient(42% 32% at 12% 28%, rgba(var(--color-brand-rgb), 0.055), transparent 62%),
+    radial-gradient(36% 30% at 88% 70%, rgba(37, 99, 235, 0.05), transparent 62%);
+}
+.surface-ambient-alt {
+  background-color: #fff;
+  background-image:
+    radial-gradient(38% 30% at 88% 30%, rgba(37, 99, 235, 0.045), transparent 62%),
+    radial-gradient(42% 32% at 10% 70%, rgba(var(--color-brand-rgb), 0.05), transparent 62%);
+}
+.surface-ambient-soft {
+  background-color: var(--color-neutral-50);
+  background-image:
+    radial-gradient(45% 34% at 85% 28%, rgba(var(--color-brand-rgb), 0.055), transparent 62%),
+    radial-gradient(40% 32% at 12% 72%, rgba(37, 99, 235, 0.04), transparent 62%);
+}
+/* Modern brand blue: a soft diagonal gradient with a faint top sheen instead of a flat fill */
+.surface-brand {
+  background-color: var(--color-brand);
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0) 30%),
+    radial-gradient(80% 70% at 8% 0%, rgba(86, 156, 230, 0.14), transparent 60%),
+    radial-gradient(60% 55% at 100% 100%, rgba(2, 24, 54, 0.25), transparent 70%),
+    linear-gradient(135deg, #084d97 0%, #074789 50%, #063f7b 100%);
+}
+/* FCC logo as a faint watermark in the bottom-right corner of blue sections.
+   Sections whose bottom is overlapped by the next section raise it with --wm-bottom;
+   short sections shrink it with --wm-width so it stays on the bottom edge. */
+.brand-watermark {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+.brand-watermark::before {
+  content: "";
+  position: absolute;
+  right: clamp(16px, 4vw, 64px);
+  bottom: var(--wm-bottom, clamp(16px, 4vw, 64px));
+  z-index: -1;
+  width: var(--wm-width, clamp(180px, 28vw, 420px));
+  aspect-ratio: 875 / 553;
+  background: url("/brand/fcc-watermark.png") no-repeat center / contain;
+  opacity: 0.07;
+  pointer-events: none;
+}
+/* Portal accent, taken from the FleetCare Connect client portal banner: a dark-to-brand
+   horizontal gradient with a lighter blue panel cut off by a diagonal on the right.
+   Used sparingly on single-message CTAs, not on sections full of cards. */
+.surface-portal {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--color-brand);
+  background-image: linear-gradient(90deg, #05376a 0%, #063f7b 35%, #074789 70%, #08509a 100%);
+}
+/* The lighter panel is a clipped layer, so the diagonal stays razor sharp at every size */
+.surface-portal::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: linear-gradient(90deg, #1a5598 0%, #1f60a9 100%);
+  clip-path: polygon(var(--portal-top, 68%) 0, 100% 0, 100% 100%, var(--portal-bottom, 56%) 100%);
+  pointer-events: none;
+}
+.bg-brand,
+.brand-sheen {
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0) 45%),
+    radial-gradient(120% 90% at 0% 0%, rgba(86, 156, 230, 0.14), transparent 60%),
+    linear-gradient(135deg, #084d97 0%, #074789 55%, #063f7b 100%);
+}
+@media (min-width: 768px) {
+  .md\:bg-brand {
+    background-image:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0) 45%),
+      radial-gradient(120% 90% at 0% 0%, rgba(86, 156, 230, 0.14), transparent 60%),
+      linear-gradient(135deg, #084d97 0%, #074789 55%, #063f7b 100%);
+  }
+}
+.surface-ink {
+  background-color: var(--color-neutral-900);
+  background-image:
+    radial-gradient(60% 55% at 15% 0%, rgba(var(--color-brand-rgb), 0.35), transparent 65%),
+    radial-gradient(50% 45% at 100% 100%, rgba(37, 99, 235, 0.12), transparent 70%);
+}
+/* Methode: verloop alleen links, zodat het witte vlak achter de tijdlijn-iconen onzichtbaar blijft */
+.method-surface {
+  background-color: #fff;
+  background-image: radial-gradient(
+    45% 55% at 0% 30%,
+    rgba(var(--color-brand-rgb), 0.05),
+    transparent 70%
+  );
+}
+/* Header: frosted glass met een haarfijne schaduw in plaats van een harde rand */
+.header-frosted {
+  background-color: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  box-shadow:
+    0 1px 0 rgba(15, 23, 42, 0.05),
+    0 8px 24px -18px rgba(7, 40, 80, 0.25);
+}
+
+/* Page transitions (View Transitions API, see PageTransitions.tsx): the old page drifts up and
+   fades out, the new page rises in. The header has its own group so it stays put. */
+@keyframes page-out {
+  to {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+}
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+::view-transition-old(root) {
+  animation: 280ms cubic-bezier(0.4, 0, 1, 1) both page-out;
+}
+::view-transition-new(root) {
+  animation: 520ms cubic-bezier(0.22, 1, 0.36, 1) 120ms both page-in;
+}
+::view-transition-group(site-header) {
+  animation-duration: 300ms;
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* Page intro (lib/gsap/intro.ts): hidden until GSAP staggers them in; the delayed failsafe
+   animation shows them anyway if scripts never run. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-intro-item] {
+    opacity: 0;
+    animation: intro-failsafe 0s linear 3s forwards;
+  }
+}
+@keyframes intro-failsafe {
+  to {
+    opacity: 1;
+  }
 }

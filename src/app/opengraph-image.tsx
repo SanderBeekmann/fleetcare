@@ -21,7 +21,9 @@ export default function OgImage() {
       }}
     >
       <div style={{ fontSize: 64, fontWeight: 700 }}>FleetCare Connect</div>
-      <div style={{ fontSize: 28, marginTop: 16, opacity: 0.9 }}>Uw partner in fleetmanagement</div>
+      <div style={{ fontSize: 28, marginTop: 16, opacity: 0.9 }}>
+        Aftersales platform voor Light Electric Vehicles
+      </div>
     </div>,
     { ...size }
   );

@@ -33,11 +33,9 @@ function splitToLetters(el: HTMLElement): HTMLSpanElement[] {
     if (word === "") continue;
 
     if (/^\s+$/.test(word)) {
-      // Alleen spaties: één span om de ruimte te behouden
-      const spaceSpan = document.createElement("span");
-      spaceSpan.style.whiteSpace = "pre";
-      spaceSpan.textContent = word;
-      fragment.appendChild(spaceSpan);
+      // Alleen spaties: gewone tekstnode, zodat de spatie bij een regelafbreking
+      // wegvalt (white-space: pre gaf een inspringing op de volgende regel)
+      fragment.appendChild(document.createTextNode(" "));
       continue;
     }
 

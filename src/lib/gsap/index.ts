@@ -8,3 +8,4 @@ export { createRevealAnimations, revealElement, type RevealType } from "./reveal
 export { createCounterAnimations, animateCounter } from "./counter";
 export { createStaggerAnimations, staggerChildren } from "./stagger";
 export { createLetterStaggerAnimations } from "./letterStagger";
+export { createIntroAnimations } from "./intro";

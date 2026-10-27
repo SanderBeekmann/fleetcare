@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/Button";
 
 export function CtaBlock() {
   return (
-    <section className="cta-klaar-om-te-starten bg-neutral-900 py-section text-white">
+    <section className="cta-klaar-om-te-starten surface-ink py-section text-white">
       <Container>
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold text-white md:text-4xl" data-letter-stagger>
@@ -17,8 +17,8 @@ export function CtaBlock() {
             <Button variant="primary" href="/contact" className="btn-cta-contact">
               Contact opnemen
             </Button>
-            <Button variant="secondary" href="/oplossingen#standaard">
-              Bekijk plannen
+            <Button variant="secondary" href="/oplossingen#eerlijke-prijzen">
+              Bekijk prijzen
             </Button>
           </div>
         </div>
